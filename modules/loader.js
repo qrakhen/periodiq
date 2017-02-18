@@ -2,10 +2,12 @@
  * Loads the PeriodiQ Framework
  **/
 
-exports = {
+global.Debug = require('./debug.js');
+module.exports = {
     Render: require('./static/render.js'),
     Core: require('./static/core.js'),
     Element: {
-        Base: require('./elements/base.js')
+        AbstractElement: require('./elements/abstract.js'),
+        BaseElement: require('./elements/base.js')
     }
 };

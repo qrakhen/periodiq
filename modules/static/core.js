@@ -1,14 +1,19 @@
+const RootElement = require('../elements/root.js');
+
 var Core = function() {
     this.electron = require('electron');
     this.app = this.electron.app;
     this.Window = this.electron.BrowserWindow;
-    this.root = {};
+    this.root = null;
 
-    this.initMainFrame = function() {
-        this.mainFrame = new this.Window({width: 720, height: 480});
+    this.launch = function(callback) {
+        this.app.on('ready', function() {
+            var body = { x: 0, y: 0, w: 720, h: 480 };
+            this.mainFrame = new this.Window({width: body.w, height: body.h});
+            this.root = new RootElement(body.x, body.y, body.w, body.h);
+            callback();
+        }.bind(this));
     }.bind(this);
-
-    this.app.on('ready', this.initMainFrame);
 };
 
-exports = new Core();
+module.exports = new Core();
