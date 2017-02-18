@@ -1,18 +1,15 @@
 {
-  "name": "periodiq_dev_demo",
-  "version": "0.1.3",
+  "name": "periodiq",
+  "version": "0.1.7",
   "description": "advanced component based framework based electron",
   "author": "David Neumaier (aka Qrakhen) <dave@sygade.eu> (http://qrakhen.net)",
   "license": "ISC",
-  "main": "main.js",
+  "main": "loader.js",
   "scripts": {
     "dev": "electron ."
   },
   "dependencies": {
     "node-sass": "^4.5.0",
     "sygtools": "^0.2.7"
-  },
-  "devDependencies": {
-    "electron": "^1.4.1"
   }
 }

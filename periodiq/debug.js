@@ -1,9 +1,9 @@
 var fs = require('fs');
 
 var Debug = function() {
-    this.logLevel = 3;
+    this.logLevel = 1;
     this.writeToFile = true;
-    this.logFile = './log/log_'
+    this.logFile = __dirname + '/log/log_'
         + new Date().getHours() + '_'
         + new Date().getMinutes() + '.txt';
 
@@ -13,7 +13,7 @@ var Debug = function() {
             return;
 
         var date = new Date(),
-            prefix = '[' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + ']:[' + this.logLevel + ']' + (typeof anything === 'string' ? '' : '(' + typeof anything + ') ');
+            prefix = '[' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + ']:[' + logLevel + ']' + (typeof anything === 'string' ? '' : '(' + typeof anything + ') ');
         console.log(prefix, anything);
         if (this.writeToFile) fs.appendFile(this.logFile, prefix + ' ' + anything + '\r\n', (err) => {
             if (err) console.log('debug could not write to file: ' + err);

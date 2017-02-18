@@ -1,5 +1,6 @@
 const List = require('sygtools').List;
-const __TYPE = 'pq_abstract';
+const Debug = require('../../debug.js');
+const __TYPE = 'pq-el';
 
 class AbstractElement {
     constructor() {
@@ -9,15 +10,6 @@ class AbstractElement {
         this.parent = null;
         this.active = false;
         this.children = new List();
-    }
-
-    getClasses() {
-        return this.TYPE.replace('_', ' ');
-    }
-
-    getExtendedType(type) {
-        if (type === undefined) return this.TYPE;
-        return this.TYPE + '_' + type;
     }
 
     enable() {
@@ -89,9 +81,17 @@ class AbstractElement {
         return { x: rec.x + pos.x, y: rec.y + pos.y };
     }
 
-    getFullType(type) {
-        type = type || '';
-        return this.TYPE + ' ' + type;
+    getElementDirectory() {
+        return __dirname;
+    }
+
+    getClasses() {
+        return this.TYPE.replace(/_/g, ' ');
+    }
+
+    getExtendedType(type) {
+        if (type === undefined) return this.TYPE;
+        return this.TYPE + '_' + type;
     }
 
     throwError(message) {

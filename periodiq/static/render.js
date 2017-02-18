@@ -1,10 +1,16 @@
 const fs = require('fs');
 const path = require('path');
+const Debug = require('../debug.js');
+const CACHE_DIR = path.join(__dirname + '/../cache/');
 
 var Render = function() {
-    this.cacheFolder = path.join(ROOT_DIR + 'cache/view/');
-
     this.buildView = function(rootElement, done) {
+        if (!rootElement.active) {
+            throw new Exception();
+            Debug.log('can not render inactive element ' + rootElement.toString());
+            return;
+        }
+
         Debug.log('rendering view from ' + rootElement.toString(), 1);
         /* @todo: Check cache first */
         var _dbgTime = new Date().getTime();
@@ -22,12 +28,31 @@ var Render = function() {
     this.dispatch = function(content, rootId, done) {
         var filePath = this.getViewFilePath(rootId);
         fs.writeFile(filePath, content, (err) => {
-            if (err) {
-                Debug.log('could not write view to file ' + filePath + '!', 0);
-                throw err;
-            }
+            if (err) return Debug.log('could not write view to file ' + filePath + ': ' + err, 0);
             Debug.log('dispatched view file to ' + filePath, 1);
-            done(filePath);
+            if (done !== undefined) done(filePath);
+        });
+    };
+
+    /***
+     * Please note that this only gets executed once when starting the application,
+     * use nodemon for indev styling.
+     **/
+    this.buildStyles = function(elementClasses, filePath) {
+        Debug.log('compiling element styles...', 1);
+        var content = '';
+        fs.unlink(filePath, function() {
+            for (var i in elementClasses) {
+                var el = elementClasses[i];
+                if (el.__BASE_DIR === undefined) return;
+                var assumed = el.__BASE_DIR() + 'element.css';
+                fs.readFile(assumed, 'utf8', function(err, data) {
+                    if (err) return Debug.log('could not read ' + assumed + ': ' + err, 0);
+                    fs.appendFile(filePath, data, (err) => {
+                        if (err) return Debug.log('could not write view to file ' + filePath + ': ' + err, 0);
+                    });
+                });
+            }
         });
     };
 
@@ -54,8 +79,6 @@ var Render = function() {
                 type: element.TYPE,
                 style: this.buildStyleString(element) },
             content, element.body.type);
-
-        Debug.log('finished element ' + element.toString() + ': ' + html, 2);
         return html;
     };
 
@@ -96,7 +119,7 @@ var Render = function() {
         for (var i in attributes) {
             html += ' ' + i + '="' + attributes[i] + '"';
         }
-        html += '>' + content + '</' + type + '>';
+        html += '>\r\n' + content + '</' + type + '>\r\n';
         return html;
     };
 
