@@ -58,7 +58,8 @@ namespace.loadModules = function(rootDir) {
     var loaded = loadElements(walk(rootDir));
     Debug.log('loaded a total of ' + loaded.length + ' elements', 1);
     /* compile and dispatch the main style file once for each element import */
-    namespace.Render.buildStyles(loaded, CACHE_DIR + '/styles/main.css');
+    /* Okay let's just _not_ do this, okay? */
+    // namespace.Render.buildStyles(loaded, CACHE_DIR + '/styles/main.css');
     return loaded;
 }
 

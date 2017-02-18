@@ -1,15 +1,17 @@
 const fs = require('fs');
 const path = require('path');
 const Debug = require('../debug.js');
+const THEME_DEFAULT = require('../themes/default/theme.js');
 const CACHE_DIR = path.join(__dirname + '/../cache/');
 
 var Render = function() {
+    this.theme = THEME_DEFAULT;
+
     this.buildView = function(rootElement, done) {
         if (!rootElement.active) {
             throw new Exception();
             Debug.log('can not render inactive element ' + rootElement.toString());
-            return;
-        }
+            return; }
 
         Debug.log('rendering view from ' + rootElement.toString(), 1);
         /* @todo: Check cache first */
@@ -56,26 +58,32 @@ var Render = function() {
         });
     };
 
+    /***
+     * Generates an element's html and (optionally) recursively walks through all children */
     this.buildElement = function(element, recursive, count) {
-        var count = count+1 || 0,
+        var count = count + 1 || 0,
             recursive = recursive || true,
             content = '';
 
         Debug.log('building element ' + element.toString() + ' count: ' + count, 2);
 
+        /* Walk through all children, if available, and build them */
         if (recursive && element.FINAL == false) {
             element.children.step(function(e) {
                 content += this.buildElement(e, true, count);
             }.bind(this));
         } else if (element.content !== undefined) {
             content = element.content;
-        } else {
-            // something
         }
 
+        /* Apply Theme */
+        if (this.theme !== null)
+            this.theme.apply(element);
+
+        /* Compose HTML Element */
         var html = this.createHtmlElement({
-                id: element.id,
-                class: element.getClasses(),
+                //id: element.id,
+                class: element.body.styleRules.data.join(' '),
                 type: element.TYPE,
                 style: this.buildStyleString(element) },
             content, element.body.type);
@@ -91,7 +99,7 @@ var Render = function() {
 
         var style = '';
         for (var i in element.body.style) {
-            style += ' ' + i + ': ' + element.body.style[i] + ';';
+            style += ' ' + i.replace('_', '-') + ': ' + element.body.style[i] + ';';
         }
 
         var size = element.body.size;
@@ -109,10 +117,6 @@ var Render = function() {
         return style.trim();
     };
 
-    this.buildDataAttributes = function(element) {
-
-    };
-
     this.createHtmlElement = function(attributes, content, type) {
         var type = type || 'div',
             html = '<' + type;
@@ -123,8 +127,13 @@ var Render = function() {
         return html;
     };
 
+    this.setTheme = function(theme) {
+        Debug.log('changed active theme to ' + theme.key);
+        this.theme = theme;
+    };
+
     this.getViewFilePath = function(rootId) {
-        return this.cacheFolder + 'view_' + rootId + '.html';
+        return CACHE_DIR + 'view/' + 'view_' + rootId + '.html';
     };
 };
 

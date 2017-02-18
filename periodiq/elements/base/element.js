@@ -1,4 +1,5 @@
 const AbstractElement = require('../abstract/element.js');
+const List = require('sygtools').List;
 const __TYPE = 'base';
 
 class BaseElement extends AbstractElement {
@@ -15,9 +16,22 @@ class BaseElement extends AbstractElement {
                 height: 0,
                 grow: true },
             brim: [0, 0, 0, 0],
+            styleRules: new List(),
             style: {
                 display: 'block'
             }};
+    }
+
+    /***
+     * Adds a single rule or an array of rules to this element's rule set. */
+    addStyleRule(rule) {
+        this.body.styleRules.add(rule);
+        return this;
+    }
+
+    removeStyleRule(rule) {
+        this.body.styleRules.remove(rule);
+        return this;
     }
 
     setStyle(key, value) {
