@@ -1,15 +1,23 @@
 const List = require('sygtools').List;
-const __TYPE = 'basic_element_abstract';
+const __TYPE = 'pq_abstract';
 
 class AbstractElement {
     constructor() {
         this.TYPE = __TYPE;
-        this.CLASS = this.TYPE.replace('_', ' ');
         this.FINAL = false;
         this.id = null;
         this.parent = null;
         this.active = false;
         this.children = new List();
+    }
+
+    getClasses() {
+        return this.TYPE.replace('_', ' ');
+    }
+
+    getExtendedType(type) {
+        if (type === undefined) return this.TYPE;
+        return this.TYPE + '_' + type;
     }
 
     enable() {
@@ -79,6 +87,11 @@ class AbstractElement {
                     x: this.body.brim[2] + this.body.pos.x,
                     y: this.body.brim[3] + this.body.pos.y });
         return { x: rec.x + pos.x, y: rec.y + pos.y };
+    }
+
+    getFullType(type) {
+        type = type || '';
+        return this.TYPE + ' ' + type;
     }
 
     throwError(message) {

@@ -4,6 +4,7 @@ const __TYPE = 'base';
 class BaseElement extends AbstractElement {
     constructor() {
         super();
+        this.TYPE = this.getExtendedType(__TYPE);
         this.body = {
             type: 'div',
             pos: {
@@ -53,6 +54,11 @@ class BaseElement extends AbstractElement {
             grow: grow || false
         };
         return this;
+    }
+
+    getFullType(type) {
+        type = type || '';
+        return super.getFullType(this.TYPE + ' ' + type);
     }
 }
 

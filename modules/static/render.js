@@ -50,7 +50,7 @@ var Render = function() {
 
         var html = this.createHtmlElement({
                 id: element.id,
-                class: element.CLASS,
+                class: element.getClasses(),
                 type: element.TYPE,
                 style: this.buildStyleString(element) },
             content, element.body.type);
