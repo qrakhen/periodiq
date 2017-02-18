@@ -1,8 +1,9 @@
-const AbstractElement = require('./abstract.js');
+const AbstractElement = require('../abstract/element.js');
+const __TYPE = 'base';
 
 class BaseElement extends AbstractElement {
     constructor() {
-        super('BaseElement');
+        super();
         this.body = {
             type: 'div',
             pos: {
@@ -20,10 +21,12 @@ class BaseElement extends AbstractElement {
 
     setStyle(key, value) {
         this.body.style[key] = value;
+        return this;
     }
 
     forgetStyle(key) {
         this.body.style[key] = null;
+        return this;
     }
 
     /**
@@ -40,6 +43,16 @@ class BaseElement extends AbstractElement {
             this.body.brim = values;
         else
             super.throwError('wrong amount of values provided for setBrim!');
+        return this;
+    }
+
+    setSize(width, height, grow) {
+        this.body.size = {
+            width: width || 0,
+            height: height || 0,
+            grow: grow || false
+        };
+        return this;
     }
 }
 

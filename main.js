@@ -5,13 +5,21 @@ const Render = Periodiq.Render;
 const Core = Periodiq.Core;
 
 Core.launch(function() {
-    var box = new Element.BaseElement();
-    box.attach(Core.root);
-    box.setBrim([16, 16, 16, 16]);
+    var outerBox = new Element.BaseElement();
+    outerBox.attach(Core.root);
+    outerBox.setBrim([16, 32, 16, 64]);
 
-    var box2 = new Element.BaseElement();
-    box2.attach(box);
+    var innerBox = new Element.BaseElement();
+    innerBox.attach(outerBox);
+    innerBox.setStyle('background-color', '#A77242');
+    innerBox.setSize(270, 240, true);
+
+    var paragraph = new Element.ParagraphElement();
+    paragraph.attach(innerBox);
+    paragraph.content = 'Lorem Ipsum Error Terror';
 
     Core.root.enable();
-    Render.buildElement(Core.root);
+    Render.buildView(Core.root, function(viewFile) {
+        Core.setView(viewFile);
+    });
 });

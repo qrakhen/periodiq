@@ -1,7 +1,7 @@
 var fs = require('fs');
 
 var Debug = function() {
-    this.logLevel = 2;
+    this.logLevel = 3;
     this.writeToFile = true;
     this.logFile = './log/log_'
         + new Date().getHours() + '_'

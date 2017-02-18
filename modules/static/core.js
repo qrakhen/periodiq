@@ -1,4 +1,6 @@
-const RootElement = require('../elements/root.js');
+const RootElement = require('../elements/root/element.js');
+const url = require('url');
+const path = require('path');
 
 var Core = function() {
     this.electron = require('electron');
@@ -8,12 +10,23 @@ var Core = function() {
 
     this.launch = function(callback) {
         this.app.on('ready', function() {
-            var body = { x: 0, y: 0, w: 720, h: 480 };
-            this.mainFrame = new this.Window({width: body.w, height: body.h});
-            this.root = new RootElement(body.x, body.y, body.w, body.h);
+            this.mainFrame = new this.Window({width: 1420, height: 960});
+            this.root = new RootElement();
             callback();
         }.bind(this));
     }.bind(this);
+
+    this.setView = function(filePath) {
+        this.mainFrame.loadURL(url.format({
+            pathname: filePath,
+            protocol: 'file:',
+            slashes: true
+        }));
+    };
+
+    this.setHtml = function(html) {
+
+    };
 };
 
 module.exports = new Core();

@@ -1,8 +1,11 @@
 const List = require('sygtools').List;
+const __TYPE = 'basic_element_abstract';
 
 class AbstractElement {
-    constructor(type) {
-        this.TYPE = type;
+    constructor() {
+        this.TYPE = __TYPE;
+        this.CLASS = this.TYPE.replace('_', ' ');
+        this.FINAL = false;
         this.id = null;
         this.parent = null;
         this.active = false;
@@ -18,13 +21,32 @@ class AbstractElement {
     }
 
     /**
-     * Attaches this Element to given target element.
+     * Attaches this Element to given parent element.
      */
-    attach(target) {
-        target.children.add(this);
-        this.parent = target;
-        this.id = target.getNextChildID();
-        this.enable();
+    attach(parent) {
+        if (parent.FINAL) {
+            Debug.log('can not append to a finalized parent: forbidden. ' + parent.toString(), 1);
+        } else {
+            parent.children.add(this);
+            this.parent = parent;
+            this.id = parent.getNextChildID();
+            this.enable();
+            return this;
+        }
+    }
+
+    /**
+     * Attaches a given array of child elements to this element.
+     */
+    append(children) {
+        if (children === undefined)
+            return;
+
+        if (!Array.isArray(children)) children = [children];
+        children.forEach(function(e) {
+            e.attach(this);
+        }.bind(this));
+        return this;
     }
 
     /**
