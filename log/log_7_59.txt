@@ -1,3 +1,0 @@
-[7:59:58]:[2]building element RootElement (0) count: undefined
-[7:59:58]:[2]building element BaseElement (0_0) count: 0
-[7:59:58]:[2]building element BaseElement (0_0_0) count: 0
