@@ -1,7 +1,7 @@
-/***
- * @file loader.js
- * Powerful module that initializes the entire PeriodiQ Framwork,
- * also providing a few very handy tools, such as namespace.loadElementDir();
+/**
+ * Framework Entry Point;
+*  loads entire inhertance tree and creates the namespace.
+ * @module Periodiq
  **/
 
 const fs = require('fs');
@@ -17,7 +17,8 @@ var namespace = {
     Element: {},
     ROOT_DIR: ROOT_DIR };
 
-/***
+/**
+ * @module Periodiq
  * @function loadElementDir
  * Looks recursively for element modules in a given root directory,
  * and then returns an array with found modules, already loaded.
@@ -26,13 +27,8 @@ var namespace = {
  * The element keys (aka class names) will be named after the location
  * where they have been found in. example:
  *      /rootDir/home/menu/top/button -> HomeMenuTopButton
- *
- * This, altough, can be overwritten by adding a __CLASS_NAME() function
- * to the element class before exporting it:
- *      MyCustomElement.__CLASS_NAME = function() { return 'MySpecialName'; };
- *
  * @param {string} rootDir The directory to be searched for element classes.
- * @returns {object} An object containing all loaded element classes.
+ * @returns {object} - An object containing all loaded element classes.
  **/
 namespace.loadElementDir = function(rootDir) {
     if (rootDir == ELEMENT_DIR)

@@ -5,6 +5,9 @@
   "author": "David Neumaier (aka Qrakhen) <dave@sygade.eu> (http://qrakhen.net)",
   "license": "ISC",
   "main": "loader.js",
+  "scripts": {
+    "doc": "jsdoc -d doc/ -r elements/ static/ themes/"  
+  },
   "dependencies": {
     "sygtools": "^0.2.7"
   },

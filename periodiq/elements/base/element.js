@@ -1,13 +1,13 @@
-const __BASE = require('../abstract/element.js');
+const AbstractElement = require('../abstract/element.js');
 const List = require('sygtools').List;
 const __TYPE = 'base';
 
-/***
+/**
  * Simply extends the AbstractElement class and implements a renderable body.
  * This is where you should derive your custom (and visible) elements from,
  * since the AbstractElement class only provides the absolute basic foundation.
- * @class BaseElement */
-class __CLASS extends __BASE {
+ * @extends AbstractElement */
+class BaseElement extends AbstractElement {
     constructor() {
         super();
         this.TYPE = this.getExtendedType(__TYPE);
@@ -19,38 +19,50 @@ class __CLASS extends __BASE {
         }};
     }
 
-    /***
+    /**
      * Adds a single rule or an array of rules to this element's rule set. */
     addStyleRule(rule) {
         this.body.styleRules.add(rule);
         return this;
     }
 
+    /**
+     * */
     removeStyleRule(rule) {
         this.body.styleRules.remove(rule);
         return this;
     }
 
+    /**
+     * */
     learnStyle(key, value) {
         this.body.style[key] = value;
         return this;
     }
 
+    /**
+     * */
     forgetStyle(key) {
         this.body.style[key] = null;
         return this;
     }
 
+    /**
+     * */
     setColor(hex) {
         this.learnStyle('background-color', hex);
         return this;
     }
 
+    /**
+     * */
     setTextColor(hex) {
         this.learnStyle('color', hex);
         return this;
     }
 
+    /**
+     * */
     setSize(width, height, unit) {
         var unit = unit || 'px';
         this.learnStyle('width', (width === 'auto' ? width : width + unit))
@@ -58,9 +70,8 @@ class __CLASS extends __BASE {
         return this;
     }
 
-    /***
-     *  state: boolean, true = position: relative; false = position: absolute; default = true;
-     **/
+    /**
+     * @param {boolean} state true sets position: relative, false sets position: absolute. default true;
     setRelative(state) {
         if (state === undefined) state = true;
         var pos = (state === true ? 'relative' : 'absolute' );
@@ -68,9 +79,9 @@ class __CLASS extends __BASE {
         return this;
     }
 
-    /***
-     *
-     **/
+    /**
+     * Sets the position of this element for each side.
+     * @param {string} unit Unit to be used, px per default. */
     setPosition(top, right, bot, left, unit) {
         var unit = unit || 'px';
         if (top !== undefined && top !== null)
@@ -84,9 +95,9 @@ class __CLASS extends __BASE {
         return this;
     }
 
-    /***
-     * Exactly used like CSS3 margin: setMargin(16) for 4 sided,
-     * setMargin(16, 8) for horizontal and vertical margin, and so forth. */
+    /**
+     * Sets the margin for each side, auto if none given.
+     * @param {string} unit Unit to be used, px per default. */
     setMargin(top, right, bot, left, unit) {
         var unit    = unit      || 'px',
             left    = left      || 'auto',
@@ -107,4 +118,4 @@ class __CLASS extends __BASE {
     }
 }
 
-module.exports = __CLASS;
+module.exports = BaseElement;
