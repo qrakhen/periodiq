@@ -7,10 +7,10 @@ const CACHE_DIR = path.join(__dirname + '/../cache/');
 var Render = function() {
     this.theme = THEME_DEFAULT;
 
-    this.buildView = function(rootElement, done) {
-        if (!rootElement.active) {
+    this.buildView = function(headerRoot, bodyRoot, done) {
+        if (!bodyRoot.active) {
             throw new Exception();
-            Debug.log('can not render inactive element ' + rootElement.toString());
+            Debug.log('can not render inactive element ' + bodyRoot.toString());
             return; }
 
         if (this.theme !== null)
@@ -19,18 +19,14 @@ var Render = function() {
                 + 'overiding all previous identical css keys in element.body.style.\r\n'
                 + 'If this is not in your favor, use Render.setTheme(null)', 0);
 
-        Debug.log('rendering view from ' + rootElement.toString(), 1);
+        Debug.log('rendering view from ' + bodyRoot.toString(), 1);
         /* @todo: Check cache first */
         var _dbgTime = new Date().getTime();
-        var body = this.createHtmlElement(null, this.buildElement(rootElement), 'body'),
-            head = this.createHtmlElement(null, this.buildHead(), 'head'),
+        var body = this.createHtmlElement(null, this.buildElement(bodyRoot), 'body'),
+            head = this.createHtmlElement(null, this.buildElement(headerRoot), 'head'),
             html = this.createHtmlElement(null, head + body, 'html');
-        this.dispatch(html, rootElement.id, done);
+        this.dispatch(html, bodyRoot.id, done);
         Debug.log('view rendered, took ' + (new Date().getTime() - _dbgTime) + 'ms', 1);
-    };
-
-    this.buildHead = function() {
-        return '<title>PeriodiQ</title>';
     };
 
     this.dispatch = function(content, rootId, done) {
@@ -67,6 +63,9 @@ var Render = function() {
     /***
      * Generates an element's html and (optionally) recursively walks through all children */
     this.buildElement = function(element, recursive, count) {
+        if (element === undefined || element === null)
+            return '';
+
         var count = count + 1 || 0,
             recursive = recursive || true,
             content = '';
@@ -87,12 +86,16 @@ var Render = function() {
             this.theme.apply(element);
 
         /* Compose HTML Element */
-        var html = this.createHtmlElement({
-                eid: element.id,
-                class: element.body.styleRules.data.join(' '),
-                type: element.TYPE,
-                style: this.buildStyleString(element) },
-            content, element.body.type);
+        var attr = {
+            eid: element.id,
+            class: element.body.styleRules.data.join(' '),
+            type: element.TYPE,
+            style: this.buildStyleString(element) };
+        if (element.body.attributes !== undefined) {
+            for(var a in element.body.attributes)
+                attr[a] = element.body.attributes[a];
+        }
+        var html = this.createHtmlElement(attr, content, element.body.type);
         return html;
     };
 

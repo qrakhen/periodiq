@@ -4,10 +4,8 @@
 _Periodiq_ is a fast, lightweight and extendable open-source Framework for NodeJS,
 designed to provide a pleasant and simple, yet well-structured and guided coding experience.
 
-The idea behind _Periodiq_ is to provide a clean and usable environment that also
-understands the developer, and not solely the other way around.
 _Periodiq_'s main application case is intended to be targeted at the
-structured and organized creation of platform-independant applications -
+structured and organized creation of platform-independent applications -
 but it doesn't close the other doors: _Periodiq_ invites you to convert your
 creative, experimental and innovative output and ideas into working applications.
 _Periodiq_ comes with just as much rules as really needed, but always keeps them as little as possible.
@@ -19,11 +17,11 @@ resulting in a feeling of freedom and levitation that persists to the last commi
 You get nothing but pure, simple and honest JavaScript.
 
 _Periodiq_ comes with the so-called 'ElementTree' system, a smart and fully extendable
-module tree to perfectly fit all the needs for even the most adventurous project.
+module tree to perfectly fit all the needs for even the most adventurous projects.
 You'll also get in touch with the simple yet truly flexible RenderInstance -
 it builds, processes and caches everything you put into it - fully automated.
 Its best friend, the ChacheSniper, will take care of monitoring and managing
-your generated cache - so a refresh will only happen to the actually affected parts -
+your generated cache - so a refresh will only happen to the actual affected parts -
 with atomic precision, resulting in highly optimizied performance.
 
 By using Electron as the backbone of _Periodiq_'s rendering and user interface
@@ -35,7 +33,7 @@ The answer is yes, it does. But _Periodiq_'s RenderInstance takes that off of yo
 shoulders - and does the dirty work for you. A lot. It recognizes every change made
 and translates your JavaScript code into dynamically generated HTML files.
 _Periodiq_ does a good job at hiding every sign of possible HTML/CSS contamination
-across the Framwork.
+across the Framework.
 
 Please keep in mind that this Framework is still undergoing early development -
 some features might still be missing, and mis- or unexpected behaviour may occur.
@@ -49,6 +47,8 @@ I'd really enjoy that.
 Crafted by dave@sygade.eu, aka 'Qrakhen'.
 
 http://qrakhen.net/
+
+
 
 ## Documentation
 
@@ -114,7 +114,7 @@ basic features of _Periodiq_ - more Examples will follow soon, along with the do
 Creating custom Elements is kept simple and comes with only 3 requirements:
  - Each Element needs its own folder, somewhere within your project.
  - Each Element Folder needs exactly one 'element.js' file.
- - The element.js file has to return a class definition, extending any other Element class.
+ - The element.js file has to return a class definition, while extending any other Element class.
 
     // element.js - example
 

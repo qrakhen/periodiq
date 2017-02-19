@@ -22,6 +22,7 @@ var Core = function() {
             this.mainFrame = new this.Window({
                 width: rootElement.body.style.width,
                 height: rootElement.body.style.height });
+                this.mainFrame.on('mouseDown', function(e) { console.log(e); });
             ready();
         }.bind(this));
     }.bind(this);

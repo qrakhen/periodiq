@@ -60,15 +60,22 @@ namespace.loadElementDir = function(rootDir) {
     var loadElements = function(modulePaths) {
         var loaded = {};
         modulePaths.forEach(function(path) {
-            var trim = path.replace(rootDir, '').replace('/element.js', '').slice(1);
-            var keys = trim.split('/');
-            var key = '';
-            keys.forEach((k) => { key += k.charAt(0).toUpperCase() + k.slice(1); });
+            var buildClassName = function() {
+                var trim = path.replace(rootDir, '').replace('/element.js', '').slice(1);
+                var keys = trim.split('/'), key = '';
+                keys.forEach((k) => { key += k.charAt(0).toUpperCase() + k.slice(1); });
+                return key; };
             try {
-                var __temp = require(path);
-                if (__temp.__CLASS_NAME() !== undefined) key = __temp.__CLASS_NAME();
+                var key = '';
+                var __class = require(path);
+                /* Retrieve possible class name override */
+                if (__class.__CLASS_NAME !== undefined) {
+                    key = __class.__CLASS_NAME;
+                } else {
+                    key = buildClassName();
+                }
 
-                loaded[key] = __temp;
+                loaded[key] = __class;
                 loaded[key].__BASE_DIR = function() { return path.replace('element.js', ''); };
                 Debug.log('loaded element ' + key +
                     ' (...' + path.slice(path.length - 24) + ')', 1);

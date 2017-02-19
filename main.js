@@ -28,7 +28,7 @@ Core.launch(Electron, new Element.Root('pq-demo', 1280, 960), function() {
     footer.attach(back);
 
     Core.root.enable();
-    Render.buildView(Core.root, function(viewFile) {
+    Render.buildView(null, Core.root, function(viewFile) {
         Core.setView(viewFile);
     });
 });
