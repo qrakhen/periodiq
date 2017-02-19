@@ -1,18 +1,24 @@
   periodiq.
 =============
 
-A fast, lightweight and extendable open-source NodeJS Framework,
-designed to provide a pleasant and simple yet well-structured coding environment
-for creating nearly any kind of platform-independant DesktopApps imaginable.
+_Periodiq_ is a fast, lightweight and extendable open-source Framework for NodeJS,
+designed to provide a pleasant and simple, yet well-structured and guided coding experience.
 
-Periodiq's workflow completely abandons any form of interaction with HTML or CSS.
+The idea behind _Periodiq_ is to provide a clean and usable environment that also
+understands the developer, and not solely the other way around.
+_Periodiq_'s main application case is intended to be targeted at the
+structured and organized creation of platform-independant applications -
+but it doesn't close the other doors: _Periodiq_ invites you to convert your
+creative, experimental and innovative output and ideas into working applications.
+_Periodiq_ comes with just as much rules as really needed, but always keeps them as little as possible.
+
+_Periodiq_'s workflow completely abandons any form of interaction with HTML or CSS.
 You are completely detached from the monotonous torture of writing static markup,
-resulting in a feeling of freedom and levitation that persists the last commit.
+resulting in a feeling of freedom and levitation that persists to the last commit and beyond.
 
-  _Nothing but pure and honest JavaScript,
-   ...in your most favourite environment - node_
+You get nothing but pure, simple and honest JavaScript.
 
-Periodiq comes with the so-called 'ElementTree' system, a smart and fully extendable
+_Periodiq_ comes with the so-called 'ElementTree' system, a smart and fully extendable
 module tree to perfectly fit all the needs for even the most adventurous project.
 You'll also get in touch with the simple yet truly flexible RenderInstance -
 it builds, processes and caches everything you put into it - fully automated.
@@ -20,23 +26,29 @@ Its best friend, the ChacheSniper, will take care of monitoring and managing
 your generated cache - so a refresh will only happen to the actually affected parts -
 with atomic precision, resulting in highly optimizied performance.
 
-By using Electron as the backbone of Periodiq's rendering and user interface
+By using Electron as the backbone of _Periodiq_'s rendering and user interface
 system, a wide range of platforms can easily be targeted and reached.
+
 You must be asking: 'Doesn't Electron somehow require HTML/CSS?'
+
+The answer is yes, it does. But _Periodiq_'s RenderInstance takes that off of your
+shoulders - and does the dirty work for you. A lot. It recognizes every change made
+and translates your JavaScript code into dynamically generated HTML files.
+_Periodiq_ does a good job at hiding every sign of possible HTML/CSS contamination
+across the Framwork.
 
 Please keep in mind that this Framework is still undergoing early development -
 some features might still be missing, and mis- or unexpected behaviour may occur.
 If you got any feedback, feel free let me know via dave@sygade.eu!
-You'd rather contribute something by yourself than waiting for a response?
+You'd rather contribute something by yourself than having to wait for my response?
 Make me happy, fork this project on GitHub and throw your pull requests at me.
 I'd really enjoy that.
 
 
-_Crafted by dave@sygade.eu, aka 'Qrakhen'._
+
+Crafted by dave@sygade.eu, aka 'Qrakhen'.
 
 http://qrakhen.net/
-
-
 
 ## Documentation
 
@@ -48,7 +60,7 @@ checkout my comments in the source code, the most important parts are well cover
 ## Example Implementation / Quick Start
 
 This is a Quick Start example I put together to get a glimpse on the absolute
-basic features of Periodiq - more Examples will follow soon, along with the docs.
+basic features of _Periodiq_ - more Examples will follow soon, along with the docs.
 
     // require electron to later pass it into periodiq's core
     const Electron = require('electron');
@@ -115,7 +127,7 @@ Creating custom Elements is kept simple and comes with only 3 requirements:
     modules.exports = MyCustomElement;
 
 Loading all Elements manually can cause serious mental injury.
-And that's why Periodiq comes with its own auto-loader that does literally everything for you.
+And that's why _Periodiq_ comes with its own auto-loader that does literally everything for you.
 It even names your classes in a beatiful manner:
 
     // the Periodiq object also provides a function to import your own elements
@@ -140,6 +152,13 @@ the auto-loader's naming:
 Beware of extending a class with an overwritten name!
 If you forgrt to unset or override that function in a child class,
 all your inheriting classes will be known as 'SuperCustomizedClassName_With_Underscores'.
+
+
+
+## Creating Plugins
+### RenderPlugin
+#### RenderPreProcessor
+#### RenderPostProcessor
 
 
 
