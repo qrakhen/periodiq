@@ -1,14 +1,12 @@
-const ContentElement = require('../element.js');
+const __BASE = require('../element.js');
 const __TYPE = 'link';
 
-class LinkElement extends ContentElement {
-    constructor() {
+class __CLASS extends __BASE {
+    constructor(url, label) {
         super();
         this.TYPE = this.getExtendedType(__TYPE);
-        this.FINAL = true;
-        this.content = ' ';
-        this.children = null;
-        this.body.attributes.href = ' ';
+        this.content = label || 'link';
+        this.body.attributes.href = url || '';
     }
 
     setLinkTarget(url) {
@@ -16,4 +14,4 @@ class LinkElement extends ContentElement {
     }
 }
 
-module.exports = ContentElement;
+module.exports = __CLASS;

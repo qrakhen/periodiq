@@ -15,6 +15,9 @@ const Core = Periodiq.Core;
 const CustomElement = Periodiq.loadElementDir(Path.join(__dirname + '/elements/'));
 
 Core.launch(Electron, new Element.Root('pq-demo', 1280, 960), function() {
+    var head = new Element.Header('head', 'wurschtsemmerl');
+    head.addScriptLinkTag(Path.join(__dirname + '/periodiq/static/core.client.js'));
+
     var back = new Element.Base();
     back.addStyleRule(['back', 'default_font'])
         .attach(Core.root)
@@ -27,8 +30,10 @@ Core.launch(Electron, new Element.Root('pq-demo', 1280, 960), function() {
     var footer = new CustomElement.MusicFooter();
     footer.attach(back);
 
+    new Element.InteractiveButton().attach(footer);
+
     Core.root.enable();
-    Render.buildView(null, Core.root, function(viewFile) {
+    Render.buildView(head, Core.root, function(viewFile) {
         Core.setView(viewFile);
     });
 });

@@ -1,7 +1,7 @@
-const BaseElement = require('../base/element.js');
+const __BASE = require('../base/element.js');
 const __TYPE = 'iac';
 
-class InteractiveElement extends BaseElement {
+class __CLASS extends __BASE {
     constructor() {
         super();
         this.TYPE = this.getExtendedType(__TYPE);
@@ -9,4 +9,4 @@ class InteractiveElement extends BaseElement {
     }
 }
 
-module.exports = InteractiveElement;
+module.exports = __CLASS;

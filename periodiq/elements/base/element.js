@@ -1,4 +1,4 @@
-const AbstractElement = require('../abstract/element.js');
+const __BASE = require('../abstract/element.js');
 const List = require('sygtools').List;
 const __TYPE = 'base';
 
@@ -7,7 +7,7 @@ const __TYPE = 'base';
  * This is where you should derive your custom (and visible) elements from,
  * since the AbstractElement class only provides the absolute basic foundation.
  * @class BaseElement */
-class BaseElement extends AbstractElement {
+class __CLASS extends __BASE {
     constructor() {
         super();
         this.TYPE = this.getExtendedType(__TYPE);
@@ -107,4 +107,4 @@ class BaseElement extends AbstractElement {
     }
 }
 
-module.exports = BaseElement;
+module.exports = __CLASS;

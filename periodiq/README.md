@@ -20,7 +20,7 @@ _Periodiq_ comes with the so-called 'ElementTree' system, a smart and fully exte
 module tree to perfectly fit all the needs for even the most adventurous projects.
 You'll also get in touch with the simple yet truly flexible RenderInstance -
 it builds, processes and caches everything you put into it - fully automated.
-Its best friend, the ChacheSniper, will take care of monitoring and managing
+Its best friend, the CacheWatcher, will take care of monitoring and managing
 your generated cache - so a refresh will only happen to the actual affected parts -
 with atomic precision, resulting in highly optimizied performance.
 

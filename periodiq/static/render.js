@@ -7,7 +7,7 @@ const CACHE_DIR = path.join(__dirname + '/../cache/');
 var Render = function() {
     this.theme = THEME_DEFAULT;
 
-    this.buildView = function(headerRoot, bodyRoot, done) {
+    this.buildView = function(header, bodyRoot, done) {
         if (!bodyRoot.active) {
             throw new Exception();
             Debug.log('can not render inactive element ' + bodyRoot.toString());
@@ -23,7 +23,7 @@ var Render = function() {
         /* @todo: Check cache first */
         var _dbgTime = new Date().getTime();
         var body = this.createHtmlElement(null, this.buildElement(bodyRoot), 'body'),
-            head = this.createHtmlElement(null, this.buildElement(headerRoot), 'head'),
+            head = this.buildElement(header),
             html = this.createHtmlElement(null, head + body, 'html');
         this.dispatch(html, bodyRoot.id, done);
         Debug.log('view rendered, took ' + (new Date().getTime() - _dbgTime) + 'ms', 1);
@@ -73,13 +73,17 @@ var Render = function() {
         Debug.log('building element ' + element.toString() + ' count: ' + count, 2);
 
         /* Walk through all children, if available, and build them */
-        if (recursive && element.FINAL == false) {
+        if (recursive && element.children.data.length > 0) {
             element.children.step(function(e) {
                 content += this.buildElement(e, true, count);
             }.bind(this));
         } else if (element.content !== undefined) {
             content = element.content;
         }
+
+        /* return untouched element if it's the head anchor */
+        if (element.body.type === 'head')
+            return this.createHtmlElement({}, content, element.body.type);
 
         /* Apply Theme */
         if (this.theme !== null)
