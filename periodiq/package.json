@@ -5,11 +5,10 @@
   "author": "David Neumaier (aka Qrakhen) <dave@sygade.eu> (http://qrakhen.net)",
   "license": "ISC",
   "main": "loader.js",
-  "scripts": {
-    "dev": "electron ."
-  },
   "dependencies": {
-    "node-sass": "^4.5.0",
     "sygtools": "^0.2.7"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.4.3"
   }
 }

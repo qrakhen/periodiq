@@ -31,7 +31,7 @@ You must be asking: 'Doesn't Electron somehow require HTML/CSS?'
 
 The answer is yes, it does. But _Periodiq_'s RenderInstance takes that off of your
 shoulders - and does the dirty work for you. A lot. It recognizes every change made
-and translates your JavaScript code into dynamically generated HTML files.
+to the element tree and translates your JavaScript code into dynamically generated HTML files.
 _Periodiq_ does a good job at hiding every sign of possible HTML/CSS contamination
 across the Framework.
 
