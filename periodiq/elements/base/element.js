@@ -3,15 +3,16 @@ const List = require('sygtools').List;
 const __TYPE = 'base';
 
 /***
- * BaseElement Class
  * Simply extends the AbstractElement class and implements a renderable body.
- **/
+ * This is where you should derive your custom (and visible) elements from,
+ * since the AbstractElement class only provides the absolute basic foundation.
+ * @class BaseElement */
 class BaseElement extends AbstractElement {
     constructor() {
         super();
         this.TYPE = this.getExtendedType(__TYPE);
         this.body = {
-            type: 'div',
+            type: 'el',
             styleRules: new List(),
             style: {
                 display: 'block'

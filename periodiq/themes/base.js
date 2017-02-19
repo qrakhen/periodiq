@@ -23,7 +23,7 @@ class Theme {
             s.targetRules.step(function(t) {
                 element.body.styleRules.step(function(r) {
                     /* Styles apply if they're exactly matching with a rule,
-                     * of if they present a part of a rule string,
+                     * or if they present (the ending) part of a rule string,
                      * using ':' as wildcard (i.e. :etRule) */
                      var _t = t;
                      if (t.charAt(0) === ':')

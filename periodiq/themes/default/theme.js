@@ -1,5 +1,5 @@
 /***
- * Default Template
+ * Default Theme
  **/
 
 const Theme = require('../base.js').Theme;
@@ -9,7 +9,7 @@ const __TITLE = 'default';
 var theme = new Theme('theme_' + __TITLE);
 
 theme.addStyle(new Style('back', {
-        background_color: '#161616',
+        background_color: '#646464',
         width: '100%',
         height: '100%' },
         [ 'back' ]))

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const Debug = require('../debug.js');
-const THEME_DEFAULT = require('../themes/default/theme.js');
+const THEME_DEFAULT = require('../themes/empty/theme.js');
 const CACHE_DIR = path.join(__dirname + '/../cache/');
 
 var Render = function() {
@@ -12,6 +12,12 @@ var Render = function() {
             throw new Exception();
             Debug.log('can not render inactive element ' + rootElement.toString());
             return; }
+
+        if (this.theme !== null)
+            Debug.log('render currently has an active theme set (' + this.theme.key + ')\r\n'
+                + 'This theme will be applied to ALL elements during recursion, '
+                + 'overiding all previous identical css keys in element.body.style.\r\n'
+                + 'If this is not in your favor, use Render.setTheme(null)', 0);
 
         Debug.log('rendering view from ' + rootElement.toString(), 1);
         /* @todo: Check cache first */
@@ -82,7 +88,7 @@ var Render = function() {
 
         /* Compose HTML Element */
         var html = this.createHtmlElement({
-                //id: element.id,
+                eid: element.id,
                 class: element.body.styleRules.data.join(' '),
                 type: element.TYPE,
                 style: this.buildStyleString(element) },
