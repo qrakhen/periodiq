@@ -14,15 +14,17 @@ var Core = function() {
      * anything related to periodiq won't work besides creating elements.
      */
     this.launch = function(electron, rootElement, ready) {
-        this.root = rootElement;
-        this.electron = electron;
-        this.app = this.electron.app;
-        this.Window = this.electron.BrowserWindow;
+        this.root       = rootElement;
+        this.rpid       = null;
+        this.electron   = electron;
+        this.app        = this.electron.app;
+        this.Window     = this.electron.BrowserWindow;
         this.app.on('ready', function() {
             this.mainFrame = new this.Window({
                 width: rootElement.body.style.width,
                 height: rootElement.body.style.height });
-                this.mainFrame.on('mouseDown', function(e) { console.log(e); });
+            this.rpid = this.mainFrame.webContents;
+            console.log(this.rpid);
             ready();
         }.bind(this));
     }.bind(this);

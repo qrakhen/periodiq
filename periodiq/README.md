@@ -2,7 +2,7 @@
 =============
 
 _Periodiq_ is a fast, lightweight and extendable open-source Framework for NodeJS,
-designed to provide a pleasant and simple, yet well-structured and guided coding experience.
+designed to provide a pleasant and simple yet well-structured and guided coding experience.
 
 _Periodiq_'s main application case is intended to be targeted at the
 structured and organized creation of platform-independent applications -
@@ -14,7 +14,7 @@ _Periodiq_'s workflow completely abandons any form of interaction with HTML or C
 You are completely detached from the monotonous torture of writing static markup,
 resulting in a feeling of freedom and levitation that persists to the last commit and beyond.
 
-You get nothing but pure, simple and honest JavaScript.
+Just pure, simple and honest JavaScript.
 
 _Periodiq_ comes with the so-called 'ElementTree' system, a smart and fully extendable
 module tree to perfectly fit all the needs for even the most adventurous projects.
@@ -144,13 +144,13 @@ It even names your classes in a beatiful manner:
 
 However, you will sometimes get to a Point where those auto-generated names just
 get _way_ too long (or, when having an unorganized folder structure, _way_ too irritating).
-In this case, you can extend your class definition by another line to override
+In this case, you can extend your class prototype by another line to override
 the auto-loader's naming:
 
-    MyCustomElement.\__CLASS_NAME() = function({ return 'SuperCustomizedClassName_With_Underscores'; });
+    MyCustomElement.__CLASS_NAME = 'SuperCustomizedClassName_With_Underscores';
 
 Beware of extending a class with an overwritten name!
-If you forgrt to unset or override that function in a child class,
+If you forgrt to unset or override that property in a child class,
 all your inheriting classes will be known as 'SuperCustomizedClassName_With_Underscores'.
 
 
@@ -161,6 +161,7 @@ all your inheriting classes will be known as 'SuperCustomizedClassName_With_Unde
 #### RenderPostProcessor
 
 
+## 'Client'-Side JavaScript
 
 ## Creating / Designing Themes
 
