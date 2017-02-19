@@ -4,6 +4,7 @@
  *
  **/
 
+const Path = require('path');
 const List = require('sygtools').List;
 const Electron = require('electron');
 const Debug = require('./periodiq/debug.js');
@@ -11,32 +12,20 @@ const Periodiq = require('./periodiq/loader.js');
 const Element = Periodiq.Element;
 const Render = Periodiq.Render;
 const Core = Periodiq.Core;
+const CustomElement = Periodiq.loadElementDir(Path.join(__dirname + '/elements/'));
 
-Core.launch(Electron, new Element.Root('pq-demo', 960, 720), function() {
-    var outerBox = new Element.Base();
-    outerBox.addStyleRule(['back', 'default_font']);
-    outerBox.attach(Core.root);
-    outerBox.setBrim([16, 32, 16, 64]);
+Core.launch(Electron, new Element.Root('pq-demo', 1280, 960), function() {
+    var back = new Element.Base();
+    back.addStyleRule(['back', 'default_font'])
+        .attach(Core.root)
+        .setMargin(16, 16, 32, 0)
+        .setSize(1280, 960)
+        .setRelative(false)
+        .setPosition(null, null, 0, 0)
+        .learnStyle({ background_color: '#141414' });
 
-    var innerBox = new Element.Base();
-    innerBox.attach(outerBox)
-        .setStyle('background-color', '#A77242')
-        .setSize(666, 666, true)
-        .setBrim([64]);
-
-    var e = innerBox;
-    /*for (var i = 0; i < 20; i++) {
-        var n = new Element.Base();
-        n.attach(e)
-            .setSize(300 - (i * 10), 300 - (i * 10), true)
-            .setStyle('background-color', '#' + i * 4 + '' + i * 3 + '32')
-            .setBrim([8]);
-        e = n;
-    }*/
-
-    var paragraph = new Element.ContentParagraph();
-    paragraph.attach(innerBox).addStyleRule('default_font');
-    paragraph.content = 'Lorem Ipsum Error Terror';
+    var footer = new CustomElement.MusicFooter();
+    footer.attach(back);
 
     Core.root.enable();
     Render.buildView(Core.root, function(viewFile) {

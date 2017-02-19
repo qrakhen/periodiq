@@ -58,7 +58,6 @@ class Style {
     apply(element) {
         for(var i in this.data)
             element.body.style[i] = this.data[i];
-        console.log(element);
         return this;
     }
 };

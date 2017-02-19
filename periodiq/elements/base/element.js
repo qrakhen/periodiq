@@ -2,24 +2,20 @@ const AbstractElement = require('../abstract/element.js');
 const List = require('sygtools').List;
 const __TYPE = 'base';
 
+/***
+ * BaseElement Class
+ * Simply extends the AbstractElement class and implements a renderable body.
+ **/
 class BaseElement extends AbstractElement {
     constructor() {
         super();
         this.TYPE = this.getExtendedType(__TYPE);
         this.body = {
             type: 'div',
-            pos: {
-                x: 0,
-                y: 0 },
-            size: {
-                width: 0,
-                height: 0,
-                grow: true },
-            brim: [0, 0, 0, 0],
             styleRules: new List(),
             style: {
                 display: 'block'
-            }};
+        }};
     }
 
     /***
@@ -34,7 +30,7 @@ class BaseElement extends AbstractElement {
         return this;
     }
 
-    setStyle(key, value) {
+    learnStyle(key, value) {
         this.body.style[key] = value;
         return this;
     }
@@ -44,30 +40,62 @@ class BaseElement extends AbstractElement {
         return this;
     }
 
-    /**
-     * values = array, if only 1 value, all sides are set,
-     * 2 values will be interpreted as vertical and horizontal,
-     * and 4 values will be treated in the order right, bottom, left & top.
-     */
-    setBrim(values) {
-        if (values.length == 1)
-            this.body.brim = [values[0], values[0], values[0], values[0]];
-        else if (values.length == 2)
-            this.body.brim = [values[1], values[0], values[1], values[0]];
-        else if (values.length == 4)
-            this.body.brim = values;
-        else
-            super.throwError('wrong amount of values provided for setBrim!');
+
+
+    setSize(width, height) {
+        this.learnStyle('width', width).learnStyle('height', height);
         return this;
     }
 
-    setSize(width, height, grow) {
-        this.body.size = {
-            width: width || 0,
-            height: height || 0,
-            grow: grow || false
-        };
+    /***
+     *  state: boolean, true = position: relative; false = position: absolute; default = true;
+     **/
+    setRelative(state) {
+        if (state === undefined) state = true;
+        var pos = (state === true ? 'relative' : 'absolute' );
+        this.learnStyle('position', pos);
         return this;
+    }
+
+    /***
+     *
+     **/
+    setPosition(top, right, bot, left, unit) {
+        var unit = unit || 'px';
+        if (top !== undefined && top !== null)
+            this.learnStyle('top', (top === 'auto' ? top : top + unit));
+        if (right !== undefined && right !== null)
+            this.learnStyle('right', (right === 'auto' ? right : right + unit));
+        if (bot !== undefined && bot !== null)
+            this.learnStyle('bottom', (bot === 'auto' ? bot : bot + unit));
+        if (left !== undefined && left !== null)
+            this.learnStyle('left', (left === 'auto' ? left : left + unit));
+        return this;
+    }
+
+    /***
+     * Exactly used like CSS3 margin: setMargin(16) for 4 sided,
+     * setMargin(16, 8) for horizontal and vertical margin, and so forth. */
+    setMargin(top, right, bot, left, unit) {
+        var unit    = unit      || 'px',
+            left    = left      || 'auto',
+            top     = top       || 'auto',
+            right   = right     || 'auto',
+            bot     = bot       || 'auto';
+        this.learnStyle('margin',
+            top     + (top === 'auto'   ? '' : unit) + ' ' +
+            right   + (right === 'auto' ? '' : unit) + ' ' +
+            bot     + (bot === 'auto'   ? '' : unit) + ' ' +
+            left    + (left === 'auto'  ? '' : unit));
+        return this;
+    }
+
+    __normalizeLTRBValues(left, top, right, bottom, unit) {
+        var unit    = unit      || 'px',
+            left    = left      || 'auto',
+            top     = top       || 'auto',
+            right   = right     || 'auto',
+            bottom  = bottom    || 'auto';
     }
 
     getFullType(type) {

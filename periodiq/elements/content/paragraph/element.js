@@ -6,7 +6,7 @@ class ParagraphElement extends ContentElement {
         super();
         this.TYPE = this.getExtendedType(__TYPE);
         this.body.type = 'p';
-        this.body.brim = [0, 8, 0, 8];
+        this.setMargin(8, 0);
         this.body.style.display = 'inline-block';
     }
 }

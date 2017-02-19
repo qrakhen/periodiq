@@ -101,19 +101,6 @@ var Render = function() {
         for (var i in element.body.style) {
             style += ' ' + i.replace('_', '-') + ': ' + element.body.style[i] + ';';
         }
-
-        var size = element.body.size;
-        style += ' min-width:' + size.width + 'px;';
-        style += ' min-height:' + size.height + 'px;';
-        style += ' width:' + (size.grow === true ? 'auto' : size.width + 'px') + ';';
-        style += ' height:' + (size.grow === true ? 'auto' : size.height + 'px') + ';';
-
-        var brim = '';
-        for (var i in element.body.brim) {
-            if (element.body.brim[i] > 0 || brim.length > 0)
-                brim += ' ' + element.body.brim[i] + 'px';
-        }
-        if (brim.length > 0) style += ' margin:' + brim + ';';
         return style.trim();
     };
 

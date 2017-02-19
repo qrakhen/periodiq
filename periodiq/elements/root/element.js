@@ -7,7 +7,7 @@ class RootElement extends BaseElement {
         this.TYPE = this.getExtendedType(__TYPE);
         this.id = rootId || 'root';
         this.body.type = 'root';
-        this.body.size = { width: width || 720, height: height || 480 };
+        this.setSize(720, 480);
     }
 }
 

@@ -20,8 +20,8 @@ var Core = function() {
         this.Window = this.electron.BrowserWindow;
         this.app.on('ready', function() {
             this.mainFrame = new this.Window({
-                width: rootElement.body.size.width,
-                height: rootElement.body.size.height });
+                width: rootElement.body.style.width,
+                height: rootElement.body.style.height });
             ready();
         }.bind(this));
     }.bind(this);

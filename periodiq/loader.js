@@ -18,7 +18,7 @@ var namespace = {
 /**
  * looks recursively for element modules in a given root directory,
  * and then returns an array with found modules, already loaded */
-namespace.loadModules = function(rootDir) {
+namespace.loadElementDir = function(rootDir) {
     Debug.log('looking up element modules...', 1);
     Debug.log('walking into mordor (' + rootDir + ')', 1);
     /* Returns found element modules according to folder structure,
@@ -50,7 +50,7 @@ namespace.loadModules = function(rootDir) {
                 Debug.log('successfully loaded element module ' + key +
                     ' from ...' + path.slice(path.length - 24), 1);
             } catch(err) {
-                Debug.log('could not load module <' + key + '>', 0);
+                Debug.log('could not load module <' + key + '>, ' + err, 0);
             }
         });
         return loaded;
@@ -74,7 +74,7 @@ namespace.Assembler.__BASE_DIR = function() { return STATIC_DIR; };*/
 namespace.Render = require(STATIC_DIR + '/render.js');
 namespace.Render.__BASE_DIR = function() { return STATIC_DIR; };
 
-namespace.Element = namespace.loadModules(ELEMENT_DIR);
+namespace.Element = namespace.loadElementDir(ELEMENT_DIR);
 namespace.Element.__BASE_DIR = function() { return ELEMENT_DIR; };
 
 module.exports = namespace;

@@ -57,6 +57,7 @@ class AbstractElement {
         this.parent = null;
         this.id = null;
         this.disable();
+        return this;
     }
 
     /**
