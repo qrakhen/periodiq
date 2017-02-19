@@ -1,7 +1,10 @@
-const __BASE = require('../base/element.js');
+const BaseElement = require('../base/element.js');
 const __TYPE = 'root';
 
-class __CLASS extends __BASE {
+/**
+ * Generic Root Element
+ * Keep in mind that you are allowed to create several root elements (to store different views, for example). */
+class RootElement extends BaseElement {
     constructor(rootId, width, height) {
         super();
         this.TYPE = this.getExtendedType(__TYPE);
@@ -9,6 +12,12 @@ class __CLASS extends __BASE {
         this.body.type = 'root';
         this.setSize(width, height);
     }
+
+    /**
+     * A RootElement can not be attached to any other element, so the function is overwritten and returned */
+    attach() {
+        return;
+    }
 }
 
-module.exports = __CLASS;
+module.exports = RootElement;

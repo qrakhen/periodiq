@@ -20,42 +20,49 @@ class BaseElement extends AbstractElement {
     }
 
     /**
-     * Adds a single rule or an array of rules to this element's rule set. */
+     * Adds a single rule or an array of rules to this element's rule set.
+     * @param {string} rule */
     addStyleRule(rule) {
         this.body.styleRules.add(rule);
         return this;
     }
 
     /**
-     * */
+     * Removes a single rule or an array of rules to this element's rule set.
+     * @param {string} rule */
     removeStyleRule(rule) {
         this.body.styleRules.remove(rule);
         return this;
     }
 
     /**
-     * */
+     * Overwrites given style value or adds a new one it if didn't exist
+     * @param {string} key
+     * @param {string} value */
     learnStyle(key, value) {
         this.body.style[key] = value;
         return this;
     }
 
     /**
-     * */
+     * Forgets (removes) the style with given key
+     * @param {string} key */
     forgetStyle(key) {
         this.body.style[key] = null;
         return this;
     }
 
     /**
-     * */
+     * Sets this element's background color.
+     * @param {string} hex */
     setColor(hex) {
         this.learnStyle('background-color', hex);
         return this;
     }
 
     /**
-     * */
+     * Sets this element's text (content) color.
+     * @param {string} hex */
     setTextColor(hex) {
         this.learnStyle('color', hex);
         return this;
@@ -71,7 +78,8 @@ class BaseElement extends AbstractElement {
     }
 
     /**
-     * @param {boolean} state true sets position: relative, false sets position: absolute. default true;
+     * Sets this element's position property to either relative (true) or absolute (false)
+     * @param {boolean} state true sets position: relative, false sets position: absolute. default true; */
     setRelative(state) {
         if (state === undefined) state = true;
         var pos = (state === true ? 'relative' : 'absolute' );

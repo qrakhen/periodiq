@@ -2,18 +2,28 @@ const Debug = require('../debug.js');
 const url = require('url');
 const path = require('path');
 
+/**
+ * The Core Instance is Periodiq's super controller.
+ * It is used to access the window, change views or to communicate with the render thread, for example.
+ * @todo The Core is also currently being abused to register shortcuts, which should be made somewhere else, imho.
+ * @class Core */
 var Core = function() {
-    /***
-     * Launches periodiq's core, passing the required electron object
+    /**
+     * Launches Periodiq's Core instace, passing the required electron object
      * (needs to be required from outside), a rootElement and a callback that
-     * will get triggered as soon as the Core finished initialization.
+     * will be fired as soon as the Core finished initialization.
      * Params could be passed like this:
      *
      *      Core.launch(require('electron'), new Periodiq.Element.Root(), function() { ... });
      *
      * Please keep in mind that it is necessary to wait for the callback to fire,
      * anything related to periodiq won't work besides creating elements.
-     */
+     *
+     * @function launch
+     * @memberof Core
+     * @instance
+     * @param {Electron} electron Electron class (as returned by require())
+     * @param {Element} rootElement The root (origin) element, where the entire page is rooted */
     this.launch = function(electron, rootElement, ready) {
         this.history    = { cursor: 0, log: [] };
         this.root       = rootElement;
