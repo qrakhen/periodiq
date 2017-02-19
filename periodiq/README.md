@@ -1,17 +1,18 @@
-  PeriodiQ
-============
+  periodiq.
+=============
 
 A fast, lightweight and extendable open-source NodeJS Framework,
 designed to provide a pleasant and simple yet well-structured coding environment
 for creating nearly any kind of platform-independant DesktopApps imaginable.
-PeriodiQ's workflow completely abandons any form of interaction with HTML or CSS.
+
+Periodiq's workflow completely abandons any form of interaction with HTML or CSS.
 You are completely detached from the monotonous torture of writing static markup,
 resulting in a feeling of freedom and levitation that persists the last commit.
 
-        Nothing but pure and honest JavaScript,
-        in your most favourite environment - node.
+  _Nothing but pure and honest JavaScript,
+   ...in your most favourite environment - node_
 
-PeriodiQ comes with the so-called 'ElementTree' system, a smart and fully extendable
+Periodiq comes with the so-called 'ElementTree' system, a smart and fully extendable
 module tree to perfectly fit all the needs for even the most adventurous project.
 You'll also get in touch with the simple yet truly flexible RenderInstance -
 it builds, processes and caches everything you put into it - fully automated.
@@ -19,7 +20,7 @@ Its best friend, the ChacheSniper, will take care of monitoring and managing
 your generated cache - so a refresh will only happen to the actually affected parts -
 with atomic precision, resulting in highly optimizied performance.
 
-By using Electron as the backbone of PeriodiQ's rendering and user interface
+By using Electron as the backbone of Periodiq's rendering and user interface
 system, a wide range of platforms can easily be targeted and reached.
 You must be asking: 'Doesn't Electron somehow require HTML/CSS?'
 
@@ -30,18 +31,24 @@ You'd rather contribute something by yourself than waiting for a response?
 Make me happy, fork this project on GitHub and throw your pull requests at me.
 I'd really enjoy that.
 
-Crafted by dave@sygade.eu, aka 'Qrakhen'.
+
+_Crafted by dave@sygade.eu, aka 'Qrakhen'._
+
 http://qrakhen.net/
+
+
 
 ## Documentation
 
 ...still being written, and in its current state you'd turn out to be confused rather than actually informed. I'm sorry for that - until the docs are live, you can always
 checkout my comments in the source code, the most important parts are well covered.
 
+
+
 ## Example Implementation / Quick Start
 
 This is a Quick Start example I put together to get a glimpse on the absolute
-basic features of PeriodiQ - more Examples will follow soon, along with the docs.
+basic features of Periodiq - more Examples will follow soon, along with the docs.
 
     // require electron to later pass it into periodiq's core
     const Electron = require('electron');
@@ -88,6 +95,8 @@ basic features of PeriodiQ - more Examples will follow soon, along with the docs
         });
     });
 
+
+
 ## Extending Elements / Creating Custom Elements
 
 Creating custom Elements is kept simple and comes with only 3 requirements:
@@ -132,6 +141,8 @@ Beware of extending a class with an overwritten name!
 If you forgrt to unset or override that function in a child class,
 all your inheriting classes will be known as 'SuperCustomizedClassName_With_Underscores'.
 
+
+
 ## Creating / Designing Themes
 
 Themes are super handy helper objects, that apply styles to all elements they're assigned to.
@@ -140,6 +151,16 @@ a truly complex but rewarding challenge.
 
     // Theme Examples soon(tm)
 
+
+
 ## Database / Models
 
-## Exporting to another Device/OS 
+
+
+## Exporting to another Device/OS
+
+
+
+### Changelog
+
+    nope.jpg

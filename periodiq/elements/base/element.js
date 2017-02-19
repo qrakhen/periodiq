@@ -41,10 +41,20 @@ class BaseElement extends AbstractElement {
         return this;
     }
 
+    setColor(hex) {
+        this.learnStyle('background-color', hex);
+        return this;
+    }
 
+    setTextColor(hex) {
+        this.learnStyle('color', hex);
+        return this;
+    }
 
-    setSize(width, height) {
-        this.learnStyle('width', width).learnStyle('height', height);
+    setSize(width, height, unit) {
+        var unit = unit || 'px';
+        this.learnStyle('width', (width === 'auto' ? width : width + unit))
+            .learnStyle('height', (height === 'auto' ? height : height + unit));
         return this;
     }
 
@@ -89,14 +99,6 @@ class BaseElement extends AbstractElement {
             bot     + (bot === 'auto'   ? '' : unit) + ' ' +
             left    + (left === 'auto'  ? '' : unit));
         return this;
-    }
-
-    __normalizeLTRBValues(left, top, right, bottom, unit) {
-        var unit    = unit      || 'px',
-            left    = left      || 'auto',
-            top     = top       || 'auto',
-            right   = right     || 'auto',
-            bottom  = bottom    || 'auto';
     }
 
     getFullType(type) {
