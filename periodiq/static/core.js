@@ -25,8 +25,9 @@ var Core = function() {
      * @instance
      * @param {Electron} electron Electron class (as returned by require())
      * @param {Element} rootElement The root (origin) element, where the entire page is rooted
+     * @param {object} options The options to be passed into the window
      * @param {function} ready Finish callback */
-    this.launch = function(electron, rootElement, ready) {
+    this.launch = function(electron, rootElement, options, ready) {
         this.history    = { cursor: 0, log: [] };
         this.root       = rootElement;
         this.rpid       = null;
@@ -34,22 +35,27 @@ var Core = function() {
         this.app        = this.electron.app;
         this.Window     = this.electron.BrowserWindow;
         this.app.on('ready', function() {
-            /* Init Shortcuts */
-            electron.globalShortcut.register('F1', function() {
-                Debug.log('doc shortcut triggered', 0);
-                this.setView(path.join(__dirname + '/../doc/index.html'));
-            }.bind(this));
-            electron.globalShortcut.register('Ctrl+Backspace', function() {
-                Debug.log('history back shortcut triggered', 0);
-                this.historyBack();
-            }.bind(this));
-
             /* Init mainFrame */
             this.mainFrame = new this.Window({
                 width: rootElement.body.style.width,
-                height: rootElement.body.style.height });
+                height: rootElement.body.style.height,
+                title: 'Periodiq.' });
             this.mainFrame.setMenu(null);
             this.rpid = this.mainFrame.webContents;
+
+            /* Init Shortcuts */
+            electron.globalShortcut.register('F1', function() {
+                Debug.log('doc shortcut triggered', 1);
+                this.setView(path.join(__dirname + '/../doc/index.html'));
+            }.bind(this));
+            electron.globalShortcut.register('Ctrl+Backspace', function() {
+                Debug.log('history back shortcut triggered', 1);
+                this.historyBack();
+            }.bind(this));
+            electron.globalShortcut.register('F2', function() {
+                Debug.log('dev tools shortcut triggered', 1);
+                this.rpid.openDevTools()
+            }.bind(this));
             ready();
         }.bind(this));
     }.bind(this);

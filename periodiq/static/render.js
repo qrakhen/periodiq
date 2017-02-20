@@ -82,9 +82,14 @@ var Render = function() {
         });
     };
 
-    /***
-     * Generates an element's html and (optionally) recursively walks through all children
-     * @private */
+    /**
+     * Generates an element's html and (optionally) recursively walks through all children.
+     * This is most commonly used if you update an element and want to render the changes.
+     * @memberof Render
+     * @function buildStyles
+     * @instance
+     * @param {Element} element element to be rendered
+     * @param {boolean} recursive true = recurse through children, false = limit to this element */
     this.buildElement = function(element, recursive, count) {
         if (element === undefined || element === null)
             return '';
