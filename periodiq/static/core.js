@@ -72,6 +72,18 @@ var Core = function() {
         this.history.log.push(filePath);
     };
 
+    /**
+     * Updates just the target element in the mainFrame by selecting its element id and replacing found nodes html
+     * Please keep in mind that the Core does not render the element prior to updating,
+     * this needs to be done by using Render.buildElement(element);
+     * @function updateViewElement
+     * @memberof Core
+     * @instance
+     * @param {Element} targetElement the element to be updated */
+    this.updateViewElement = function(targetElement) {
+
+    }
+
     this.historyBack = function() {
         if (this.history.cursor > 0) this.history.cursor--;
         this.setView(this.history.log[this.history.cursor], true);

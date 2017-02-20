@@ -3,4 +3,4 @@
 
     fix window size problem
 
-    
+    make partial updates possible (Core.updateViewElement)
