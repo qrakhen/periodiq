@@ -30,10 +30,15 @@ var namespace = {
  * The element keys (aka class names) will be named after the location
  * where they have been found in. example:
  *      /rootDir/home/menu/top/button -> HomeMenuTopButtonElement
+ *
+ * You can further customize the generated names by using the pre- and postfix
+ * parameters. This can be used to prepend your namespace, for example.
  * @param {string} rootDir The directory to be searched for element classes.
+ * @param {string} prefix optional prefix for all class names that will be returned [prefix]ClassName
+ * @param {string} postfix optional postfix for all class names that will be returned ClassName[postfix]
  * @returns {object} - An object containing all loaded element classes.
  **/
-namespace.loadElementDir = function(rootDir) {
+namespace.loadElementDir = function(rootDir, prefix, postfix) {
     if (rootDir == ELEMENT_DIR)
         Debug.log('loading built-in standard elements', 0);
     else
@@ -59,11 +64,13 @@ namespace.loadElementDir = function(rootDir) {
     var loadElements = function(modulePaths) {
         var loaded = {};
         modulePaths.forEach(function(path) {
+            var prefix = prefix || '',
+                postfix = postfix || '';
             var buildClassName = function() {
                 var trim = path.replace(rootDir, '').replace('/element.js', '').slice(1);
                 var keys = trim.split('/'), key = '';
                 keys.forEach((k) => { key += k.charAt(0).toUpperCase() + k.slice(1); });
-                return key + 'Element'; };
+                return prefix + key + postfix ; };
             try {
                 var key = '';
                 var __class = require(path);

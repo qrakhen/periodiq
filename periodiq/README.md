@@ -201,6 +201,7 @@ a truly complex but rewarding challenge.
 
 ## Periodiq-CLI
 (not yet released)
+
     $ npm install -g pq-cli
     $ pq --v
     Periodiq-CLI v0.1.5
@@ -209,4 +210,4 @@ a truly complex but rewarding challenge.
 
 ### Changelog
 
-    nope.jpg
+    n.y.r
