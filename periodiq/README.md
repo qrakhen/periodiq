@@ -35,18 +35,20 @@ to the element tree and translates your JavaScript code into dynamically generat
 _Periodiq_ does a good job at hiding every sign of possible HTML/CSS contamination
 across the Framework.
 
+
+
+Crafted by dave@sygade.eu, aka 'Qrakhen'.
+
+http://qrakhen.net/
+
+#### Side Note
+
 Please keep in mind that this Framework is still undergoing early development -
 some features might still be missing, and mis- or unexpected behaviour may occur.
 If you got any feedback, feel free let me know via dave@sygade.eu!
 You'd rather contribute something by yourself than having to wait for my response?
 Make me happy, fork this project on GitHub and throw your pull requests at me.
 I'd really enjoy that.
-
-
-
-Crafted by dave@sygade.eu, aka 'Qrakhen'.
-
-http://qrakhen.net/
 
 
 
@@ -108,6 +110,15 @@ More examples and some demo projects will follow soon.
         });
     });
 
+## General Overview
+I'll list all important features and details here soon.
+
+### Elements
+### Core
+### Render
+### Electron
+#### Cross Process Communication
+
 
 
 ## Extending & Modifying Periodiq
@@ -134,24 +145,17 @@ Loading all Elements manually can cause serious mental injury.
 And that's why _Periodiq_ comes with its own auto-loader that does literally everything for you.
 It even names your classes in a beatiful manner:
 
-    // the Periodiq object also provides a function to import your own elements
-    // created somewhere within your project. In this example, we're loading a
-    // ./my_elements/ folder, which should contain one folder each per Element,
-    // as described above. Element Folders can also be placed within each other -
-    // to enhance readability especially when creating bigger Element structures.
-    // Just keep in mind that any folder without 'element.js' will not be recognized.
-    // This function automatically generates the class name based on the element.js file's location,
-    // so if your element.js was located at './my_elements/home/menu/top/element.js',
-    // this function would return 'HomeMenuTop' as this Element's class key,
-    // making your Element accessible using 'CustomElements.HomeMenuTop';
     const CustomElements = Periodiq.loadElementDir(Path.join(\__dirname + '/my_elements/'));
+
+You can also provide a pre- and postfix string as the 2nd and 3rd argument.
+This is especially useful when working with namespaces or mixed Elements with similar names.
 
 However, you will sometimes get to a Point where those auto-generated names just
 get _way_ too long (or, when having an unorganized folder structure, _way_ too irritating).
 In this case, you can extend your class prototype by another line to override
 the auto-loader's naming:
 
-    MyCustomElement.\__CLASS_NAME = 'SuperCustomizedClassName_With_Underscores';
+    MyCustomElement.\__CLASS_NAME_OVERRIDE = 'SuperCustomizedClassName_With_Underscores';
 
 Beware of extending a class with an overwritten name!
 If you forgrt to unset or override that property in a child class,
@@ -161,11 +165,11 @@ all your inheriting classes will be known as 'SuperCustomizedClassName_With_Unde
 
 ### Framework Manipulation
 (not yet stable/implemented)
-Assign Callbacks to intercept the Framework at certain points.
-Where this opens a another realm of possibilities for customization and optimization, it also exposes everything to the gates to hell.
-This is because in its current state, there is absolutely no validation of what you're doing with any of the passed elements - and I'm not sure if this even necessary.
+Assign Callbacks to intercept the Framework default behaviour at certain points.
+Where this opens another realm of possibilities for customization and optimization, it also exposes everything (including yourself) to the gates to hell.
+This is because in its current state, there is absolutely no validation of what you're doing to any of the passed elements. This will be fixed soon.
 
-#### Render
+#### Render Callbacks
 All Callbacks need to return an (un-)modified version of the object they received, or things will break.
  - beforeElement(element)
  - beforeChild(childElement)
@@ -183,23 +187,43 @@ Sadly, this is not even remotely working well enough to actually be fun at the m
 
 
 
-## Creating / Designing Themes
+### Creating / Designing Themes
 
-Themes are super handy helper objects, that apply styles to all elements they're assigned to.
+Themes are handy helper objects, that apply styles to all elements they're assigned to.
 This does not happen once, but every single page build - making the use of multiple themes
 a truly complex but rewarding challenge.
+And yes, this is the point __where actual CSS comes in, so skip this part in case you're too sensitive.__
 
-    // Theme Examples soon(tm)
+    var theme = new Theme('myTheme');
+
+    theme.addStyle(new Style('back', {
+        background_color: '#646464',
+        width: '100%',
+        height: '100%' },
+        [ 'back' ]))
+    .addStyle(new Style('default_font', {
+        color: '#FEFEFE',
+        font_family: 'Arial',
+        font_size: '14px' },
+        [ 'default_font' ]));
+
+        module.exports = theme;
+
+This theme can then be applied by using theme.apply(element);
+If the Render instance has an active Theme set `(Render.setTheme(theme))`,
+it will automatically apply it to every element that passed during render.
+
+I know that this section lacks a lot of information and will be updated as soon as I have time for this.
 
 
 
-## Database / Models
+## Database Connection / Models
 
-
+_who needs databases when you have platform independency_
 
 ## Exporting to another Device/OS
 
-
+soon(tm)
 
 ## Periodiq-CLI
 (not yet released)
@@ -210,6 +234,6 @@ a truly complex but rewarding challenge.
 
 
 
-### Changelog
+## Changelog
 
     n.y.r

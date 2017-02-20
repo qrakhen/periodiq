@@ -6,7 +6,7 @@
   "license": "ISC",
   "main": "loader.js",
   "scripts": {
-    "doc": "jsdoc -d doc/ -r loader.js elements/ static/ themes/"
+    "doc": "jsdoc -d doc/ -r loader.js elements/ static/ themes/ README.md"
   },
   "dependencies": {
     "sygtools": "^0.2.7"
