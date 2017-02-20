@@ -1,5 +1,4 @@
 const List = require('sygtools').List;
-const __TYPE = 'base';
 
 /**
  * Simply extends the AbstractElement class and implements a renderable body.
@@ -9,7 +8,7 @@ const __TYPE = 'base';
 class BaseElement extends require('../abstract/element.js') {
     constructor() {
         super();
-        this.TYPE = this.getExtendedType(__TYPE);
+        this.TYPE = 'Element::' + BaseElement.__CLASS_NAME;
         this.body = {
             type: 'el',
             styleRules: new List(),

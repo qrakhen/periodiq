@@ -1,6 +1,5 @@
 const List = require('sygtools').List;
 const Debug = require('../../debug.js');
-const __TYPE = 'pq-el';
 
 /**
  * The very basic and lowest element inheritance class.
@@ -8,7 +7,7 @@ const __TYPE = 'pq-el';
  * */
 class AbstractElement {
     constructor() {
-        this.TYPE = __TYPE;         // displays class type name, recursively built from const __TYPE
+        this.TYPE = 'Element::' + AbstractElement.__CLASS_NAME;
         this.FINAL = false;         // FINAL elements won't enter recursion mode and can't have children
         this.id = null;             // unique element id, recursively displays element tree
         this.parent = null;         // parent element reference

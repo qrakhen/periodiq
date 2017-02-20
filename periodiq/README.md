@@ -59,8 +59,9 @@ http://doc.pq.sygade.eu
 
 ## Example Implementation / Quick Start
 
-This is a Quick Start example I put together to get a glimpse on the absolute
-basic features of _Periodiq_ - more Examples will follow soon, along with the docs.
+This is a quick and very dirty example I put together to get a glimpse on what the absolute
+basic features of _Periodiq_ are.
+More examples and some demo projects will follow soon.
 
     // require electron to later pass it into periodiq's core
     const Electron = require('electron');
@@ -119,6 +120,7 @@ Creating custom Elements is kept simple and comes with only 3 requirements:
  - The element.js file has to return a class definition, while extending any other Element class.
 
     // element.js - example
+    var BaseElement = require('periodiq').Element.Base;
 
     class MyCustomElement extends BaseElement {
         constructor() {

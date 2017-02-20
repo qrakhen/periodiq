@@ -74,14 +74,15 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
                 var key = '';
                 var __class = require(path);
                 /* Retrieve possible class name override */
-                if (__class.__CLASS_NAME !== undefined) {
-                    key = __class.__CLASS_NAME;
+                if (__class.__CLASS_NAME_OVERRIDE !== undefined) {
+                    key = __class.__CLASS_NAME_OVERRIDE;
                 } else {
                     key = buildClassName();
                 }
 
                 loaded[key] = __class;
                 loaded[key].__BASE_DIR = function() { return path.replace('element.js', ''); };
+                loaded[key].__CLASS_NAME = key;
                 Debug.log('loaded element ' + key +
                     ' (...' + path.slice(path.length - 24) + ')', 1);
             } catch(err) {
