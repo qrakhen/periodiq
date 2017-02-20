@@ -1,9 +1,3 @@
-/**
- * Framework Entry Point;
-*  loads entire inhertance tree and creates the namespace.
- * @module Periodiq
- **/
-
 const fs = require('fs');
 const path = require('path');
 const Debug = require('./debug.js');
@@ -13,6 +7,11 @@ const STATIC_DIR = ROOT_DIR + '/static';
 const ELEMENT_DIR = ROOT_DIR + '/elements';
 const CACHE_DIR = ROOT_DIR + '/cache';
 
+/**
+ * Framework Entry Point;
+ * loads entire inhertance tree and creates the namespace.
+ * require('periodiq') returns this namespace object.
+ * @namespace Periodiq */
 var namespace = {
     Element: {},
     ROOT_DIR: ROOT_DIR,
@@ -21,18 +20,18 @@ var namespace = {
     CACHE_DIR: CACHE_DIR };
 
 /**
- * @module Periodiq
- * @function loadElementDir
- * Looks recursively for element modules in a given root directory,
- * and then returns an array with found modules, already loaded.
+ * Looks recursively for any element classes in a given root directory,
+ * and then returns an array with all found modules, already loaded.
  * Element classes are recognized in any folder that contains an element.js file.
  *
  * The element keys (aka class names) will be named after the location
  * where they have been found in. example:
- *      /rootDir/home/menu/top/button -> HomeMenuTopButtonElement
+ *      /rootDir/home/menu/top/button -> HomeMenuTopButton
  *
  * You can further customize the generated names by using the pre- and postfix
  * parameters. This can be used to prepend your namespace, for example.
+ * @memberof Periodiq
+ * @function loadElementDir
  * @param {string} rootDir The directory to be searched for element classes.
  * @param {string} prefix optional prefix for all class names that will be returned [prefix]ClassName
  * @param {string} postfix optional postfix for all class names that will be returned ClassName[postfix]
@@ -99,10 +98,17 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
     return loaded;
 }
 
-/* Compose references + base directory functions since we can't really store
- * normal properties within a constructor of a class */
+ /**
+  * Reference to the Core 'singleton'
+  * @memberof Periodiq */
 namespace.Core = require(STATIC_DIR + '/core.js');
+/**
+ * Reference to the Render 'singleton'
+ * @memberof Periodiq */
 namespace.Render = require(STATIC_DIR + '/render.js');
+/**
+ * Object containing all default/standard Element Classes
+ * @memberof Periodiq */
 namespace.Element = namespace.loadElementDir(ELEMENT_DIR);
 
 module.exports = namespace;

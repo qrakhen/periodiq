@@ -3,17 +3,21 @@ const path = require('path');
 const Debug = require('../debug.js');
 const THEME_DEFAULT = require('../themes/empty/theme.js');
 const CACHE_DIR = path.join(__dirname + '/../cache/');
+//todo use require for DIR and stuff
 
 /**
  * @class Render */
 var Render = function() {
-    this.theme = THEME_DEFAULT;
+    this.theme = THEME_DEFAULT; //move to config
 
     /**
-     * closer description missing
+     * Renders an entire element tree, starting from the provided bodyRoot,
+     * stores the result in a cached html file (or uses the cached one),
+     * and when done, the provided callback will be triggered, containing the
+     * path to the html file.
      * @todo Implement Events for manipulation callbacks
      * @memberof Render
-     * @function
+     * @function buildView
      * @instance
      * @param {Element} header the header element - can be set to null for an empty header
      * @param {RootElement} bodyRoot the root of the page to be rendered (i.e. Core.root)
@@ -57,7 +61,8 @@ var Render = function() {
      * Please note that this only gets executed once when starting the application,
      * use nodemon for indev styling.
      * @memberof Render
-     * @function
+     * @function buildStyles
+     * @deprecated made and never used. c:
      * @instance */
     this.buildStyles = function(elementClasses, filePath) {
         Debug.log('compiling element styles...', 1);
@@ -79,9 +84,7 @@ var Render = function() {
 
     /***
      * Generates an element's html and (optionally) recursively walks through all children
-     * @memberof Render
-     * @function
-     * @instance */
+     * @private */
     this.buildElement = function(element, recursive, count) {
         if (element === undefined || element === null)
             return '';
@@ -132,9 +135,7 @@ var Render = function() {
     };
 
     /**
-     * @memberof Render
-     * @function
-     * @instance */
+     * @private */
     this.buildStyleString = function(element) {
         if (!element.active)
             return 'display: none;';
@@ -150,9 +151,7 @@ var Render = function() {
     };
 
     /**
-     * @memberof Render
-     * @function
-     * @instance */
+     * @private */
     this.createHtmlElement = function(attributes, content, type) {
         var type = type || 'div',
             html = '<' + type;
@@ -165,7 +164,7 @@ var Render = function() {
 
     /**
      * @memberof Render
-     * @function
+     * @function setTheme
      * @instance */
     this.setTheme = function(theme) {
         Debug.log('changed active theme to ' + theme.key);
@@ -174,7 +173,7 @@ var Render = function() {
 
     /**
      * @memberof Render
-     * @function
+     * @function getViewFilePath
      * @instance */
     this.getViewFilePath = function(rootId) {
         return CACHE_DIR + 'view/' + 'view_' + rootId + '.html';
