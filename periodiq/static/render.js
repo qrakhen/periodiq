@@ -4,14 +4,28 @@ const Debug = require('../debug.js');
 const THEME_DEFAULT = require('../themes/empty/theme.js');
 const CACHE_DIR = path.join(__dirname + '/../cache/');
 
+/**
+ * @class Render */
 var Render = function() {
     this.theme = THEME_DEFAULT;
 
+    /**
+     * closer description missing
+     * @todo Implement Events for manipulation callbacks
+     * @memberof Render
+     * @function
+     * @instance
+     * @param {Element} header the header element - can be set to null for an empty header
+     * @param {RootElement} bodyRoot the root of the page to be rendered (i.e. Core.root)
+     * @param {function} done success callback, returns the filename of the generated/cached html output */
     this.buildView = function(header, bodyRoot, done) {
         if (!bodyRoot.active) {
             throw new Exception();
             Debug.log('can not render inactive element ' + bodyRoot.toString());
             return; }
+
+        if (header == null)
+            header = this.createHtmlElement(null, null, 'head');
 
         if (this.theme !== null)
             Debug.log('render currently has an active theme set (' + this.theme.key + ')\r\n'
@@ -25,6 +39,7 @@ var Render = function() {
         var body = this.createHtmlElement(null, this.buildElement(bodyRoot), 'body'),
             head = this.buildElement(header),
             html = this.createHtmlElement(null, head + body, 'html');
+        /* afterView(html) */
         this.dispatch(html, bodyRoot.id, done);
         Debug.log('view rendered, took ' + (new Date().getTime() - _dbgTime) + 'ms', 1);
     };
@@ -38,10 +53,12 @@ var Render = function() {
         });
     };
 
-    /***
+    /**
      * Please note that this only gets executed once when starting the application,
      * use nodemon for indev styling.
-     **/
+     * @memberof Render
+     * @function
+     * @instance */
     this.buildStyles = function(elementClasses, filePath) {
         Debug.log('compiling element styles...', 1);
         var content = '';
@@ -61,7 +78,10 @@ var Render = function() {
     };
 
     /***
-     * Generates an element's html and (optionally) recursively walks through all children */
+     * Generates an element's html and (optionally) recursively walks through all children
+     * @memberof Render
+     * @function
+     * @instance */
     this.buildElement = function(element, recursive, count) {
         if (element === undefined || element === null)
             return '';
@@ -75,7 +95,10 @@ var Render = function() {
         /* Walk through all children, if available, and build them */
         if (recursive && element.children.data.length > 0) {
             element.children.step(function(e) {
-                content += this.buildElement(e, true, count);
+                /* beforeChild(e); */
+                var childHtml = this.buildElement(e, true, count);
+                /* afterChild(childHtml) */
+                content += childHtml;
             }.bind(this));
         } else if (element.content !== undefined) {
             content = element.content;
@@ -85,9 +108,13 @@ var Render = function() {
         if (element.body.type === 'head')
             return this.createHtmlElement({}, content, element.body.type);
 
+        /* beforeElement(element) */
+
         /* Apply Theme */
         if (this.theme !== null)
             this.theme.apply(element);
+
+        /* afterElementTheme(element) */
 
         /* Compose HTML Element */
         var attr = {
@@ -100,9 +127,14 @@ var Render = function() {
                 attr[a] = element.body.attributes[a];
         }
         var html = this.createHtmlElement(attr, content, element.body.type);
+        /* afterElement(html) */
         return html;
     };
 
+    /**
+     * @memberof Render
+     * @function
+     * @instance */
     this.buildStyleString = function(element) {
         if (!element.active)
             return 'display: none;';
@@ -117,6 +149,10 @@ var Render = function() {
         return style.trim();
     };
 
+    /**
+     * @memberof Render
+     * @function
+     * @instance */
     this.createHtmlElement = function(attributes, content, type) {
         var type = type || 'div',
             html = '<' + type;
@@ -127,11 +163,19 @@ var Render = function() {
         return html;
     };
 
+    /**
+     * @memberof Render
+     * @function
+     * @instance */
     this.setTheme = function(theme) {
         Debug.log('changed active theme to ' + theme.key);
         this.theme = theme;
     };
 
+    /**
+     * @memberof Render
+     * @function
+     * @instance */
     this.getViewFilePath = function(rootId) {
         return CACHE_DIR + 'view/' + 'view_' + rootId + '.html';
     };

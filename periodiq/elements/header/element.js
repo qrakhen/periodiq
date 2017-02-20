@@ -1,9 +1,10 @@
-const __BASE = require('../abstract/element.js');
 const TagElement = require('../content/tag/element.js');
 
 /* possibly throw out head completely? */
 
-class __CLASS extends __BASE {
+/**
+ * @extends AbstractElement */
+class HeaderElement extends require('../abstract/element.js') {
     constructor(id, title) {
         super();
         this.id = id || 'header';
@@ -29,4 +30,4 @@ class __CLASS extends __BASE {
     }
 }
 
-module.exports = __CLASS;
+module.exports = HeaderElement;

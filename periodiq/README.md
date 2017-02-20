@@ -52,8 +52,8 @@ http://qrakhen.net/
 
 ## Documentation
 
-...still being written, and in its current state you'd turn out to be confused rather than actually informed. I'm sorry for that - until the docs are live, you can always
-checkout my comments in the source code, the most important parts are well covered.
+Still not finished and under constant development.
+http://doc.pq.sygade.eu
 
 
 
@@ -109,7 +109,9 @@ basic features of _Periodiq_ - more Examples will follow soon, along with the do
 
 
 
-## Extending Elements / Creating Custom Elements
+## Extending & Modifying Periodiq
+
+### Creating Custom Elements
 
 Creating custom Elements is kept simple and comes with only 3 requirements:
  - Each Element needs its own folder, somewhere within your project.
@@ -147,7 +149,7 @@ get _way_ too long (or, when having an unorganized folder structure, _way_ too i
 In this case, you can extend your class prototype by another line to override
 the auto-loader's naming:
 
-    MyCustomElement.__CLASS_NAME = 'SuperCustomizedClassName_With_Underscores';
+    MyCustomElement.\__CLASS_NAME = 'SuperCustomizedClassName_With_Underscores';
 
 Beware of extending a class with an overwritten name!
 If you forgrt to unset or override that property in a child class,
@@ -155,13 +157,29 @@ all your inheriting classes will be known as 'SuperCustomizedClassName_With_Unde
 
 
 
-## Creating Plugins
-### RenderPlugin
-#### RenderPreProcessor
-#### RenderPostProcessor
+### Framework Manipulation
+(not yet stable/implemented)
+Assign Callbacks to intercept the Framework at certain points.
+Where this opens a another realm of possibilities for customization and optimization, it also exposes everything to the gates to hell.
+This is because in its current state, there is absolutely no validation of what you're doing with any of the passed elements - and I'm not sure if this even necessary.
+
+#### Render
+All Callbacks need to return an (un-)modified version of the object they received, or things will break.
+ - beforeElement(element)
+ - beforeChild(childElement)
+ - afterChild(childHtml)
+ - afterElementTheme(element)
+ - afterElement(html)
+ - afterView(html)
 
 
-## 'Client'-Side JavaScript
+
+### Creating Plugins & Extension Packages
+(not yet implemented)
+Create npm packages or compile .pqp files using the pq-cli (Periodiq-CLI) command pq pack <src> <dest>
+Sadly, this is not even remotely working well enough to actually be fun at the moment. Not sure if I'm going to keep it up - packing up extensions isn't that useful anyway, even tho I _really_ liked the idea at first.
+
+
 
 ## Creating / Designing Themes
 
@@ -178,6 +196,14 @@ a truly complex but rewarding challenge.
 
 
 ## Exporting to another Device/OS
+
+
+
+## Periodiq-CLI
+(not yet released)
+    $ npm install -g pq-cli
+    $ pq --v
+    Periodiq-CLI v0.1.5
 
 
 

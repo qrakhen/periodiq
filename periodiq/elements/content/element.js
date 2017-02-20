@@ -1,11 +1,13 @@
-const __BASE = require('../base/element.js');
 const __TYPE = 'content';
 
-class __CLASS extends __BASE {
+/**
+ * @extends BaseElement */
+class ContentElement extends require('../base/element.js') {
     constructor() {
         super();
         this.TYPE = this.getExtendedType(__TYPE);
         this.content = ' ';
+        this.body.style.display = 'inline-block';
     }
 
     setContent(content) {
@@ -14,4 +16,4 @@ class __CLASS extends __BASE {
     }
 }
 
-module.exports = __CLASS;
+module.exports = ContentElement;

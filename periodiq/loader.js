@@ -15,7 +15,10 @@ const CACHE_DIR = ROOT_DIR + '/cache';
 
 var namespace = {
     Element: {},
-    ROOT_DIR: ROOT_DIR };
+    ROOT_DIR: ROOT_DIR,
+    STATIC_DIR: STATIC_DIR,
+    ELEMENT_DIR: ELEMENT_DIR,
+    CACHE_DIR: CACHE_DIR };
 
 /**
  * @module Periodiq
@@ -26,7 +29,7 @@ var namespace = {
  *
  * The element keys (aka class names) will be named after the location
  * where they have been found in. example:
- *      /rootDir/home/menu/top/button -> HomeMenuTopButton
+ *      /rootDir/home/menu/top/button -> HomeMenuTopButtonElement
  * @param {string} rootDir The directory to be searched for element classes.
  * @returns {object} - An object containing all loaded element classes.
  **/
@@ -60,7 +63,7 @@ namespace.loadElementDir = function(rootDir) {
                 var trim = path.replace(rootDir, '').replace('/element.js', '').slice(1);
                 var keys = trim.split('/'), key = '';
                 keys.forEach((k) => { key += k.charAt(0).toUpperCase() + k.slice(1); });
-                return key; };
+                return key + 'Element'; };
             try {
                 var key = '';
                 var __class = require(path);
@@ -91,13 +94,8 @@ namespace.loadElementDir = function(rootDir) {
 
 /* Compose references + base directory functions since we can't really store
  * normal properties within a constructor of a class */
-    namespace.Core = require(STATIC_DIR + '/core.js');
-    namespace.Core.__BASE_DIR = function() { return STATIC_DIR; };
-
-    namespace.Render = require(STATIC_DIR + '/render.js');
-    namespace.Render.__BASE_DIR = function() { return STATIC_DIR; };
-
-    namespace.Element = namespace.loadElementDir(ELEMENT_DIR);
-    namespace.Element.__BASE_DIR = function() { return ELEMENT_DIR; };
+namespace.Core = require(STATIC_DIR + '/core.js');
+namespace.Render = require(STATIC_DIR + '/render.js');
+namespace.Element = namespace.loadElementDir(ELEMENT_DIR);
 
 module.exports = namespace;

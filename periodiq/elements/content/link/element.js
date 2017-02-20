@@ -1,7 +1,8 @@
-const __BASE = require('../element.js');
 const __TYPE = 'link';
 
-class __CLASS extends __BASE {
+/**
+ * @extends ContentElement */
+class ContentLinkElement extends require('../element.js') {
     constructor(url, label) {
         super();
         this.TYPE = this.getExtendedType(__TYPE);
@@ -14,4 +15,4 @@ class __CLASS extends __BASE {
     }
 }
 
-module.exports = __CLASS;
+module.exports = ContentLinkElement;

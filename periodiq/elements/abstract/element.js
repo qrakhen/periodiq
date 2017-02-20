@@ -4,7 +4,8 @@ const __TYPE = 'pq-el';
 
 /**
  * The very basic and lowest element inheritance class.
- * All elements must at some point derive from this class in order to even remotely work. */
+ * All elements must at some point derive from this class in order to even remotely work.
+ * @namespace StandardElements */
 class AbstractElement {
     constructor() {
         this.TYPE = __TYPE;         // displays class type name, recursively built from const __TYPE

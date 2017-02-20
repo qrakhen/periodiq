@@ -1,7 +1,8 @@
-const __BASE = require('../element.js');
 const __TYPE = 'tag';
 
-class __CLASS extends __BASE {
+/**
+ * @extends ContentElement */
+class ContentTagElement extends require('../element.js') {
     constructor(type, attributes, content) {
         super();
         this.TYPE = this.getExtendedType(__TYPE);
@@ -11,4 +12,4 @@ class __CLASS extends __BASE {
     }
 }
 
-module.exports = __CLASS;
+module.exports = ContentTagElement;

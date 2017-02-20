@@ -1,10 +1,11 @@
 const Debug = require('../debug.js');
 const url = require('url');
 const path = require('path');
+const a = require('../loader.js');
 
 /**
  * The Core Instance is Periodiq's super controller.
- * It is used to access the window, change views or to communicate with the render thread, for example.
+ * It is used to launch Periodiq, change views or to communicate with the render thread, for example.
  * @todo The Core is also currently being abused to register shortcuts, which should be made somewhere else, imho.
  * @class Core */
 var Core = function() {
@@ -23,7 +24,8 @@ var Core = function() {
      * @memberof Core
      * @instance
      * @param {Electron} electron Electron class (as returned by require())
-     * @param {Element} rootElement The root (origin) element, where the entire page is rooted */
+     * @param {Element} rootElement The root (origin) element, where the entire page is rooted
+     * @param {function} ready Finish callback */
     this.launch = function(electron, rootElement, ready) {
         this.history    = { cursor: 0, log: [] };
         this.root       = rootElement;
