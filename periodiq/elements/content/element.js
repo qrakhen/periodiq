@@ -1,11 +1,10 @@
-const __TYPE = 'content';
 
 /**
  * @extends BaseElement */
 class ContentElement extends require('../base/element.js') {
     constructor() {
         super();
-        this.TYPE = this.getExtendedType(__TYPE);
+        this.TYPE = ContentElement.__CLASS_NAME;
         this.content = ' ';
         this.body.style.display = 'inline-block';
     }

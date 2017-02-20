@@ -1,7 +1,6 @@
 const Debug = require('../debug.js');
 const url = require('url');
 const path = require('path');
-const a = require('../loader.js');
 
 /**
  * The Core Instance is Periodiq's super controller.

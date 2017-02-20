@@ -1,15 +1,13 @@
-const __BASE = require('../element.js');
-const __TYPE = 'btn';
 
-const Tag = require('../../content/tag/element.js');
-
-class __CLASS extends __BASE {
+/**
+ * @extends ActionElement */
+class ActionButtonElement extends require('../element.js') {
     constructor() {
         super();
-        this.TYPE = this.getExtendedType(__TYPE);
+        this.TYPE = ActionButtonElement.__CLASS_NAME;
         this.content = 'btn';
         this.setSize(72, 24);
-        this.setColor('#727272');
+        this.setColor('#323232');
         this.action = null;
     }
 
@@ -21,4 +19,4 @@ class __CLASS extends __BASE {
     }
 }
 
-module.exports = __CLASS;
+module.exports = ActionButtonElement;

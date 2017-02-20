@@ -31,6 +31,9 @@ var Render = function() {
         if (header == null)
             header = this.createHtmlElement(null, null, 'head');
 
+            // TEMP! make this beatiful pls. //
+        var clientScript = '<script src="' + path.join(__dirname + '/client.js') + '"></script>';
+
         if (this.theme !== null)
             Debug.log('render currently has an active theme set (' + this.theme.key + ')\r\n'
                 + 'This theme will be applied to ALL elements during recursion, '
@@ -41,8 +44,8 @@ var Render = function() {
         /* @todo: Check cache first */
         var _dbgTime = new Date().getTime();
         var body = this.createHtmlElement(null, this.buildElement(bodyRoot), 'body'),
-            head = this.buildElement(header),
-            html = this.createHtmlElement(null, head + body, 'html');
+            head = this.buildElement(header) + clientScript,
+            html = this.createHtmlElement({style: 'overflow: hidden;'}, head + body, 'html');
         /* afterView(html) */
         this.dispatch(html, bodyRoot.id, done);
         Debug.log('view rendered, took ' + (new Date().getTime() - _dbgTime) + 'ms', 1);

@@ -16,12 +16,10 @@ const CustomElement = Periodiq.loadElementDir(Path.join(__dirname + '/elements/'
 
 Core.launch(Electron, new Element.Root('pq-demo', 1280, 960), {}, function() {
     var head = new Element.Header('head', 'wurschtsemmerl');
-    head.addScriptLinkTag(Path.join(__dirname + '/periodiq/static/core.client.js'));
 
     var back = new Element.Base();
     back.addStyleRule(['back', 'default_font'])
         .attach(Core.root)
-        .setMargin(16, 16, 32, 0)
         .setSize(100, 100, '%')
         .setRelative(false)
         .setPosition(null, null, 0, 0)
