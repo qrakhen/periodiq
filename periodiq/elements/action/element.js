@@ -1,3 +1,5 @@
+const Path = require('path');
+const EventController = require(Path.resolve(__dirname + '/../../static/event.js'));
 
 /**
  * Base Element class for all event using elements, such as buttons.
@@ -8,6 +10,7 @@ class ActionElement extends require('../base/element.js') {
     constructor() {
         super();
         this.body.type = 'iac';
+        this.event = EventController;
     }
 }
 

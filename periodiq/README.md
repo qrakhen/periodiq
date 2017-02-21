@@ -116,23 +116,18 @@ More examples and some demo projects will follow soon.
         });
     });
 
-## General Overview
-I'll list all important features and details here soon.
-
-### Elements
-#### Element Actions
-### Core
-### Render
-### Electron
 
 
+# Periodiq Overview
 
+A complete overview on all aspects of Periodiq, supported by example code for each part.
 
-## Extending & Modifying Periodiq
+## Elements
 
-### Creating Custom Elements
+The Element System is the heart of Periodiq.
+An Element is ... editme
 
-#### Basic Element Setup
+### Element Creation
 
 Creating custom Elements is kept simple and comes with only 3 requirements:
  - Each Element needs its own folder, somewhere within your project.
@@ -170,52 +165,83 @@ Beware of extending a class that has an overwritten name!
 If you forget to unset or override that property in a child class,
 all your inheriting classes will be known as 'SuperCustomizedClassName_With_Underscores'.
 
-#### Assigning an Action
+### Actions
+
+#### The Action Class
 
 Actions are the 'client'-side parts of an element.
-They will be loaded for each element that has an action file in its folder.
-The action file has to be called `element.action.js`.
+They will be loaded for each element that has an action file in its folder,
+which has to be called `element.action.js` in order to be detected when loading all elements.
 If the Periodiq loader finds that file, it will assign it to the Element's prototype and included within html output.
-The Action class will be created for every single element of that type found in the element tree. If you want to turn off action execution for some element instances, set `element.blockAction` to `false`. (default: true)
+The Action class will be created for every single element of that type found in the element tree.
+If you want to turn off action execution for some element instances, set `element.blockAction` to `false`. (default: true)
 
-Excerpt from `elements/abstract/element.action.js`
+Check the AbstractAction Documentation for closer information.
 
-    /**
-     * ...You can extend this class by using require('periodiq').Elements.Abstract.Action
-     *
-     * Note that this will NOT be automatically extended and needs to be extended for every Element class.
-     * If you really want to directly reference another element's action, you can overwrite
-     * your Element.Action - but that is not recommended. */
-     class AbstractAction {
+#### The EventController
 
-         /**
-          * Will be called for each found DOM node for this element,
-          * so the element parameter is NOT an periodiq Element class object,
-          * @param {DomNode} element element dom node, queried by id. */
+The EventController is the interface between the render and the main thread.
+An Action instance can trigger an event via the EventController,
+and from there, there provided event information will be passed to all listeners.
+Assigning a listener can be done by calling `EventController.addListener(eventName, callback)`.
+As soon as EventController.trigger(eventName, senderId, data) is called,
+`callback(eventName, senderId, data)` will be called for all listeners that are listening to `eventName`
+
+Check the EventController Documentation for closer information.
+
+#### Example Action/Event Implementation
+
+Let's create a button-like Element that can be clicked and send a message to the main thread.
+After creating a new element (`button/element.js`), add the file `button/element.action.js`:
+
+    //file: button/element.action.js
+
+    var pq = require('periodiq');
+
+    class ButtonAction extends pq.Element.Abstract.Action {
+
          constructor(element) {
-             this.element = element;
+             super(element);
+             element.addEventListener('click', function() {
+                /* this.event is a reference to the EventController instance */
+                 this.event.trigger('button', element.id, {});
+             }.bind(this));
          }
      }
 
-     module.exports = AbstractAction;
+     module.exports = ButtonAction;
 
-Example implementation for a Button that triggers a callback from the view:
+This code would already send some event information to the main thread,
+but without any listeners assigned, not much would happen.
+So we'll have to assign listener callbacks.
+This is simply done by using EventController.addListener(eventName, callback);
+You can assign _any_ function, from anywhere.
+The callback will be called with (eventName, senderId, data);
 
-    editme
+    EventController.addListener('click', function(eventName, senderId, data) {
+        console.log(senderId + ' sent ' + eventName, data);
+    });
 
-#### Assigning Dedicated Dynamic Styles
+
+
+### Dedicated Dynamic Styles
 
     soon(tm)
 
 
 
-### Framework Manipulation
+### Core
+### Render
+### Electron
+
+
+## Framework Manipulation
 (not yet stable/implemented)
 Assign Callbacks to intercept the Framework default behaviour at certain points.
 Where this opens another realm of possibilities for customization and optimization, it also exposes everything (including yourself) to the gates to hell.
 This is because in its current state, there is absolutely no validation of what you're doing to any of the passed elements. This will be fixed soon.
 
-#### Render Callbacks
+### Render Callbacks
 All Callbacks need to return an (un-)modified version of the object they received, or things will break.
  - beforeElement(element)
  - beforeChild(childElement)

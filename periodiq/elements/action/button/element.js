@@ -8,13 +8,12 @@ class ActionButtonElement extends require('../element.js') {
         this.setSize(72, 24);
         this.setColor('#323232');
         this.action = null;
+        this.event.addListener('sers', this.onClick.bind(this));
     }
 
-    buttonAction(s, e) {
-        if (typeof this.action !== 'function')
-            return;
-
-        this.action(s, e);
+    onClick(eventName, senderId, data) {
+        if (senderId === this.id)
+            console.log('i was clicked: ', data);
     }
 }
 
