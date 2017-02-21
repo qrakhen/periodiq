@@ -1,14 +1,13 @@
 const fs = require('fs');
 const Path = require('path');
 const Debug = require('../debug.js');
-const THEME_DEFAULT = require('../themes/default/theme.js');
 const CACHE_DIR = Path.join(__dirname + '/../cache/');
 //todo use require for DIR and stuff
 
 /**
  * @class Render */
 var Render = function() {
-    this.theme = THEME_DEFAULT; //move to config
+    this.theme = null; //move to config
 
     /**
      * Renders an entire element tree, starting from the provided bodyRoot,

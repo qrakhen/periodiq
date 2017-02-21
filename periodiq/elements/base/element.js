@@ -13,7 +13,8 @@ class BaseElement extends require('../abstract/element.js') {
             styleRules: new List(),
             attributes: {},
             style: {
-                display: 'block'
+                display: 'block',
+                border: '1px solid #000'
         }};
     }
 
@@ -70,19 +71,19 @@ class BaseElement extends require('../abstract/element.js') {
      * any param null = unchanged
      * */
     setSize(width, height, unit) {
-        var unit = unit || 'px';
-        if (width !== null) this.learnStyle('width', (width === 'auto' ? width : width + unit));
-        if (height !== null) this.learnStyle('height', (height === 'auto' ? height : height + unit));
+        if (width !== null) this.learnStyle('width', width);
+        if (height !== null) this.learnStyle('height', height);
         return this;
     }
 
     /**
      * returns a percentage that results from columns out of total (i.e. 50% when providing 6 and 12)
-     * @param {integer} total default 12*/
+     * @param {integer} total default 12
+     * @todo broken.  */
     getSpan(columns, total, width) {
         var total = total || 12;
         var width = width || 100;
-        return ((total / columns) * width) + '%';
+        return parseFloat(((total / columns) * width)) + '%';
     }
 
     /**

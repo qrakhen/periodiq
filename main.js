@@ -17,32 +17,23 @@ const CustomElement = Periodiq.loadElementDir(Path.join(__dirname + '/elements/'
 Core.launch(Electron, new Element.Root('pq-demo', 1280, 960), {}, function() {
     var head = new Element.Header('head', 'wurschtsemmerl');
 
-    var back = new Element.Base();
-    back.addStyleRule(['back', 'default_font'])
-        .attach(Core.root)
-        .setSize(100, 100, '%')
-        .setRelative(false)
-        .setPosition(null, null, 0, 0);
-
     var footer = new CustomElement.MusicFooter();
     footer.addStyleRule(['back']);
-    footer.attach(back);
+    footer.attach(Core.root);
 
     var base = new Element.Base();
     base.setSize(128, 128)
         .setColor('#AA3377')
         .forgetStyle('margin');
 
-    base.attach(Core.root);
+    var base2 = new Element.Base();
+    base2.setSize(96, 96)
+        .setColor('#72F932')
+        .setMargin(8, 8, 8, 8);
 
-    for(var i = 0; i < 12; i++) {
-        var a = new Element.Base();
-        a.setSize(a.getSpan(1, 12, 80), '200px');
-        a.setMargin(0, 3, 0, 3);
-        a.setColor('#326496')
-            .learnStyle('display', 'inline-block')
-            .attach(Core.root);
-    }
+
+    base.attach(Core.root);
+    base2.attach(Core.root);
 
     new Element.ActionButton().attach(footer);
 
