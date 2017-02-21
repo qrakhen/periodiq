@@ -136,7 +136,7 @@ var Render = function() {
         var attr = {
             id: element.id,
             class: element.body.styleRules.data.join(' '),
-            type: element.TYPE,
+            type: element.getType(),
             style: this.buildStyleString(element) };
         if (element.body.attributes !== undefined) {
             for(var a in element.body.attributes)

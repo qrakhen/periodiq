@@ -80,24 +80,24 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
                     key = buildClassName();
                 }
 
-                loaded[key] = __class;
-                loaded[key].__BASE_DIR = function() { return path.replace('element.js', ''); };
-                loaded[key].__CLASS_NAME = key;
-                Debug.log('loaded element ' + key +
-                    ' (...' + path.slice(path.length - 24) + ')', 1);
+                __class.__BASE_DIR = function() { return path.replace('element.js', ''); };
+                __class.__CLASS_NAME = key;
 
                 try {
                     var actionPath = path.replace('.js', '.action.js');
                     var action = require(actionPath);
                     action.__PATH = actionPath;
-                    loaded[key].__ACTION = action;
-                    Debug.log('found action for ' + key, 1);
+                    __class.__ACTION = action;
+                    Debug.log('found action for ' + key, 2);
                 } catch(err) {
-                    loaded[key].__ACTION = null;
+                    __class.__ACTION = null;
                     Debug.log('no action found for Element class ' + key, 2);
                 }
 
-                console.log(loaded[key]);
+                loaded[key] = __class;
+
+                Debug.log('loaded element ' + key +
+                    ' (...' + path.slice(path.length - 24) + ')', 1);
             } catch(err) {
                 Debug.log('could not load module <' + key + '>, ' + err, 0);
             }

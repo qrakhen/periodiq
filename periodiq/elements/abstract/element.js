@@ -7,13 +7,21 @@ const Debug = require('../../debug.js');
  * */
 class AbstractElement {
     constructor() {
-        this.TYPE = Object.getPrototypeOf(this).__CLASS_NAME;
-        this.ACTION = Object.getPrototypeOf(this).__ACTION;
+        this.TYPE = this.getType();
+        this.ACTION = this.getAction();
         this.FINAL = false;         // FINAL elements won't enter recursion mode and can't have children
         this.id = null;             // unique element id, recursively displays element tree
         this.parent = null;         // parent element reference
         this.active = false;        // en- or disables element (rendering/logic)
         this.children = new List(); // dynamically added child elements
+    }
+
+    getType() {
+        return this.constructor.__CLASS_NAME;
+    }
+
+    getAction() {
+        return this.constructor.__ACTION;
     }
 
     /**
