@@ -12,10 +12,8 @@ class BaseElement extends require('../abstract/element.js') {
             type: 'el',
             styleRules: new List(),
             attributes: {},
-            style: {
-                display: 'block',
-                border: '1px solid #000'
-        }};
+            style: {}
+        }
     }
 
     /**
@@ -133,6 +131,11 @@ class BaseElement extends require('../abstract/element.js') {
     getFullType(type) {
         type = type || '';
         return super.getFullType(this.TYPE + ' ' + type);
+    }
+
+    appendUnit(val, unit) {
+        if (!val.contains('%') && !val.contains('px'))
+            return val + (unit || 'px');
     }
 }
 

@@ -4,6 +4,12 @@
  *
  **/
 
+
+ var a = require('./periodiq/static/assembler.js');
+ a.buildElementStyles(__dirname + '/periodiq/elements/', 'pq');
+
+
+
 const Path = require('path');
 const List = require('sygtools').List;
 const Electron = require('electron');

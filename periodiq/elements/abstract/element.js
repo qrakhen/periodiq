@@ -9,6 +9,7 @@ class AbstractElement {
     constructor() {
         this.TYPE = this.getType();     /** contains the auto-generated class name string (or __CLASS_NAME_OVERRIDE if overridden) */
         this.ACTION = this.getAction(); /** assigned Action class, null if no element.action.js is located in element folder */
+        this.NAMESPACE = this.getNamespace() /** */
         this.FINAL = false;             /** FINAL elements won't enter recursion mode and can't have children */
         this.id = null;                 /** unique element id, recursively displays element tree (i.e. root_4_2_65) */
         this.active = false;            /** en-/disables element for rendering/logic */
@@ -23,6 +24,10 @@ class AbstractElement {
 
     getAction() {
         return this.constructor.Action;
+    }
+
+    getNamespace() {
+        return this.constructor.__NAMESPACE;
     }
 
     /**

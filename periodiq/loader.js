@@ -2,6 +2,7 @@ const fs = require('fs');
 const Path = require('path');
 const Debug = require('./debug.js');
 
+const NAMESPACE = 'pq';
 const ROOT_DIR = Path.join(__dirname + '/');
 const STATIC_DIR = ROOT_DIR + '/static';
 const ELEMENT_DIR = ROOT_DIR + '/elements';
@@ -52,15 +53,18 @@ module.export = namespace;
  * @memberof Periodiq
  * @function loadElementDir
  * @param {string} rootDir The directory to be searched for element classes.
+ * @param {string} namespace The namespace that will be used for CSS classes and general seperation of external elements
  * @param {string} prefix optional prefix for all class names that will be returned [prefix]ClassName
  * @param {string} postfix optional postfix for all class names that will be returned ClassName[postfix]
  * @returns {object} - An object containing all loaded element classes.
  **/
-namespace.loadElementDir = function(rootDir, prefix, postfix) {
+namespace.loadElementDir = function(rootDir, namespace, prefix, postfix) {
     if (rootDir == ELEMENT_DIR)
         Debug.log('loading built-in standard elements', 0);
     else
         Debug.log('loading external element set from ' + rootDir, 0);
+
+    var namespace = namespace || '';
 
     /* Returns found element modules according to folder structure,
      * for example 'content', 'content/image' or 'root' */
@@ -102,6 +106,7 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
 
                 __class.__BASE_DIR = Path.normalize(path.replace('element.js', ''));
                 __class.__CLASS_NAME = key;
+                __class.__NAMESPACE = namespace;
 
                 /* Try to find element action */
                 try {
@@ -136,6 +141,7 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
 /**
  * Object containing all default/standard Element Classes
  * @memberof Periodiq */
-namespace.Element = namespace.loadElementDir(ELEMENT_DIR);
+namespace.Element = namespace.loadElementDir(ELEMENT_DIR, NAMESPACE);
+
 
 module.exports = namespace;

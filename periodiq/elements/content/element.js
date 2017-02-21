@@ -6,7 +6,6 @@ class ContentElement extends require('../base/element.js') {
         super();
         this.FINAL = true;
         this.content = ' ';
-        this.body.style.display = 'inline-block';
     }
 
     setContent(content) {

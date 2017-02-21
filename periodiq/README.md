@@ -10,11 +10,11 @@ but it doesn't close the other doors: _Periodiq_ invites you to convert your
 creative, experimental and innovative output and ideas into working applications.
 _Periodiq_ comes with just as much rules as really needed, but always keeps them as little as possible.
 
-_Periodiq_'s workflow completely abandons any form of interaction with HTML or CSS.
+_Periodiq_'s workflow completely abandons any form of interaction with HTML.
 You are completely detached from the monotonous torture of writing static markup,
 resulting in a feeling of freedom and levitation that persists to the last commit and beyond.
 
-It's just pure & simple JavaScript.
+It's just pure & simple JavaScript. And CSS.
 
 _Periodiq_ comes with the so-called 'ElementTree' system, a smart and fully extendable
 module tree to perfectly fit all the needs for even the most adventurous projects.

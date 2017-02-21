@@ -1,0 +1,10 @@
+.element {
+    display: block;
+    width: 120px;
+    height: 40px;
+    background-color: #161616;
+}
+
+.element:hover {
+    background-color: #242424;
+}

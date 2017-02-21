@@ -109,7 +109,7 @@ var Render = function() {
         /* Compose HTML Element */
         var attr = {
             id: element.id,
-            class: element.body.styleRules.data.join(' '),
+            class: element.NAMESPACE + '_' + element.TYPE,
             type: element.getType(),
             style: this.buildStyleString(element) };
         if (element.body.attributes !== undefined) {
