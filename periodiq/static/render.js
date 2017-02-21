@@ -1,7 +1,7 @@
 const fs = require('fs');
 const Path = require('path');
 const Debug = require('../debug.js');
-const THEME_DEFAULT = require('../themes/empty/theme.js');
+const THEME_DEFAULT = require('../themes/default/theme.js');
 const CACHE_DIR = Path.join(__dirname + '/../cache/');
 //todo use require for DIR and stuff
 

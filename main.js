@@ -35,13 +35,13 @@ Core.launch(Electron, new Element.Root('pq-demo', 1280, 960), {}, function() {
 
     base.attach(Core.root);
 
-    for(var i = 0; i < 100; i++) {
+    for(var i = 0; i < 12; i++) {
         var a = new Element.Base();
-        a.setSize(24, 24 + i)
-            .setColor('#326496')
-            .setMargin(1, 1, 1, 1)
+        a.setSize(a.getSpan(1, 12, 80), '200px');
+        a.setMargin(0, 3, 0, 3);
+        a.setColor('#326496')
             .learnStyle('display', 'inline-block')
-            .attach(back);
+            .attach(Core.root);
     }
 
     new Element.ActionButton().attach(footer);

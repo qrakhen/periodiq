@@ -11,6 +11,7 @@ class BaseElement extends require('../abstract/element.js') {
         this.body = {
             type: 'el',
             styleRules: new List(),
+            attributes: {},
             style: {
                 display: 'block'
         }};
@@ -66,12 +67,22 @@ class BaseElement extends require('../abstract/element.js') {
     }
 
     /**
+     * any param null = unchanged
      * */
     setSize(width, height, unit) {
         var unit = unit || 'px';
-        this.learnStyle('width', (width === 'auto' ? width : width + unit))
-            .learnStyle('height', (height === 'auto' ? height : height + unit));
+        if (width !== null) this.learnStyle('width', (width === 'auto' ? width : width + unit));
+        if (height !== null) this.learnStyle('height', (height === 'auto' ? height : height + unit));
         return this;
+    }
+
+    /**
+     * returns a percentage that results from columns out of total (i.e. 50% when providing 6 and 12)
+     * @param {integer} total default 12*/
+    getSpan(columns, total, width) {
+        var total = total || 12;
+        var width = width || 100;
+        return ((total / columns) * width) + '%';
     }
 
     /**

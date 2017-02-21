@@ -17,6 +17,11 @@ theme.addStyle(new Style('back', {
         color: '#FEFEFE',
         font_family: 'Arial',
         font_size: '14px' },
-        [ 'default_font' ]));
+        [ 'default_font' ]))
+    .addStyle(new Style('root', {
+        color: '#FEFEFE',
+        background_color: '#161616',
+        font_size: '16px' },
+        [ 'root' ]));
 
 module.exports = theme;
