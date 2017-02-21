@@ -102,6 +102,7 @@ class BaseElement extends require('../abstract/element.js') {
 
     /**
      * Sets the margin for each side, auto if none given.
+     * @todo change param == null? dont overwrite
      * @param {string} unit Unit to be used, px per default. */
     setMargin(top, right, bot, left, unit) {
         var unit    = unit      || 'px',

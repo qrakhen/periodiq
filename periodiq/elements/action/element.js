@@ -10,7 +10,7 @@ class ActionElement extends require('../base/element.js') {
     constructor() {
         super();
         this.body.type = 'iac';
-        this.event = EventController;
+        this.eventController = EventController;
     }
 }
 

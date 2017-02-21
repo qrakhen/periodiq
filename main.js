@@ -22,11 +22,27 @@ Core.launch(Electron, new Element.Root('pq-demo', 1280, 960), {}, function() {
         .attach(Core.root)
         .setSize(100, 100, '%')
         .setRelative(false)
-        .setPosition(null, null, 0, 0)
-        .learnStyle({ background_color: '#141414' });
+        .setPosition(null, null, 0, 0);
 
     var footer = new CustomElement.MusicFooter();
+    footer.addStyleRule(['back']);
     footer.attach(back);
+
+    var base = new Element.Base();
+    base.setSize(128, 128)
+        .setColor('#AA3377')
+        .forgetStyle('margin');
+
+    base.attach(Core.root);
+
+    for(var i = 0; i < 100; i++) {
+        var a = new Element.Base();
+        a.setSize(24, 24 + i)
+            .setColor('#326496')
+            .setMargin(1, 1, 1, 1)
+            .learnStyle('display', 'inline-block')
+            .attach(back);
+    }
 
     new Element.ActionButton().attach(footer);
 

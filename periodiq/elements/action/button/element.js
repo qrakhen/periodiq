@@ -8,7 +8,7 @@ class ActionButtonElement extends require('../element.js') {
         this.setSize(72, 24);
         this.setColor('#323232');
         this.action = null;
-        this.event.addListener('sers', this.onClick.bind(this));
+        this.eventController.addListener('sers', this.onClick.bind(this));
     }
 
     onClick(eventName, senderId, data) {

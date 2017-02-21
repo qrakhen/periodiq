@@ -48,7 +48,10 @@ class AbstractElement {
     attach(parent) {
         if (parent.FINAL) {
             Debug.log('can not append to a finalized parent: forbidden. ' + parent.toString(), 1);
+        } else if (this.TYPE === 'Abstract') {
+            Debug.log('tried to attach abstract element to ' + parent.id + ': forbidden.', 1);
         } else {
+            if (this.parent !== null) this.detach();
             parent.children.add(this);
             this.parent = parent;
             this.id = parent.getNextChildID();
@@ -76,7 +79,7 @@ class AbstractElement {
      * This will also deactivate this element, since it left the element tree
      * and is practically non-existent to the recursion algorythm. */
     detach() {
-        this.parent.remove(this);
+        if (this.parent !== null) this.parent.children.remove(this);
         this.parent = null;
         this.id = null;
         this.disable();

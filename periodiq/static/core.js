@@ -36,8 +36,8 @@ var Core = function() {
         this.app.on('ready', function() {
             /* Init mainFrame */
             this.mainFrame = new this.Window({
-                width: rootElement.body.style.width,
-                height: rootElement.body.style.height,
+                width: parseInt(rootElement.body.style.width),
+                height: parseInt(rootElement.body.style.height),
                 title: 'Periodiq.' });
             this.mainFrame.setMenu(null);
             this.rpid = this.mainFrame.webContents;

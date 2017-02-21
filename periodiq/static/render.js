@@ -61,31 +61,6 @@ var Render = function() {
     };
 
     /**
-     * Please note that this only gets executed once when starting the application,
-     * use nodemon for indev styling.
-     * @memberof Render
-     * @function buildStyles
-     * @deprecated made and never used. c:
-     * @instance */
-    this.buildStyles = function(elementClasses, filePath) {
-        Debug.log('compiling element styles...', 1);
-        var content = '';
-        fs.unlink(filePath, function() {
-            for (var i in elementClasses) {
-                var el = elementClasses[i];
-                if (el.__BASE_DIR === undefined) return;
-                var assumed = el.__BASE_DIR() + 'element.css';
-                fs.readFile(assumed, 'utf8', function(err, data) {
-                    if (err) return Debug.log('could not read ' + assumed + ': ' + err, 0);
-                    fs.appendFile(filePath, data, (err) => {
-                        if (err) return Debug.log('could not write view to file ' + filePath + ': ' + err, 0);
-                    });
-                });
-            }
-        });
-    };
-
-    /**
      * Generates an element's html and (optionally) recursively walks through all children.
      * This is most commonly used if you update an element and want to render the changes.
      * @memberof Render
@@ -97,8 +72,8 @@ var Render = function() {
         if (element === undefined || element === null)
             return '';
 
-        if (element.__CLASS_NAME === 'Abstract') {
-            Debug.log('tried to render AbstractElement, skipped ' + element.id, 0);
+        if (element.body === undefined || element.body === null) {
+            Debug.log('tried to render bodyless element, skipped: ' + element, 1);
             return ''
         }
 
@@ -111,9 +86,9 @@ var Render = function() {
         /* Walk through all children, if available, and build them */
         if (recursive && element.children.data.length > 0) {
             element.children.step(function(e) {
-                /* beforeChild(e); */
+                /** @todo beforeChild(e); */
                 var childHtml = this.buildElement(e, true, count);
-                /* afterChild(childHtml) */
+                /** @todo afterChild(childHtml) */
                 content += childHtml;
             }.bind(this));
         } else if (element.content !== undefined) {
@@ -124,13 +99,13 @@ var Render = function() {
         if (element.body.type === 'head')
             return this.createHtmlElement({}, content, element.body.type);
 
-        /* beforeElement(element) */
+        /** @todo beforeElement(element) */
 
         /* Apply Theme */
         if (this.theme !== null)
             this.theme.apply(element);
 
-        /* afterElementTheme(element) */
+        /** @todo afterElementTheme(element) */
 
         /* Compose HTML Element */
         var attr = {
@@ -143,7 +118,7 @@ var Render = function() {
                 attr[a] = element.body.attributes[a];
         }
         var html = this.createHtmlElement(attr, content, element.body.type);
-        /* afterElement(html) */
+        /** @todo afterElement(html) */
         if (element.ACTION !== null && element.ACTION !== undefined) {
             if (!element.blockAction)
                 html += this.buildActionScriptTag(element);
@@ -195,7 +170,6 @@ var Render = function() {
      * @function setTheme
      * @instance */
     this.setTheme = function(theme) {
-        Debug.log('changed active theme to ' + theme.key);
         this.theme = theme;
     };
 

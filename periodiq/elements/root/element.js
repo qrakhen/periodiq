@@ -8,6 +8,9 @@ class RootElement extends require('../base/element.js') {
         this.id = rootId || 'root';
         this.body.type = 'root';
         this.setSize(width, height);
+        this.body.style = {
+            font_family: 'Arial;'
+        };
     }
 
     /**
