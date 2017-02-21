@@ -1,7 +1,7 @@
 /**
  * Button Action
  * @extends AbstractAction */
- class ButtonAction extends require('../../abstract/element.action.js') {
+ class ButtonAction extends require(__dirname + '/../../abstract/element.action.js') {
 
      /**
       * Will be called for each found DOM node for this element,
@@ -9,7 +9,9 @@
       * @param {DomNode} element element dom node, queried by id. */
      constructor(element) {
          super(element);
-         console.log(element);
+         element.addEventListener('click', function() {
+             this.event.trigger('sers', element.id, { grias: 'erna' });
+         }.bind(this));
      }
  }
 

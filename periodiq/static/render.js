@@ -145,13 +145,19 @@ var Render = function() {
         var html = this.createHtmlElement(attr, content, element.body.type);
         /* afterElement(html) */
         if (element.ACTION !== null && element.ACTION !== undefined) {
-            html += this.buildActionScriptTag(element);
+            if (!element.blockAction)
+                html += this.buildActionScriptTag(element);
+            else
+                Debug.log('skipping action script tag for ' + element.id + ' due to blockAction', 3);
         }
         return html;
     };
 
     this.buildActionScriptTag = function(element) {
-        var script = 'var a=require("' + element.ACTION.__PATH + '");' +
+        /* Fix for Windows systems where the path would be completely escaped,
+         * resulting in C:UsersDaveprojectsperiodiqblablabal */
+        var path = element.ACTION.__PATH.replace(/\\/g, '/');
+        var script = 'var a=require("' + path + '");' +
             'new a(document.getElementById("' + element.id + '"));'
         return '<script>' + script + '</script>';
     };

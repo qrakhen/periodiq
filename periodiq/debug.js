@@ -20,6 +20,22 @@ var Debug = function() {
             if (err) console.log('debug could not write to file: ' + err);
         });
     };
+
+    this.success = function(anything, logLevel) {
+        return this.log('SUCCESS: ' + anything, logLevel);
+    }
+
+    this.fail = function(anything, logLevel) {
+        return this.log('FAIL: ' + anything, logLevel);
+    }
+
+    this.error = function(anything, logLevel) {
+        return this.log('!ERROR: ' + anything, logLevel);
+    }
+
+    this.warn = function(anything, logLevel) {
+        return this.log('WARN: ' + anything, logLevel);
+    }
 };
 
 module.exports = new Debug();

@@ -20,6 +20,25 @@ var namespace = {
     CACHE_DIR: CACHE_DIR };
 
 /**
+ * Reference to the Debug 'singleton'
+ * @memberof Periodiq */
+namespace.Debug = require(ROOT_DIR + '/debug.js');
+/**
+ * Reference to the Core 'singleton'
+ * @memberof Periodiq */
+namespace.Core = require(STATIC_DIR + '/core.js');
+/**
+ * Reference to the Render 'singleton'
+ * @memberof Periodiq */
+namespace.Render = require(STATIC_DIR + '/render.js');
+/**
+ * Reference to the EventController 'singleton'
+ * @memberof Periodiq */
+namespace.EventController = require(STATIC_DIR + '/event.js');
+
+module.export = namespace;
+
+/**
  * Looks recursively for any element classes in a given root directory,
  * and then returns an array with all found modules, already loaded.
  * Element classes are recognized in any folder that contains an element.js file.
@@ -73,6 +92,7 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
             try {
                 var key = '';
                 var __class = require(path);
+
                 /* Retrieve possible class name override */
                 if (__class.__CLASS_NAME_OVERRIDE !== undefined) {
                     key = __class.__CLASS_NAME_OVERRIDE;
@@ -80,26 +100,27 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
                     key = buildClassName();
                 }
 
-                __class.__BASE_DIR = function() { return path.replace('element.js', ''); };
+                __class.__BASE_DIR = Path.normalize(path.replace('element.js', ''));
                 __class.__CLASS_NAME = key;
 
+                /* Try to find element action */
                 try {
                     var actionPath = path.replace('.js', '.action.js');
                     var action = require(actionPath);
-                    action.__PATH = actionPath;
-                    __class.__ACTION = action;
-                    Debug.log('found action for ' + key, 2);
+                    action.__PATH = Path.normalize(actionPath);
+                    __class.Action = action;
+                    Debug.success(key + '.Action: found.', 3);
                 } catch(err) {
-                    __class.__ACTION = null;
-                    Debug.log('no action found for Element class ' + key, 2);
+                    __class.Action = null;
+                    Debug.fail(key + '.Action: fail, reason: ' + err, 3);
                 }
 
                 loaded[key] = __class;
 
-                Debug.log('loaded element ' + key +
+                Debug.success('loaded element ' + key +
                     ' (...' + path.slice(path.length - 24) + ')', 1);
             } catch(err) {
-                Debug.log('could not load module <' + key + '>, ' + err, 0);
+                Debug.warn('could not load module <' + key + '>, ' + err, 0);
             }
         });
         return loaded;
@@ -112,14 +133,6 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
     return loaded;
 }
 
- /**
-  * Reference to the Core 'singleton'
-  * @memberof Periodiq */
-namespace.Core = require(STATIC_DIR + '/core.js');
-/**
- * Reference to the Render 'singleton'
- * @memberof Periodiq */
-namespace.Render = require(STATIC_DIR + '/render.js');
 /**
  * Object containing all default/standard Element Classes
  * @memberof Periodiq */

@@ -5,7 +5,7 @@ _Periodiq_ is a fast, lightweight and extendable open-source Framework for NodeJ
 designed to provide a pleasant and simple yet well-structured and guided coding experience.
 
 _Periodiq_'s main application case is intended to be targeted at the
-structured and organized creation of platform-independent applications -
+structured and organized creation of platform-independent applications,
 but it doesn't close the other doors: _Periodiq_ invites you to convert your
 creative, experimental and innovative output and ideas into working applications.
 _Periodiq_ comes with just as much rules as really needed, but always keeps them as little as possible.
@@ -14,7 +14,7 @@ _Periodiq_'s workflow completely abandons any form of interaction with HTML or C
 You are completely detached from the monotonous torture of writing static markup,
 resulting in a feeling of freedom and levitation that persists to the last commit and beyond.
 
-Just pure, simple and honest JavaScript.
+It's just pure & simple JavaScript.
 
 _Periodiq_ comes with the so-called 'ElementTree' system, a smart and fully extendable
 module tree to perfectly fit all the needs for even the most adventurous projects.
@@ -37,7 +37,7 @@ across the Framework.
 
 
 
-Crafted by dave@sygade.eu, aka 'Qrakhen'.
+Crafted by dave@sygade.eu (Qrakhen)
 
 http://qrakhen.net/
 
@@ -56,6 +56,12 @@ I'd really enjoy that.
 
 Still not finished and under constant development.
 http://doc.pq.sygade.eu
+
+
+
+## Setup Guide
+
+editme
 
 
 
@@ -175,11 +181,11 @@ The Action class will be created for every single element of that type found in 
 Excerpt from `elements/abstract/element.action.js`
 
     /**
-     * ...You can extend this class by using require('periodiq').Elements.Abstract.__ACTION
+     * ...You can extend this class by using require('periodiq').Elements.Abstract.Action
      *
      * Note that this will NOT be automatically extended and needs to be extended for every Element class.
      * If you really want to directly reference another element's action, you can overwrite
-     * your Element.__ACTION - but that is not recommended. */
+     * your Element.Action - but that is not recommended. */
      class AbstractAction {
 
          /**
@@ -192,6 +198,10 @@ Excerpt from `elements/abstract/element.action.js`
      }
 
      module.exports = AbstractAction;
+
+Example implementation for a Button that triggers a callback from the view:
+
+    editme
 
 #### Assigning Dedicated Dynamic Styles
 
@@ -249,7 +259,7 @@ This theme can then be applied by using theme.apply(element);
 If the Render instance has an active Theme set `(Render.setTheme(theme))`,
 it will automatically apply it to every element that passed during render.
 
-I know that this section lacks a lot of information and will be updated as soon as I have time for this.
+editme
 
 
 
@@ -257,9 +267,13 @@ I know that this section lacks a lot of information and will be updated as soon 
 
 _who needs databases when you have platform independency_
 
+
+
 ## Exporting to another Device/OS
 
 soon(tm)
+
+
 
 ## Periodiq-CLI
 (not yet released)
@@ -270,6 +284,8 @@ soon(tm)
 
 
 
-## Changelog
+## FAQ
+
+## Version History
 
     n.y.r
