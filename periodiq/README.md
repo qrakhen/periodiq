@@ -114,16 +114,19 @@ More examples and some demo projects will follow soon.
 I'll list all important features and details here soon.
 
 ### Elements
+#### Element Actions
 ### Core
 ### Render
 ### Electron
-#### Cross Process Communication
+
 
 
 
 ## Extending & Modifying Periodiq
 
 ### Creating Custom Elements
+
+#### Basic Element Setup
 
 Creating custom Elements is kept simple and comes with only 3 requirements:
  - Each Element needs its own folder, somewhere within your project.
@@ -157,9 +160,42 @@ the auto-loader's naming:
 
     MyCustomElement.\__CLASS_NAME_OVERRIDE = 'SuperCustomizedClassName_With_Underscores';
 
-Beware of extending a class with an overwritten name!
-If you forgrt to unset or override that property in a child class,
+Beware of extending a class that has an overwritten name!
+If you forget to unset or override that property in a child class,
 all your inheriting classes will be known as 'SuperCustomizedClassName_With_Underscores'.
+
+#### Assigning an Action
+
+Actions are the 'client'-side parts of an element.
+They will be loaded for each element that has an action file in its folder.
+The action file has to be called `element.action.js`.
+If the Periodiq loader finds that file, it will assign it to the Element's prototype and included within html output.
+The Action class will be created for every single element of that type found in the element tree. If you want to turn off action execution for some element instances, set `element.blockAction` to `false`. (default: true)
+
+Excerpt from `elements/abstract/element.action.js`
+
+    /**
+     * ...You can extend this class by using require('periodiq').Elements.Abstract.__ACTION
+     *
+     * Note that this will NOT be automatically extended and needs to be extended for every Element class.
+     * If you really want to directly reference another element's action, you can overwrite
+     * your Element.__ACTION - but that is not recommended. */
+     class AbstractAction {
+
+         /**
+          * Will be called for each found DOM node for this element,
+          * so the element parameter is NOT an periodiq Element class object,
+          * @param {DomNode} element element dom node, queried by id. */
+         constructor(element) {
+             this.element = element;
+         }
+     }
+
+     module.exports = AbstractAction;
+
+#### Assigning Dedicated Dynamic Styles
+
+    soon(tm)
 
 
 
