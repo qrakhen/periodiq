@@ -1,8 +1,8 @@
 const fs = require('fs');
-const path = require('path');
+const Path = require('path');
 const Debug = require('../debug.js');
 const THEME_DEFAULT = require('../themes/empty/theme.js');
-const CACHE_DIR = path.join(__dirname + '/../cache/');
+const CACHE_DIR = Path.join(__dirname + '/../cache/');
 //todo use require for DIR and stuff
 
 /**
@@ -32,7 +32,7 @@ var Render = function() {
             header = this.createHtmlElement(null, null, 'head');
 
             // TEMP! make this beatiful pls. //
-        var clientScript = '<script src="' + path.join(__dirname + '/client.js') + '"></script>';
+        var clientScript = '<script src="' + Path.join(__dirname + '/client.js') + '"></script>';
 
         if (this.theme !== null)
             Debug.log('render currently has an active theme set (' + this.theme.key + ')\r\n'
@@ -97,6 +97,11 @@ var Render = function() {
         if (element === undefined || element === null)
             return '';
 
+        if (element.__CLASS_NAME === 'Abstract') {
+            Debug.log('tried to render AbstractElement, skipped ' + element.id, 0);
+            return ''
+        }
+
         var count = count + 1 || 0,
             recursive = recursive || true,
             content = '';
@@ -129,7 +134,7 @@ var Render = function() {
 
         /* Compose HTML Element */
         var attr = {
-            eid: element.id,
+            id: element.id,
             class: element.body.styleRules.data.join(' '),
             type: element.TYPE,
             style: this.buildStyleString(element) };
@@ -139,7 +144,16 @@ var Render = function() {
         }
         var html = this.createHtmlElement(attr, content, element.body.type);
         /* afterElement(html) */
+        if (element.ACTION !== null && element.ACTION !== undefined) {
+            html += this.buildActionScriptTag(element);
+        }
         return html;
+    };
+
+    this.buildActionScriptTag = function(element) {
+        var script = 'var a=require("' + element.ACTION.__PATH + '");' +
+            'new a(document.getElementById("' + element.id + '"));'
+        return '<script>' + script + '</script>';
     };
 
     /**

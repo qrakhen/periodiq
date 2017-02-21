@@ -1,8 +1,8 @@
 const fs = require('fs');
-const path = require('path');
+const Path = require('path');
 const Debug = require('./debug.js');
 
-const ROOT_DIR = path.join(__dirname + '/');
+const ROOT_DIR = Path.join(__dirname + '/');
 const STATIC_DIR = ROOT_DIR + '/static';
 const ELEMENT_DIR = ROOT_DIR + '/elements';
 const CACHE_DIR = ROOT_DIR + '/cache';
@@ -46,7 +46,7 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
     /* Returns found element modules according to folder structure,
      * for example 'content', 'content/image' or 'root' */
     var walk = function(dir) {
-        var elements = [],
+        var elements = [];
         list = fs.readdirSync(dir);
         list.forEach(function(element) {
             element = dir + '/' + element;
@@ -69,7 +69,7 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
                 var trim = path.replace(rootDir, '').replace('/element.js', '').slice(1);
                 var keys = trim.split('/'), key = '';
                 keys.forEach((k) => { key += k.charAt(0).toUpperCase() + k.slice(1); });
-                return prefix + key + postfix ; };
+                return prefix + key + postfix; };
             try {
                 var key = '';
                 var __class = require(path);
@@ -85,6 +85,19 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
                 loaded[key].__CLASS_NAME = key;
                 Debug.log('loaded element ' + key +
                     ' (...' + path.slice(path.length - 24) + ')', 1);
+
+                try {
+                    var actionPath = path.replace('.js', '.action.js');
+                    var action = require(actionPath);
+                    action.__PATH = actionPath;
+                    loaded[key].__ACTION = action;
+                    Debug.log('found action for ' + key, 1);
+                } catch(err) {
+                    loaded[key].__ACTION = null;
+                    Debug.log('no action found for Element class ' + key, 2);
+                }
+
+                console.log(loaded[key]);
             } catch(err) {
                 Debug.log('could not load module <' + key + '>, ' + err, 0);
             }

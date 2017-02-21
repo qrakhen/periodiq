@@ -7,7 +7,8 @@ const Debug = require('../../debug.js');
  * */
 class AbstractElement {
     constructor() {
-        this.TYPE = AbstractElement.__CLASS_NAME;
+        this.TYPE = Object.getPrototypeOf(this).__CLASS_NAME;
+        this.ACTION = Object.getPrototypeOf(this).__ACTION;
         this.FINAL = false;         // FINAL elements won't enter recursion mode and can't have children
         this.id = null;             // unique element id, recursively displays element tree
         this.parent = null;         // parent element reference

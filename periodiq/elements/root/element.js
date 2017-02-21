@@ -5,7 +5,6 @@
 class RootElement extends require('../base/element.js') {
     constructor(rootId, width, height) {
         super();
-        this.TYPE = RootElement.__CLASS_NAME;
         this.id = rootId || 'root';
         this.body.type = 'root';
         this.setSize(width, height);

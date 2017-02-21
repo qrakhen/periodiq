@@ -4,7 +4,6 @@
 class ActionButtonElement extends require('../element.js') {
     constructor() {
         super();
-        this.TYPE = ActionButtonElement.__CLASS_NAME;
         this.content = 'btn';
         this.setSize(72, 24);
         this.setColor('#323232');

@@ -8,7 +8,6 @@ const List = require('sygtools').List;
 class BaseElement extends require('../abstract/element.js') {
     constructor() {
         super();
-        this.TYPE = BaseElement.__CLASS_NAME;
         this.body = {
             type: 'el',
             styleRules: new List(),

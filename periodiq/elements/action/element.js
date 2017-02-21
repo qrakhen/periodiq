@@ -7,7 +7,6 @@
 class ActionElement extends require('../base/element.js') {
     constructor() {
         super();
-        this.TYPE = ActionElement.__CLASS_NAME;
         this.body.type = 'iac';
     }
 }
