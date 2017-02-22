@@ -12,6 +12,6 @@
     "sygtools": "^0.2.7"
   },
   "devDependencies": {
-    "electron": "^1.4.1",
+    "electron": "^1.4.1"
   }
 }

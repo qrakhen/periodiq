@@ -26,8 +26,9 @@ var Assembler = function() {
                 stack += content + '\r\n';
             }
 
-            fs.writeFile(outputFilePath, function(err) {
+            fs.writeFile(outputFilePath, stack, function(err) {
                 if (err) console.log(err);
+                console.log('done');
             });
         });
     }

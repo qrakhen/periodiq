@@ -43,7 +43,8 @@ var Render = function() {
         /* @todo: Check cache first */
         var _dbgTime = new Date().getTime();
         var body = this.createHtmlElement(null, this.buildElement(bodyRoot), 'body'),
-            head = this.buildElement(header) + clientScript,
+            /** @todo !!!!! */
+            head = this.buildElement(header) + clientScript + '<link rel="stylesheet" href="file:///C:/Users/Dave/projects/periodiq/periodiq/build/styles/elements.pq.css">',
             html = this.createHtmlElement({style: 'overflow: hidden;'}, head + body, 'html');
         /* afterView(html) */
         this.dispatch(html, bodyRoot.id, done);
