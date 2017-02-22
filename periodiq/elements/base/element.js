@@ -34,6 +34,7 @@ class BaseElement extends require('../abstract/element.js') {
 
     /**
      * Overwrites given style value or adds a new one it if didn't exist
+     * Also overrides this element's .css file, if given, because learnStyle sets inline styles.
      * @param {string} key
      * @param {string} value */
     learnStyle(key, value) {

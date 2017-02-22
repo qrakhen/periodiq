@@ -2,6 +2,9 @@
     display: block;
     width: 120px;
     height: 40px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
     background-color: #161616;
 }
 

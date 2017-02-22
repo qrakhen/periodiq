@@ -21,7 +21,7 @@ var Assembler = function() {
                     continue;
 
                 var content = fs.readFileSync(file, { encoding: 'UTF8' });
-                content = content.replace(/\s/g, '').replace(/\n/g, '');
+                content = content.replace(/\t/g, '').replace(/\n/g, '');
                 content = content.replace(/.element/g, ' .' + __class.__NAMESPACE + '_' + __class.__CLASS_NAME);
                 stack += content + '\r\n';
             }
