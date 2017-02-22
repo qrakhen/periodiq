@@ -18,12 +18,11 @@ const ThemePicker = require('./periodiq/theme/picker.js');
 
 Core.launch(Electron, new Element.Root('pq-demo', 1280, 960), {}, function() {
     var theme = ThemePicker.loadTheme('default');
-    Core.root.setColor(theme.colors.background).setTextColor(theme.colors.text.main);
+
     var spacer = new Element.LayoutSpacer().attach(Core.root);
     var content = new Element.LayoutContainer().attach(Core.root)
         .learnStyle('text-align', 'center')
-        .learnStyle('border-bottom', '2px solid ' + theme.colors.accent)
-        .setColor(theme.colors.layer);
+        .learnStyle('border-bottom', '2px solid ' + theme.colors.accent).setColor(theme.colors.mainBright);
     var wrapper = new Element.LayoutWrapper()
         .attach(content)
         .center();

@@ -1,10 +1,10 @@
 {
-    "background": "#141414",
-    "layer": "#181818",
-    "surface": "#727272",
-    "accent": "#2496F2",
-    "text": {
-        "main": "#E2E2E2",
-        "link": "#1672A7"
-    }
+    "mainDark": "#192027",
+    "mainColor": "#22252C",
+    "mainBright": "#293137",
+    "contrast": "#C0B3A0",
+    "accent": "#E14658",
+    "fontDark": "#3F3250",
+    "fontBright": "#C0B3A0",
+    "linkText": "#E14658"
 }

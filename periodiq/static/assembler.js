@@ -7,7 +7,8 @@ const BUILD_DIR = __dirname + '/../build/';
 
 var Assembler = function() {
 
-    this.buildElementStyles = function(elements, namespace) {
+    this.buildElementStyles = function(elements, namespace, theme) {
+        if (theme === undefined) theme = require(__dirname + '/../theme/picker.js').loadTheme('default');
         var outputFilePath = BUILD_DIR + 'styles/elements.' + namespace + '.css';
         fs.unlink(outputFilePath, function(err) {
             if (err) Debug.log(err, 3);
@@ -20,6 +21,11 @@ var Assembler = function() {
                     continue;
 
                 var content = fs.readFileSync(file, { encoding: 'UTF8' });
+                for (var color in theme.colors) {
+                    var placeHolder = '\\\$' + color;
+                    var regex = new RegExp(placeHolder, 'g');
+                    content = content.replace(regex, theme.colors[color]);
+                }
                 content = content.replace(/\t+/g, '').replace(/\n/g, ''); /** @todo fix border: 1px solid <- whitespace */
                 content = content.replace(/.element/g, ' .' + __class.__NAMESPACE + '_' + __class.__CLASS_NAME);
                 stack += content + '\r\n';

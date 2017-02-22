@@ -1,20 +1,24 @@
 .element {
     margin: 0;
     padding: 0;
-    background: #242424;
+    background: $mainColor;
     position: relative;
     line-height: 40px;
     width: 120px;
     cursor: pointer;
 }
 
+.element:hover {
+    background: $mainDark;
+}
+
 .element .container {
     position: absolute;
     top: 40px;
     left: 0;
-    background: #181818;
-    transition: all 1s;
-    height: 0;
+    background: $mainBright;
+    transition: all 0.3s;
+    height: 0px;
     width: 100%;
 }
 
@@ -23,15 +27,16 @@
 }
 
 .element .container .item {
-    display: none;
+    opacity: 0;
+    transition: all 0.3s;
     width: 100%;
     height: 40px;
 }
 
 .element:hover .container .item {
-    display: block;
+    opacity: 1;
 }
 
 .element .container .item:hover {
-    background: #212121;
+    background: $accent;
 }

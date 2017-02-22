@@ -61,6 +61,16 @@ var Core = function() {
                     this.setView(file);
                 }.bind(this));
             }.bind(this));
+            electron.globalShortcut.register('Ctrl+R', function() {
+                Debug.log('rebuild shortcut triggered', 1);
+                var _buildTimer = new Date().getTime();
+                var loader = require('../loader.js');
+                loader.Element = loader.loadElementDir(path.join(__dirname + '/../elements/'));
+                require('./render.js').buildView(this.root, function(file) {
+                    this.setView(file);
+                    Debug.success('build finished! time.total = ' + (new Date().getTime() - _buildTimer));
+                }.bind(this));
+            }.bind(this));
             ready();
         }.bind(this));
     }.bind(this);
