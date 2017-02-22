@@ -1,11 +1,15 @@
 const fs = require('fs');
 const Path = require('path');
 const Debug = require('./debug.js');
+const Assembler = require('./static/assembler');
 
+const NAMESPACE = 'pq';
 const ROOT_DIR = Path.join(__dirname + '/');
 const STATIC_DIR = ROOT_DIR + '/static';
 const ELEMENT_DIR = ROOT_DIR + '/elements';
 const CACHE_DIR = ROOT_DIR + '/cache';
+
+var __indev = true, __build = true;
 
 /**
  * Framework Entry Point;
@@ -43,6 +47,12 @@ module.export = namespace;
  * and then returns an array with all found modules, already loaded.
  * Element classes are recognized in any folder that contains an element.js file.
  *
+ * The provided root directory should contain a set.json file that describes
+ * that set of elements. The 'prefix' stored in there key will be used to prefix
+ * all element's main css classes and to build the css file from all elements.
+ * If your element directory does not contain an set.json file, NO prefix
+ * will be taken - which might result in an obfuscated namespace.
+ *
  * The element keys (aka class names) will be named after the location
  * where they have been found in. example:
  *      /rootDir/home/menu/top/button -> HomeMenuTopButton
@@ -61,6 +71,14 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
         Debug.log('loading built-in standard elements', 0);
     else
         Debug.log('loading external element set from ' + rootDir, 0);
+
+    var elementSet = {};
+    try {
+        elementSet = JSON.parse(fs.readFileSync(rootDir + '/set.json').toString());
+    } catch(err) {
+        Debug.error('error while trying to parse root.json: ' + err, 0);
+        elementSet.prefix = 'noset';
+    }
 
     /* Returns found element modules according to folder structure,
      * for example 'content', 'content/image' or 'root' */
@@ -102,6 +120,7 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
 
                 __class.__BASE_DIR = Path.normalize(path.replace('element.js', ''));
                 __class.__CLASS_NAME = key;
+                __class.__NAMESPACE = elementSet.prefix;
 
                 /* Try to find element action */
                 try {
@@ -123,6 +142,12 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
                 Debug.warn('could not load module <' + key + '>, ' + err, 0);
             }
         });
+
+        if (__build) {
+            Debug.log('starting build', 0);
+            Assembler.buildElementStyles(loaded, elementSet.prefix);
+        }
+
         return loaded;
     };
     var loaded = loadElements(walk(rootDir));
@@ -136,6 +161,7 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
 /**
  * Object containing all default/standard Element Classes
  * @memberof Periodiq */
-namespace.Element = namespace.loadElementDir(ELEMENT_DIR);
+namespace.Element = namespace.loadElementDir(ELEMENT_DIR, NAMESPACE);
+
 
 module.exports = namespace;

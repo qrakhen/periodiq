@@ -4,6 +4,7 @@
  *
  **/
 
+const url = require('url');
 const Path = require('path');
 const List = require('sygtools').List;
 const Electron = require('electron');
@@ -12,33 +13,25 @@ const Periodiq = require('./periodiq/loader.js');
 const Element = Periodiq.Element;
 const Render = Periodiq.Render;
 const Core = Periodiq.Core;
-const CustomElement = Periodiq.loadElementDir(Path.join(__dirname + '/elements/'));
+//const CustomElement = Periodiq.loadElementDir(Path.join(__dirname + '/elements/'));
 
 Core.launch(Electron, new Element.Root('pq-demo', 1280, 960), {}, function() {
-    var head = new Element.Header('head', 'wurschtsemmerl');
 
-    var footer = new CustomElement.MusicFooter();
-    footer.addStyleRule(['back']);
-    footer.attach(Core.root);
+    var spacer = new Element.LayoutSpacer().attach(Core.root);
+    var content = new Element.LayoutContainer().attach(Core.root)
+        .learnStyle('text-align', 'center')
+        .learnStyle('border-bottom', '2px solid #32E264')
+        .setColor('#181818');
+    var wrapper = new Element.LayoutWrapper()
+        .attach(content)
+        .center();
+    var headline = new Element.ContentHeadline('periodiq.').attach(wrapper).center();
+    var spacer2  = new Element.LayoutSpacer().attach(wrapper);
+    var button = new Element.ActionButton().attach(wrapper).setMargin(0, 0, 30, 0);
 
-    var base = new Element.Base();
-    base.setSize(128, 128)
-        .setColor('#AA3377')
-        .forgetStyle('margin');
-
-    var base2 = new Element.Base();
-    base2.setSize(96, 96)
-        .setColor('#72F932')
-        .setMargin(8, 8, 8, 8);
-
-
-    base.attach(Core.root);
-    base2.attach(Core.root);
-
-    new Element.ActionButton().attach(footer);
-
+    content.attach(Core.root);
     Core.root.enable();
-    Render.buildView(head, Core.root, function(viewFile) {
+    Render.buildView(Core.root, function(viewFile) {
         Core.setView(viewFile);
     });
 });

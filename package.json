@@ -9,7 +9,6 @@
     "dev": "electron ."
   },
   "dependencies": {
-    "node-sass": "^4.5.0",
     "sygtools": "^0.2.7"
   },
   "devDependencies": {

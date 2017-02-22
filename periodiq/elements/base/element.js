@@ -10,32 +10,31 @@ class BaseElement extends require('../abstract/element.js') {
         super();
         this.body = {
             type: 'el',
-            styleRules: new List(),
+            class: new List(), /** Additional CSS classes */
             attributes: {},
-            style: {
-                display: 'block',
-                border: '1px solid #000'
-        }};
+            style: {} /** Manually overriding style object */
+        }
     }
 
     /**
-     * Adds a single rule or an array of rules to this element's rule set.
+     * Adds an additional CSS class next to the static one (i.e. pq_Base)
      * @param {string} rule */
-    addStyleRule(rule) {
-        this.body.styleRules.add(rule);
+    addClass(cssClass) {
+        this.body.class.add(cssClass);
         return this;
     }
 
     /**
-     * Removes a single rule or an array of rules to this element's rule set.
+     * Removes given CSS class
      * @param {string} rule */
-    removeStyleRule(rule) {
-        this.body.styleRules.remove(rule);
+    removeClass(cssClass) {
+        this.body.class.remove(cssClass);
         return this;
     }
 
     /**
      * Overwrites given style value or adds a new one it if didn't exist
+     * Also overrides this element's .css file, if given, because learnStyle sets inline styles.
      * @param {string} key
      * @param {string} value */
     learnStyle(key, value) {
@@ -73,6 +72,12 @@ class BaseElement extends require('../abstract/element.js') {
     setSize(width, height, unit) {
         if (width !== null) this.learnStyle('width', width);
         if (height !== null) this.learnStyle('height', height);
+        return this;
+    }
+
+    center() {
+        this.body.style.margin_left = 'auto';
+        this.body.style.margin_right = 'auto';
         return this;
     }
 
@@ -133,6 +138,11 @@ class BaseElement extends require('../abstract/element.js') {
     getFullType(type) {
         type = type || '';
         return super.getFullType(this.TYPE + ' ' + type);
+    }
+
+    appendUnit(val, unit) {
+        if (!val.contains('%') && !val.contains('px'))
+            return val + (unit || 'px');
     }
 }
 
