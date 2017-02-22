@@ -2,6 +2,7 @@
 /* @todo von außen ansteuerbar */
 
 const fs = require('fs');
+const Debug = require('../debug.js');
 const BUILD_DIR = __dirname + '/../build/';
 
 var Assembler = function() {
@@ -9,7 +10,7 @@ var Assembler = function() {
     this.buildElementStyles = function(elements, namespace) {
         var outputFilePath = BUILD_DIR + 'styles/elements.' + namespace + '.css';
         fs.unlink(outputFilePath, function(err) {
-            if (err) console.log(err)
+            if (err) Debug.log(err, 3);
 
             var stack = '';
             for (var e in elements) {
@@ -19,14 +20,14 @@ var Assembler = function() {
                     continue;
 
                 var content = fs.readFileSync(file, { encoding: 'UTF8' });
-                content = content.replace(/\s/g, '').replace(/\n/g, ''); /** @todo fix border: 1px solid <- whitespace */
+                content = content.replace(/\t+/g, '').replace(/\n/g, ''); /** @todo fix border: 1px solid <- whitespace */
                 content = content.replace(/.element/g, ' .' + __class.__NAMESPACE + '_' + __class.__CLASS_NAME);
                 stack += content + '\r\n';
             }
 
             fs.writeFile(outputFilePath, stack, function(err) {
                 if (err) console.log(err);
-                console.log('done');
+                Debug.success('build finished: css styles for namespace ' + namespace);
             });
         });
     }

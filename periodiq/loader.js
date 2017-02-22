@@ -47,6 +47,12 @@ module.export = namespace;
  * and then returns an array with all found modules, already loaded.
  * Element classes are recognized in any folder that contains an element.js file.
  *
+ * The provided root directory should contain a set.json file that describes
+ * that set of elements. The 'prefix' stored in there key will be used to prefix
+ * all element's main css classes and to build the css file from all elements.
+ * If your element directory does not contain an set.json file, NO prefix
+ * will be taken - which might result in an obfuscated namespace.
+ *
  * The element keys (aka class names) will be named after the location
  * where they have been found in. example:
  *      /rootDir/home/menu/top/button -> HomeMenuTopButton
@@ -56,18 +62,23 @@ module.export = namespace;
  * @memberof Periodiq
  * @function loadElementDir
  * @param {string} rootDir The directory to be searched for element classes.
- * @param {string} namespace The namespace that will be used for CSS classes and general seperation of external elements
  * @param {string} prefix optional prefix for all class names that will be returned [prefix]ClassName
  * @param {string} postfix optional postfix for all class names that will be returned ClassName[postfix]
  * @returns {object} - An object containing all loaded element classes.
  **/
-namespace.loadElementDir = function(rootDir, namespace, prefix, postfix) {
+namespace.loadElementDir = function(rootDir, prefix, postfix) {
     if (rootDir == ELEMENT_DIR)
         Debug.log('loading built-in standard elements', 0);
     else
         Debug.log('loading external element set from ' + rootDir, 0);
 
-    var namespace = namespace || '';
+    var elementSet = {};
+    try {
+        elementSet = JSON.parse(fs.readFileSync(rootDir + '/set.json').toString());
+    } catch(err) {
+        Debug.error('error while trying to parse root.json: ' + err, 0);
+        elementSet.prefix = 'noset';
+    }
 
     /* Returns found element modules according to folder structure,
      * for example 'content', 'content/image' or 'root' */
@@ -109,7 +120,7 @@ namespace.loadElementDir = function(rootDir, namespace, prefix, postfix) {
 
                 __class.__BASE_DIR = Path.normalize(path.replace('element.js', ''));
                 __class.__CLASS_NAME = key;
-                __class.__NAMESPACE = namespace;
+                __class.__NAMESPACE = elementSet.prefix;
 
                 /* Try to find element action */
                 try {
@@ -134,7 +145,7 @@ namespace.loadElementDir = function(rootDir, namespace, prefix, postfix) {
 
         if (__build) {
             Debug.log('starting build', 0);
-            Assembler.buildElementStyles(loaded, namespace);
+            Assembler.buildElementStyles(loaded, elementSet.prefix);
         }
 
         return loaded;

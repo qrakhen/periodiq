@@ -10,26 +10,25 @@ class BaseElement extends require('../abstract/element.js') {
         super();
         this.body = {
             type: 'el',
-            cssClasses: new List(), /** Additional CSS classes */
-            styleRules: new List(), /* remove this some day */
+            class: new List(), /** Additional CSS classes */
             attributes: {},
-            style: {}
+            style: {} /** Manually overriding style object */
         }
     }
 
     /**
      * Adds an additional CSS class next to the static one (i.e. pq_Base)
      * @param {string} rule */
-    addCssClass(cssClass) {
-        this.body.cssClasses.add(cssClass);
+    addClass(cssClass) {
+        this.body.class.add(cssClass);
         return this;
     }
 
     /**
-     * Removes given CSS class 
+     * Removes given CSS class
      * @param {string} rule */
-    removeCssClass(cssClass) {
-        this.body.cssClasses.remove(cssClass);
+    removeClass(cssClass) {
+        this.body.class.remove(cssClass);
         return this;
     }
 
@@ -73,6 +72,12 @@ class BaseElement extends require('../abstract/element.js') {
     setSize(width, height, unit) {
         if (width !== null) this.learnStyle('width', width);
         if (height !== null) this.learnStyle('height', height);
+        return this;
+    }
+
+    center() {
+        this.body.style.margin_left = 'auto';
+        this.body.style.margin_right = 'auto';
         return this;
     }
 

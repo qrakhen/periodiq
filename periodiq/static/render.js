@@ -21,17 +21,16 @@ var Render = function() {
      * @param {Element} header the header element - can be set to null for an empty header
      * @param {RootElement} bodyRoot the root of the page to be rendered (i.e. Core.root)
      * @param {function} done success callback, returns the filename of the generated/cached html output */
-    this.buildView = function(header, bodyRoot, done) {
+    this.buildView = function(bodyRoot, done) {
         if (!bodyRoot.active) {
             throw new Exception();
             Debug.log('can not render inactive element ' + bodyRoot.toString());
             return; }
 
-        if (header == null)
-            header = this.createHtmlElement(null, null, 'head');
-
-            // TEMP! make this beatiful pls. //
+        /** @todo */
         var clientScript = '<script src="' + Path.join(__dirname + '/client.js') + '"></script>';
+        var clientCss = '<link rel="stylesheet" href="' + Path.join(__dirname + '/../build/styles/elements.pq.css') + '">';
+        var headerElement = this.createHtmlElement(null, clientScript + clientCss, 'head');
 
         if (this.theme !== null)
             Debug.log('render currently has an active theme set (' + this.theme.key + ')\r\n'
@@ -44,7 +43,7 @@ var Render = function() {
         var _dbgTime = new Date().getTime();
         var body = this.createHtmlElement(null, this.buildElement(bodyRoot), 'body'),
             /** @todo !!!!! */
-            head = this.buildElement(header) + clientScript + '<link rel="stylesheet" href="file:///C:/Users/Dave/projects/periodiq/periodiq/build/styles/elements.pq.css">',
+            head = headerElement,
             html = this.createHtmlElement({style: 'overflow: hidden;'}, head + body, 'html');
         /* afterView(html) */
         this.dispatch(html, bodyRoot.id, done);
@@ -101,16 +100,10 @@ var Render = function() {
 
         /** @todo beforeElement(element) */
 
-        /* Apply Theme */
-        if (this.theme !== null)
-            this.theme.apply(element);
-
-        /** @todo afterElementTheme(element) */
-
         /* Compose HTML Element */
         var attr = {
             id: element.id,
-            class: ((element.NAMESPACE + '_' + element.TYPE) + ' ' + element.body.cssClasses.data.join(' ')).trim(),
+            class: ((element.NAMESPACE + '_' + element.TYPE) + ' ' + element.body.class.data.join(' ')).trim(),
             type: element.getType(),
             style: this.buildStyleString(element) };
         if (element.body.attributes !== undefined) {
@@ -118,6 +111,7 @@ var Render = function() {
                 attr[a] = element.body.attributes[a];
         }
         var html = this.createHtmlElement(attr, content, element.body.type);
+
         /** @todo afterElement(html) */
         if (element.ACTION !== null && element.ACTION !== undefined) {
             if (!element.blockAction)

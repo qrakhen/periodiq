@@ -9,7 +9,6 @@ class ButtonAction extends require(__dirname + '/../../abstract/element.action.j
      * @param {DomNode} element element dom node, queried by id. */
     constructor(element) {
         super(element);
-        this.originalStyle = element.style.cssText;
         element.addEventListener('click', this.onClick.bind(this));
     }
 
