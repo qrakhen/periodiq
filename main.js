@@ -28,6 +28,11 @@ Core.launch(Electron, new Element.Root('pq-demo', 1280, 960), {}, function() {
     var headline = new Element.ContentHeadline('periodiq.').attach(wrapper).center();
     var spacer2  = new Element.LayoutSpacer().attach(wrapper);
     var button = new Element.ActionButton().attach(wrapper).setMargin(0, 0, 30, 0);
+    var grid = new Element.LayoutGrid(12).attach(wrapper).setColor('#141414')
+        .appendToGrid(new Element.Base().setSize(32, 240).setColor('#726432'), 2)
+        .appendToGrid(new Element.Base().setSize(32, 240).setColor('#364f1c'), 3)
+        .appendToGrid(new Element.Base().setSize(32, 240).setColor('#9a3053'), 4)
+        .appendToGrid(new Element.Base().setSize(32, 120).setColor('#04f892'), 3);
 
     content.attach(Core.root);
     Core.root.enable();
