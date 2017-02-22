@@ -2,7 +2,6 @@ const fs = require('fs');
 const Path = require('path');
 const Debug = require('../debug.js');
 const CACHE_DIR = Path.join(__dirname + '/../cache/');
-//todo use require for DIR and stuff
 
 /**
  * @class Render */
@@ -22,32 +21,22 @@ var Render = function() {
      * @param {RootElement} bodyRoot the root of the page to be rendered (i.e. Core.root)
      * @param {function} done success callback, returns the filename of the generated/cached html output */
     this.buildView = function(bodyRoot, done) {
-        if (!bodyRoot.active) {
-            throw new Exception();
-            Debug.log('can not render inactive element ' + bodyRoot.toString());
-            return; }
+
+        bodyRoot.enable();
 
         /** @todo */
         var clientScript = '<script src="' + Path.join(__dirname + '/client.js') + '"></script>';
         var clientCss = '<link rel="stylesheet" href="' + Path.join(__dirname + '/../build/styles/elements.pq.css') + '">';
         var headerElement = this.createHtmlElement(null, clientScript + clientCss, 'head');
 
-        if (this.theme !== null)
-            Debug.log('render currently has an active theme set (' + this.theme.key + ')\r\n'
-                + 'This theme will be applied to ALL elements during recursion, '
-                + 'overiding all previous identical css keys in element.body.style.\r\n'
-                + 'If this is not in your favor, use Render.setTheme(null)', 0);
-
         Debug.log('rendering view from ' + bodyRoot.toString(), 1);
         /* @todo: Check cache first */
-        var _dbgTime = new Date().getTime();
         var body = this.createHtmlElement(null, this.buildElement(bodyRoot), 'body'),
             /** @todo !!!!! */
             head = headerElement,
             html = this.createHtmlElement({style: 'overflow: hidden;'}, head + body, 'html');
         /* afterView(html) */
         this.dispatch(html, bodyRoot.id, done);
-        Debug.log('view rendered, took ' + (new Date().getTime() - _dbgTime) + 'ms', 1);
     };
 
     this.dispatch = function(content, rootId, done) {
@@ -56,6 +45,7 @@ var Render = function() {
             if (err) return Debug.log('could not write view to file ' + filePath + ': ' + err, 0);
             Debug.log('dispatched view file to ' + filePath, 1);
             if (done !== undefined) done(filePath);
+            //Debug.log('view rendered, took ' + (new Date().getTime() - _dbgTime) + 'ms', 1);
         });
     };
 

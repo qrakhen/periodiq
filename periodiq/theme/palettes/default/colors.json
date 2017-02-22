@@ -1,0 +1,10 @@
+{
+    "background": "#141414",
+    "layer": "#181818",
+    "surface": "#727272",
+    "accent": "#2496F2",
+    "text": {
+        "main": "#E2E2E2",
+        "link": "#1672A7"
+    }
+}

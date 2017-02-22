@@ -55,6 +55,12 @@ var Core = function() {
                 Debug.log('dev tools shortcut triggered', 1);
                 this.rpid.openDevTools()
             }.bind(this));
+            electron.globalShortcut.register('F3', function() {
+                Debug.log('rerender shortcut triggered', 1);
+                require('./render.js').buildView(this.root, function(file) {
+                    this.setView(file);
+                }.bind(this));
+            }.bind(this));
             ready();
         }.bind(this));
     }.bind(this);

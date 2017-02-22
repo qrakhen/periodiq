@@ -131,7 +131,7 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
                     Debug.success(key + '.Action: found.', 3);
                 } catch(err) {
                     __class.Action = null;
-                    Debug.fail(key + '.Action: fail, reason: ' + err, 3);
+                    Debug.fail(key + '.Action: fail, reason: ' + err, 5);
                 }
 
                 loaded[key] = __class;

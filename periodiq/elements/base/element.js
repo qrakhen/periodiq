@@ -32,6 +32,16 @@ class BaseElement extends require('../abstract/element.js') {
         return this;
     }
 
+    show() {
+        this.body.style.display = null;
+        return this;
+    }
+
+    hide() {
+        this.body.style.display = 'none';
+        return this;
+    }
+
     /**
      * Overwrites given style value or adds a new one it if didn't exist
      * Also overrides this element's .css file, if given, because learnStyle sets inline styles.

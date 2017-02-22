@@ -1,0 +1,37 @@
+.element {
+    margin: 0;
+    padding: 0;
+    background: #242424;
+    position: relative;
+    line-height: 40px;
+    width: 120px;
+    cursor: pointer;
+}
+
+.element .container {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background: #181818;
+    transition: all 1s;
+    height: 0;
+    width: 100%;
+}
+
+.element:hover .container {
+    height: auto;
+}
+
+.element .container .item {
+    display: none;
+    width: 100%;
+    height: 40px;
+}
+
+.element:hover .container .item {
+    display: block;
+}
+
+.element .container .item:hover {
+    background: #212121;
+}

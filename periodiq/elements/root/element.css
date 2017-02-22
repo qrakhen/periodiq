@@ -1,7 +1,5 @@
 .element {
     display: block;
-    background-color: #111;
-    color: #EEE;
     font-size: 16px;
     font-family: 'Tahoma';
     width: 100%;
@@ -12,7 +10,7 @@
 body { margin: 0; }
 
 el {
-    display: inline-block;
+    display: block;
     margin: 0;
     padding: 0;
 }

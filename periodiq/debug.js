@@ -1,7 +1,7 @@
 var fs = require('fs');
 
 var Debug = function() {
-    this.logLevel = 5;
+    this.logLevel = 3;
     this.writeToFile = true;
     this.logFile = __dirname + '/log/log_'
         + new Date().getHours() + '_'
@@ -36,6 +36,16 @@ var Debug = function() {
     this.warn = function(anything, logLevel) {
         return this.log('WARN: ' + anything, logLevel);
     }
+};
+
+Debug.LOG_LEVEL = {
+    SILENT: -1,
+    PRODUCTIVE: 0,
+    LESS_PRODUCTIVE: 1,
+    ALMOST_DEBUGGING: 2,
+    DEBUGGING: 3,
+    VERBOSE: 4,
+    KILL_MY_RAM: 5
 };
 
 module.exports = new Debug();
