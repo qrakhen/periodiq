@@ -2,16 +2,14 @@
 /* @todo von außen ansteuerbar */
 
 const fs = require('fs');
-const pq = require(__dirname + '/../loader.js');
 const BUILD_DIR = __dirname + '/../build/';
 
 var Assembler = function() {
 
-    this.buildElementStyles = function(elementDir, namespace) {
+    this.buildElementStyles = function(elements, namespace) {
         var outputFilePath = BUILD_DIR + 'styles/elements.' + namespace + '.css';
         fs.unlink(outputFilePath, function(err) {
             if (err) console.log(err)
-            var elements = pq.loadElementDir(elementDir, namespace);
 
             var stack = '';
             for (var e in elements) {
@@ -21,7 +19,7 @@ var Assembler = function() {
                     continue;
 
                 var content = fs.readFileSync(file, { encoding: 'UTF8' });
-                content = content.replace(/\t/g, '').replace(/\n/g, '');
+                content = content.replace(/\s/g, '').replace(/\n/g, ''); /** @todo fix border: 1px solid <- whitespace */
                 content = content.replace(/.element/g, ' .' + __class.__NAMESPACE + '_' + __class.__CLASS_NAME);
                 stack += content + '\r\n';
             }

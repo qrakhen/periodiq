@@ -8,6 +8,7 @@ class ActionButtonElement extends require('../element.js') {
         this.actionCallback = null;
         this.body.attributes.events = { click: this.TYPE + '_click' };
         this.eventController.addListener(this.body.attributes.events.click, this.onClick.bind(this));
+        this.addCssClass('button');
     }
 
     /**

@@ -1,12 +1,15 @@
 const fs = require('fs');
 const Path = require('path');
 const Debug = require('./debug.js');
+const Assembler = require('./static/assembler');
 
 const NAMESPACE = 'pq';
 const ROOT_DIR = Path.join(__dirname + '/');
 const STATIC_DIR = ROOT_DIR + '/static';
 const ELEMENT_DIR = ROOT_DIR + '/elements';
 const CACHE_DIR = ROOT_DIR + '/cache';
+
+var __indev = true, __build = true;
 
 /**
  * Framework Entry Point;
@@ -128,6 +131,12 @@ namespace.loadElementDir = function(rootDir, namespace, prefix, postfix) {
                 Debug.warn('could not load module <' + key + '>, ' + err, 0);
             }
         });
+
+        if (__build) {
+            Debug.log('starting build', 0);
+            Assembler.buildElementStyles(loaded, namespace);
+        }
+
         return loaded;
     };
     var loaded = loadElements(walk(rootDir));

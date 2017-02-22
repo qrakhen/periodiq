@@ -10,25 +10,26 @@ class BaseElement extends require('../abstract/element.js') {
         super();
         this.body = {
             type: 'el',
-            styleRules: new List(),
+            cssClasses: new List(), /** Additional CSS classes */
+            styleRules: new List(), /* remove this some day */
             attributes: {},
             style: {}
         }
     }
 
     /**
-     * Adds a single rule or an array of rules to this element's rule set.
+     * Adds an additional CSS class next to the static one (i.e. pq_Base)
      * @param {string} rule */
-    addStyleRule(rule) {
-        this.body.styleRules.add(rule);
+    addCssClass(cssClass) {
+        this.body.cssClasses.add(cssClass);
         return this;
     }
 
     /**
-     * Removes a single rule or an array of rules to this element's rule set.
+     * Removes given CSS class 
      * @param {string} rule */
-    removeStyleRule(rule) {
-        this.body.styleRules.remove(rule);
+    removeCssClass(cssClass) {
+        this.body.cssClasses.remove(cssClass);
         return this;
     }
 
