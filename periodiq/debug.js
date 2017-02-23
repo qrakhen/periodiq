@@ -1,8 +1,11 @@
 var fs = require('fs');
 
 var Debug = function() {
-    this.logLevel = 5;
-    this.writeToFile = true;
+    var argIndex = process.argv.indexOf('--debug');
+    var argLevel = parseInt(process.argv[argIndex + 1]);
+    if (argLevel > 0) console.log('  pq.debugger loaded with logLevel ' + argLevel);
+    this.logLevel = argLevel || 0;
+    this.writeToFile = (this.logLevel > -1);
     this.logFile = __dirname + '/log/log_'
         + new Date().getHours() + '_'
         + new Date().getMinutes() + '.txt';
