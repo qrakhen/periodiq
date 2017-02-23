@@ -1,9 +1,9 @@
 {
   "name": "periodiq",
   "version": "0.1.7",
-  "description": "A HTML-free, lightweight and extenable app creation framework for node & electron",
+  "description": "a html-free, lightweight and infinitely extendable framework to create platform-independent apps using node & electron",
   "homepage": "http://periodiq.org",
-  "license": "ISC",
+  "license": "None (yet)",
   "os": [ "*" ],
   "cpu": [ "x64", "x86", "ia32", "arm", "mips" ],
   "main": "loader.js",

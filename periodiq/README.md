@@ -1,74 +1,75 @@
   periodiq.
 =============
 
-_Periodiq_ is a fast, lightweight and extendable open-source Framework for NodeJS,
+**periodiq** is a HTML-free, lightweight and infinitely extendable open-source Framework for NodeJS,
 designed to provide a pleasant and simple yet well-structured and guided coding experience.
 
-_Periodiq_'s main application case is intended to be targeted at the
-structured and organized creation of platform-independent applications,
-but it doesn't close the other doors: _Periodiq_ invites you to convert your
-creative, experimental and innovative output and ideas into working applications.
-_Periodiq_ comes with just as much rules as really needed, but always keeps them as little as possible.
+Altough **periodiq**'s main application case is intended to be targeted at the structured and organized creation of
+platform-independent applications, it doesn't close the other doors: **periodiq** invites you to convert your creative,
+experimental and innovative output and ideas into working applications.
+**periodiq** comes with just as much rules as really needed, but always keeps them as little as possible.
 
-_Periodiq_'s workflow completely abandons any form of interaction with HTML.
-You are completely detached from the monotonous torture of writing static markup,
-resulting in a feeling of freedom and levitation that persists to the last commit and beyond.
+Even tho it is based on Electron, **periodiq**'s workflow completely abandons any form of interaction with HTML.
+You are completely detached from the monotonous torture of writing static markup, assigning classes or using complex
+templating engines. This results in a feeling of freedom and levitation that persists to the last commit and beyond.
 
-It's just pure & simple JavaScript. And CSS.
+It's just pure & solid JavaScript. And some CSS.
 
-_Periodiq_ comes with the so-called 'ElementTree' system, a smart and fully extendable
-module tree to perfectly fit all the needs for even the most adventurous projects.
-You'll also get in touch with the simple yet truly flexible RenderInstance -
-it builds, processes and caches everything you put into it - fully automated.
-Its best friend, the CacheWatcher, will take care of monitoring and managing
-your generated cache - so a refresh will only happen to the actual affected parts -
-with atomic precision, resulting in highly optimizied performance.
+**periodiq** comes with a structured component system, a smart and fully extendable element tree to perfectly fit all the
+needs for even the most adventurous projects. It is completely written using ES6 closures like classes, seperated into
+module files - so you can easily extend **periodiq**'s vast collection of standard built-in elements.
+And all that requires is the creation of one single file - **periodiq** will implement your module on it's own and make
+it accessible within the framework during run-time.
 
-By using Electron as the backbone of _Periodiq_'s rendering and user interface
-system, a wide range of platforms can easily be targeted and reached.
-
-You must be asking: 'Doesn't Electron somehow require HTML/CSS?'
-
-The answer is yes, it does. But _Periodiq_'s RenderInstance takes that off of your
-shoulders - and does the dirty work for you. A lot. It recognizes every change made
-to the element tree and translates your JavaScript code into dynamically generated HTML files.
-_Periodiq_ does a good job at hiding every sign of possible HTML/CSS contamination
-across the Framework.
+After you sticked together some elements, you kindly ask the **periodiq**'s Render system to do the dirty work.
+The entire element tree provided will be rendered down to a fully working application (or web) page, automatically
+including all scoped scripts, styles and attributes.
 
 
 
-Crafted by dave@sygade.eu (Qrakhen)
+Have fun using **periodiq**, the framework that joyfully takes away the boring parts and only leaves the good bits.
 
-http://qrakhen.net/
+
+
+*Crafted by the Sygade Team:*
+
+  dave@sygade.eu ([Qrakhen](http://qrakhen.net/))
+
+& mennoxx@sygade.eu
+
+
+
+[www.periodiq.org](http://periodiq.org)
+
+[Documentation](http://docs.periodiq.org)
+
+[GitHub Repository](https://github.com/qrakhen/periodiq)
+
+[NPM Package(not published yet)]()
+
+
 
 #### Side Note
 
 Please keep in mind that this Framework is still undergoing early development -
 some features might still be missing, and mis- or unexpected behaviour may occur.
-If you got any feedback, feel free let me know via dave@sygade.eu!
-You'd rather contribute something by yourself than having to wait for my response?
-Make me happy, fork this project on GitHub and throw your pull requests at me.
-I'd really enjoy that.
-
-
-
-## Documentation
-
-Still not finished and under constant development.
-http://doc.pq.sygade.eu
+If you got any feedback, feel free let me us know!
+You'd rather contribute something by yourself than having to wait for a response?
+Make me happy, fork this project on GitHub and throw your pull requests at us.
+We'd really enjoy that.
 
 
 
 ## Setup Guide
 
-editme
+soon.
 
 
 
 ## Example Implementation / Quick Start
 
 This is a quick and very dirty example I put together to get a glimpse on what the absolute
-basic features of _Periodiq_ are.
+basic features of **periodiq** are.
 More examples and some demo projects will follow soon.
 
     // require electron to later pass it into periodiq's core
@@ -82,7 +83,7 @@ More examples and some demo projects will follow soon.
     const Core = Periodiq.Core;
 
     // launch the core, providing the electron instance, a root element, and a finish callback
-    Core.launch(Electron, new Element.Root('example', 960, 720), function() {
+    Core.launch(Electron, new Element.Root('example'), null, function() {
         // create a new element, attach it to the root element,
         // set its margin, assign a custom size,
         // and apply a background color
@@ -91,11 +92,7 @@ More examples and some demo projects will follow soon.
         back.attach(Core.root)
             .setMargin(32, 32)
             .setSize(960, 720)
-            // even tho you don't have to, you still _can_ use actual CSS here if you really want to.
-            .learnStyle({
-                background_color: '#141414',
-                font-size: '14px'
-            });
+            .setColor('#161616');
 
         // let's create another element, but attach it to the 'back' element instead of the root
         var square = new Element.Base();
@@ -103,14 +100,10 @@ More examples and some demo projects will follow soon.
             .setSize(64, 64)
             .setPosition(128, 128);
 
-        // we need to enable the root element in order for the render instance to
-        // not bypass it along all its children
-        Core.root.enable();
-
         // build any given element's html, including all children, recursively.
         // in this case, we want to render the root element, resulting in the entire
         // page to be rendered
-        Render.buildView(Core.root, function(viewFile) {
+        Render.buildView(null, Core.root, function(viewFile) {
             // activate the view triggering an url redirect in electron
             Core.setView(viewFile);
         });
@@ -124,8 +117,10 @@ A complete overview on all aspects of Periodiq, supported by example code for ea
 
 ## Elements
 
-The Element System is the heart of Periodiq.
-An Element is ... editme
+The Element System is the heart of **periodiq**.
+We also like to call it the `Periodiq table of Elements` :)
+Some day, there will be something in this section.
+Just not today.
 
 ### Element Creation
 
@@ -133,6 +128,8 @@ Creating custom Elements is kept simple and comes with only 3 requirements:
  - Each Element needs its own folder, somewhere within your project.
  - Each Element Folder needs exactly one 'element.js' file.
  - The element.js file has to return a class definition, while extending any other Element class.
+
+We recommend reading the [Documentation](http://docs.periodiq.org) for closer information.
 
     // element.js - example
     var BaseElement = require('periodiq').Element.Base;
@@ -146,7 +143,7 @@ Creating custom Elements is kept simple and comes with only 3 requirements:
     modules.exports = MyCustomElement;
 
 Loading all Elements manually can cause serious mental injury.
-And that's why _Periodiq_ comes with its own auto-loader that does literally everything for you.
+And that's why **periodiq** comes with its own auto-loader that does literally everything for you.
 It even names your classes in a beatiful manner:
 
     const CustomElements = Periodiq.loadElementDir(Path.join(\__dirname + '/my_elements/'));
@@ -195,7 +192,7 @@ Example File, `/elements/action/buttons/element.css`:
 
 #### Themes
 
-writeme
+soon
 
 ### Actions
 
