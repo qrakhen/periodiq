@@ -84,7 +84,7 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
      * for example 'content', 'content/image' or 'root' */
     var walk = function(dir) {
         var elements = [];
-        list = fs.readdirSync(dir);
+        var list = fs.readdirSync(dir);
         list.forEach(function(element) {
             element = dir + '/' + element;
             var stat = fs.statSync(element);
