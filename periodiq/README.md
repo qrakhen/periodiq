@@ -165,6 +165,38 @@ Beware of extending a class that has an overwritten name!
 If you forget to unset or override that property in a child class,
 all your inheriting classes will be known as 'SuperCustomizedClassName_With_Underscores'.
 
+### Element Styling
+
+Elements can be styled in a very easy way.
+All you need to do is add an element.css file into your element directory, and that's it.
+Within that file, you have access to all variables defined in the /theme/ folder,
+depending and the currently active theme.
+
+In that file, you will be provided with the `.element` selector, which will be
+replaced with the correct element's CSS class.
+
+Example File, `/elements/action/buttons/element.css`:
+
+    .element {
+        display: inline-block;
+        width: 120px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        cursor: pointer;
+        background-color: $mainColor;
+        font-color: $fontBright;
+        transition: all 0.3s;
+    }
+
+    .element:hover {
+        background-color: $accent;
+    }
+
+#### Themes
+
+writeme
+
 ### Actions
 
 #### The Action Class
