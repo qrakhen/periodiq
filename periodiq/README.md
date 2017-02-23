@@ -122,6 +122,11 @@ implement view-side javascript, add events, and much, much more!
 You'll find a section describing every feature within this readme,
 and detailed information on every class, property and function in the [documentation](http://docs.periodiq.org).
 
+### Demo Project
+
+You can clone the official demo from github (link soon).
+After cloning, use `npm install` and then `npm run dev` to run the demo.
+
 
 
 # Periodiq Overview
