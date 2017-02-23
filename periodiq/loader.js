@@ -116,7 +116,7 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
                 if (__class.__CLASS_NAME_OVERRIDE !== undefined) {
                     key = __class.__CLASS_NAME_OVERRIDE;
                 } else {
-                    key = buildClassName();
+                    key = new __class().constructor.name; //buildClassName();
                 }
 
                 __class.__BASE_DIR = Path.normalize(path.replace('element.js', ''));
@@ -148,7 +148,7 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
             Debug.log('starting build', 0);
             Assembler.buildElementStyles(loaded, elementSet.prefix);
         }
-
+console.log(loaded);
         return loaded;
     };
     var loaded = loadElements(walk(rootDir));

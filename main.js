@@ -16,7 +16,7 @@ const Core = Periodiq.Core;
 const ThemePicker = require('./periodiq/theme/picker.js');
 //const CustomElement = Periodiq.loadElementDir(Path.join(__dirname + '/elements/'));
 
-Core.launch(Electron, new Element.Root('pq-demo', 1280, 960), {}, function() {
+Core.launch(Electron, new Element.RootElement('pq-demo', 1280, 960), {}, function() {
     var theme = ThemePicker.loadTheme('default');
 
     var spacer = new Element.LayoutSpacer().attach(Core.root);

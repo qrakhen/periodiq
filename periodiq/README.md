@@ -10,14 +10,14 @@ experimental and innovative output and ideas into working applications.
 **periodiq** comes with just as much rules as really needed, but always keeps them as little as possible.
 
 Even tho it is based on Electron, **periodiq**'s workflow completely abandons any form of interaction with HTML.
-You are completely detached from the monotonous torture of writing static markup, assigning classes or using complex
+You are completely detached from the monotonous torture of writing static markup, assigning CSS classes or using complex
 templating engines. This results in a feeling of freedom and levitation that persists to the last commit and beyond.
 
 It's just pure & solid JavaScript. And some CSS.
 
-**periodiq** comes with a structured component system, a smart and fully extendable element tree to perfectly fit all the
-needs for even the most adventurous projects. It is completely written using ES6 closures like classes, seperated into
-module files - so you can easily extend **periodiq**'s vast collection of standard built-in elements.
+**periodiq** comes with a structured component-like system, a smart and fully extendable element tree to perfectly fit
+all the needs for even the most adventurous projects. It is completely written using ES6 closures like classes,
+seperated into module files - so you can easily extend **periodiq**'s vast collection of standard built-in elements.
 And all that requires is the creation of one single file - **periodiq** will implement your module on it's own and make
 it accessible within the framework during run-time.
 
@@ -121,6 +121,15 @@ implement view-side javascript, add events, and much, much more!
 You'll find a section describing every feature within this readme,
 and detailed information on every class, property and function in the [documentation](http://docs.periodiq.org).
 
+### Tutorials
+
+You can find tutorials for specific topics like 'how to create a custom element' in the tutorials/ folder,
+listed as seperate .md files for you to check out.
+
+List of Tutorials:
+
+ - How to create, extend, style and use Elements.
+
 ### Demo Project
 
 You can clone the official demo from github (link soon).
@@ -128,7 +137,7 @@ After cloning, use `npm install` and then `npm run dev` to run the demo.
 
 
 
-# Periodiq Overview
+# Periodiq Overview MOVE TUTORIAL PARTS INTO TUTORIAL FILES
 
 A complete overview on all aspects of Periodiq, supported by example code for each part.
 
