@@ -9,7 +9,8 @@ const STATIC_DIR = ROOT_DIR + '/static';
 const ELEMENT_DIR = ROOT_DIR + '/elements';
 const CACHE_DIR = ROOT_DIR + '/cache';
 
-var __indev = true, __build = true;
+const ARG_INDEV = (process.argv.indexOf('--indev') > -1);
+const ARG_BUILD = (process.argv.indexOf('--build') > -1);
 
 /**
  * Framework Entry Point;
@@ -143,7 +144,7 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
             }
         });
 
-        if (__build) {
+        if ((ARG_INDEV === true) || (ARG_BUILD === true)) {
             Debug.log('starting build', 0);
             Assembler.buildElementStyles(loaded, elementSet.prefix);
         }

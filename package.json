@@ -6,7 +6,9 @@
   "license": "ISC",
   "main": "main.js",
   "scripts": {
-    "dev": "electron main.js --indev"
+    "dev": "electron main.js --indev --debug 1",
+    "dbg": "electron main.js --indev --debug 5",
+    "prod": "electron main.js"
   },
   "dependencies": {
     "sygtools": "^0.2.7"

@@ -27,25 +27,22 @@ including all scoped scripts, styles and attributes.
 
 
 
-Have fun using **periodiq**, the framework that joyfully takes away the boring parts and only leaves the good bits.
+Enjoy using **periodiq**, the framework that pleasingly takes away the boring parts and only leaves the good bits.
 
 
 
-*Crafted by the Sygade Team:*
+_Crafted by:_
 
-  dave@sygade.eu ([Qrakhen](http://qrakhen.net/))
+[Qrakhen](http://qrakhen.net/)
 
-& mennoxx@sygade.eu
+[mennoxx@sygade.eu](http://sygade.eu)
 
 
-
-[Homepage](http://periodiq.org)
-
-[Documentation](http://docs.periodiq.org)
-
-[GitHub Repository](https://github.com/qrakhen/periodiq)
-
-[NPM Package(not published yet)]()
+##### Links
+ - [Homepage](http://periodiq.org)
+ - [Documentation](http://docs.periodiq.org)
+ - [GitHub Repository](https://github.com/qrakhen/periodiq)
+ - [NPM Package(not published yet)]()
 
 
 
@@ -64,14 +61,16 @@ We'd really enjoy that.
 
 This guide will quickly introduce you on how to create a new **periodiq** project.
 
- - Create a new directory for your project `mkdir periodiq` and `cd periodiq/`.
- - Now run the `npm init` command, and enter whatever you like.
- - Install Electron using `npm install -D electron`.
- - Install **periodiq** using `npm install --save periodiq`.
+ - Create a new directory for your project `$ mkdir periodiq` and `$ cd periodiq/`.
+ - Now run the `$ npm init` command, and enter whatever you like.
+ - Install Electron using `$ npm install -D electron`.
+ - Install **periodiq** using `$ npm install --save periodiq`.
  - Edit the `package.json` and add:
+
     "scripts": {
         "dev": "electron main.js --indev"
     }
+
  - Now create a `main.js` file.
  - You're good to go! Read the next step on how to implement **periodiq**.
 
