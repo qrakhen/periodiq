@@ -39,7 +39,7 @@ Have fun using **periodiq**, the framework that joyfully takes away the boring p
 
 
 
-[www.periodiq.org](http://periodiq.org)
+[Homepage](http://periodiq.org)
 
 [Documentation](http://docs.periodiq.org)
 
@@ -62,19 +62,30 @@ We'd really enjoy that.
 
 ## Setup Guide
 
-soon.
+This guide will quickly introduce you on how to create a new **periodiq** project.
+
+ - Create a new directory for your project `mkdir periodiq` and `cd periodiq/`.
+ - Now run the `npm init` command, and enter whatever you like.
+ - Install Electron using `npm install -D electron`.
+ - Install **periodiq** using `npm install --save periodiq`.
+ - Edit the `package.json` and add:
+    "scripts": {
+        "dev": "electron main.js --indev"
+    }
+ - Now create a `main.js` file.
+ - You're good to go! Read the next step on how to implement **periodiq**.
 
 
 
-## Example Implementation / Quick Start
+## Basic Implementation / Quick Start
 
-This is a quick and very dirty example I put together to get a glimpse on what the absolute
+This is a quick and dirty example I put together to get a glimpse on what the absolute
 basic features of **periodiq** are.
 More examples and some demo projects will follow soon.
 
     // require electron to later pass it into periodiq's core
     const Electron = require('electron');
-    // load the periodiq object, containing both the core and render instances
+    // load the periodiq object, containing everything you need
     const Periodiq = require('periodiq');
     // Element is a collection of all built-in elements that can be directly used,
     // extended, or modified, and is stored as another object within the Periodiq object
@@ -82,32 +93,34 @@ More examples and some demo projects will follow soon.
     const Render = Periodiq.Render;
     const Core = Periodiq.Core;
 
-    // launch the core, providing the electron instance, a root element, and a finish callback
+    // launch the core, providing the electron object, a new root element, null for the settings and a finish callback
     Core.launch(Electron, new Element.Root('example'), null, function() {
         // create a new element, attach it to the root element,
         // set its margin, assign a custom size,
         // and apply a background color
-        // checkout periodiq/elements/base/element.js for a list of all basic styling functions.
-        var back = new Element.Base();
-        back.attach(Core.root)
+        // checkout the documentation for AbstractElement and BaseElement to get more information about the included functions.
+        var base = new Element.Base();
+        base.attach(Core.root)
             .setMargin(32, 32)
-            .setSize(960, 720)
-            .setColor('#161616');
+            .setSize(420, 270)
+            .setColor('#1696A4');
 
-        // let's create another element, but attach it to the 'back' element instead of the root
-        var square = new Element.Base();
-        square.attach(back)
-            .setSize(64, 64)
-            .setPosition(128, 128);
+        // let's create a button and attach it to the element we created before
+        var button = new ActionButton.Base();
+        button.attach(base);
 
-        // build any given element's html, including all children, recursively.
-        // in this case, we want to render the root element, resulting in the entire
-        // page to be rendered
-        Render.buildView(null, Core.root, function(viewFile) {
-            // activate the view triggering an url redirect in electron
-            Core.setView(viewFile);
+        // now render the root element recursively including all children using buildView
+        Render.buildView(Core.root, function(file) {
+            // activate the view we got from the  by triggering an url redirect in electron
+            Core.setView(file);
         });
     });
+
+Now launch the rocket by running `npm run dev`. Woo!
+Read on if you want to know how to add or extend elements, create scoped styles,
+implement view-side javascript, add events, and much, much more!
+You'll find a section describing every feature within this readme,
+and detailed information on every class, property and function in the [documentation](http://docs.periodiq.org).
 
 
 
