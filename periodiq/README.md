@@ -1,8 +1,8 @@
   periodiq.
 =============
 
-**periodiq** is a HTML-free, lightweight and infinitely extendable open-source Framework for NodeJS,
-designed to provide a pleasant and simple yet well-structured and guided coding experience.
+**periodiq** is a HTML-free, lightweight and vastly extendable open-source Framework for NodeJS,
+designed to provide a pleasant and simple yet well-structured and guided coding experience for app and web development.
 
 Altough **periodiq**'s main application case is intended to be targeted at the structured and organized creation of
 platform-independent applications, it doesn't close the other doors: **periodiq** invites you to convert your creative,
