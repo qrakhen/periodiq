@@ -71,6 +71,9 @@ class AbstractElement {
         } else if (this.TYPE === 'AbstractElement') {
             Debug.fail('tried to attach abstract element to ' + parent.id + ': forbidden.', 1);
             return false;
+        } else if (parent === this) {
+            Debug.fail('you just tried to attach an element to itself. can I help you somehow?');
+            return false;
         } else {
             if (this.parent !== null) this.detach();
             parent.children.add(this);
@@ -78,8 +81,7 @@ class AbstractElement {
             this.id = parent.getNextChildID();
             this.enable();
             this.children.step(function(e) {
-                if (e.id == null)
-                    e.attach(this);
+                if (e.id === null) e.attach(this);
             }.bind(this));
             return this;
         }

@@ -158,5 +158,4 @@ namespace.loadElementDir = function(rootDir, prefix, postfix, compileCss) {
  * @memberof Periodiq */
 namespace.Element = namespace.loadElementDir(ELEMENT_DIR, NAMESPACE);
 
-
 module.exports = namespace;

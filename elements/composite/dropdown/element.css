@@ -6,6 +6,8 @@
     line-height: 40px;
     width: 120px;
     cursor: pointer;
+    text-align: center;
+    color: $contrast;
 }
 
 .element:hover {
@@ -16,7 +18,7 @@
     position: absolute;
     top: 40px;
     left: 0;
-    background: $mainBright;
+    background: $mainColor;
     transition: all 0.3s;
     height: 0px;
     width: 100%;

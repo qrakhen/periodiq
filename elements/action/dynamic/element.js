@@ -1,9 +1,9 @@
 
 
-class AbstractDynamic extends require('../element.js') {
+class AbstractDynamicElement extends require('../element.js') {
     constructor() {
         super();
     }
 }
 
-module.exports = AbstractDynamic;
+module.exports = AbstractDynamicElement;

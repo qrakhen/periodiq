@@ -6,6 +6,18 @@
 class AbstractComposite extends require('../base/element.js') {
     constructor() {
         super();
+        this.nodes = {};
+    }
+
+    attachNodes() {
+        for (var node in this.nodes)
+            this.nodes[node].attach(this);
+    }
+
+    attach(parent) {
+        super.attach(parent);
+        this.attachNodes();
+        return this;
     }
 }
 

@@ -1,6 +1,6 @@
 
 
-class LayoutContainer extends require('../../base/element.js') {
+class LayoutContainer extends require('../element.js') {
     constructor() {
         super();
     }

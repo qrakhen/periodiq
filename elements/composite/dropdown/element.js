@@ -5,13 +5,10 @@ const ContentText = require('../../content/text/element.js');
 class BasicDropdown extends AbstractComposite {
     constructor(title) {
         super();
-        this.body.container = new BaseElement().addClass('container');
+        this.nodes = {
+            container: new BaseElement().addClass('container')
+        };
         this.append(new ContentText(title));
-    }
-
-    attach(parent) {
-        super.attach(parent);
-        this.body.container.attach(this);
     }
 
     addMenuEntry(text) {
@@ -21,7 +18,7 @@ class BasicDropdown extends AbstractComposite {
     }
 
     addMenuEntryElement(element) {
-        element.addClass(['item', 'item-' + this.children.data.length]).attach(this.body.container);
+        element.addClass(['item', 'item-' + this.nodes.container.children.data.length]).attach(this.nodes.container);
         return this;
     }
 }

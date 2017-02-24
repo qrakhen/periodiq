@@ -1,6 +1,6 @@
 
 
-class LayoutWrapper extends require('../../base/element.js') {
+class LayoutWrapper extends require('../element.js') {
     constructor() {
         super();
     }

@@ -1,6 +1,6 @@
 
 
-class LayoutGrid extends require('../../base/element.js') {
+class LayoutGrid extends require('../element.js') {
     constructor(columns) {
         super();
         this.body.columns = columns || 12;
