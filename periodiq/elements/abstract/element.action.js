@@ -23,7 +23,7 @@
          /** The Periodiq object */
          this.pq = this.remote.require(__dirname + '/../../loader.js');
          /** EventController reference */
-         this.event = this.pq.EventController;
+         this.eventController = this.pq.EventController;
      }
 
      getElementID() {
