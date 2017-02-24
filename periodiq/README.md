@@ -124,40 +124,46 @@ implement view-side javascript, add events, and much, much more!
 You'll find a section describing every feature within this readme,
 and detailed information on every class, property and function in the [documentation](http://docs.periodiq.org).
 
-### Tutorials
+## Tutorials
 
 Will follow.
 
-### Demo Project
+## Demo Project
 
 You can clone the official demo from github (link soon).
 After cloning, use `npm install` and then `npm run dev` to run the demo.
 
+### Tips & Tricks
 
+Here's some useful advice that can be really useful for new users:
 
-# Periodiq Overview
+ - Press CTRL+R to instantly reload, rebuild and rerender your current state - no manual restarting required.
+ - Press F1 to render the documentation _within_ your periodiq window.
+ - Press CTRL+Backspace to return to the last view/page.
+ - ...
+
+## Periodiq Overview
 
 A complete overview on all aspects of Periodiq, supported by example code for each part.
 
-## Elements
+### Elements
 
 For the Element Documentation / Code Examples navigate into the `elements/` folder.
 
-## Core
-## Render
-## Electron
-## Config System
+### Core
+### Electron
+### Config System
 
 
 
-## Framework Enhancement
-### Manipulation Callbacks
+### Framework Enhancement
+#### Manipulation Callbacks
 (not yet stable)
 Assign Callbacks to intercept the Framework default behaviour at certain points.
 Where this opens another realm of possibilities for customization and optimization, it also exposes everything (including yourself) to the gates to hell.
 This is because in its current state, there is absolutely no validation of what you're doing to any of the passed elements. This will be fixed soon.
 
-#### Render Callbacks
+##### Render Callbacks
 All Callbacks need to return an (un-)modified version of the object they received, or things will break.
  - beforeElement(element)
  - beforeChild(childElement)
@@ -168,24 +174,20 @@ All Callbacks need to return an (un-)modified version of the object they receive
 
 
 
-### Creating Plugins & Extension Packages
+#### Creating Plugins & Extension Packages
 (not yet implemented)
 Create npm packages or compile .pqp files using the pq-cli (Periodiq-CLI) command pq pack <src> <dest>
 Sadly, this is not even remotely working well enough to actually be fun at the moment. Not sure if I'm going to keep it up - packing up extensions isn't that useful anyway, even tho I _really_ liked the idea at first.
 
 
 
-### Creating / Designing Themes
+#### Creating / Designing Themes
 
 editme
 
-## Database Connection / Models
-
-_who needs databases when you have platform independency_
 
 
-
-## Exporting to another Device/OS
+### Exporting to another Device/OS
 
 soon(tm)
 

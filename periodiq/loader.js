@@ -124,9 +124,11 @@ namespace.loadElementDir = function(rootDir, prefix, postfix, compileCss) {
                         __class.__ACTION = action;
                         Debug.success(__name + '.ACTION loaded.', 3);
                     } catch(err) {
-                        __class.Action = null;
-                        Debug.fail(__name + '.ACTION found but loaded, reason: ' + err, 3);
+                        __class.__ACTION = null;
+                        Debug.fail(__name + '.Action found but loaded, reason: ' + err, 3);
                     }
+                } else {
+                    __class.__ACTION = null;
                 }
 
                 loaded[__name] = __class;

@@ -57,18 +57,30 @@ class AbstractElement {
     /**
      * Attaches this Element to given parent element.
      * This also activates this element, making it renderable and usable.
+     * This also recursively steps down to attach all children that have been attached before.
+     * IMPORTANT! chaining attach() leads to massive ID bugs when attaching several elements in a single chain.
+     * *always* call .attach(); as the _last_ function if you're chaining functions, i.e. element.setColor().setSize().attach();
      * @param {Element} parent The target element to attach onto. */
     attach(parent) {
-        if (parent.FINAL) {
-            Debug.log('can not append to a finalized parent: forbidden. ' + parent.toString(), 1);
-        } else if (this.TYPE === 'Abstract') {
-            Debug.log('tried to attach abstract element to ' + parent.id + ': forbidden.', 1);
+        if (parent === undefined || parent === null) {
+            Debug.fail('can not attach to non-existent parent');
+            return false;
+        } else if (parent.FINAL) {
+            Debug.fail('can not append to a finalized parent: forbidden. ' + parent.toString(), 1);
+            return false;
+        } else if (this.TYPE === 'AbstractElement') {
+            Debug.fail('tried to attach abstract element to ' + parent.id + ': forbidden.', 1);
+            return false;
         } else {
             if (this.parent !== null) this.detach();
             parent.children.add(this);
             this.parent = parent;
             this.id = parent.getNextChildID();
             this.enable();
+            this.children.step(function(e) {
+                if (e.id == null)
+                    e.attach(this);
+            }.bind(this));
             return this;
         }
     }
@@ -104,15 +116,9 @@ class AbstractElement {
      * This is needed when a new child attaches. */
     getNextChildID() {
         var n = 0;
+        if (this.id == null) return null;
         while (this.children.findOne('id', this.id + '_' + n) !== null) n++;
         return this.id + '_' + n;
-    }
-
-    /**
-     * Returns the absolute position in relation to the root element.
-     * @deprecated DO NOT USE, this worked at some point but broke during refactor */
-    getAbsolutePosition() {
-        return { x: 0, y: 0 };
     }
 
     /**
@@ -122,17 +128,9 @@ class AbstractElement {
     }
 
     /**
-     * Basically just joins two strings together. Wow.
-     * @param {string} type */
-    getExtendedType(type) {
-        if (type === undefined) return this.TYPE;
-        return this.TYPE + '_' + type;
-    }
-
-    /**
      * This _should_ throw an actual Exception, but a Debug.log() is more appealing during development phase. */
     throwError(message) {
-        Debug.log('error thrown, caused by ' + this.toString() + ', error message:\r\n' + message, 0);
+        Debug.error('error thrown, caused by ' + this.toString() + ', error message:\r\n' + message, 0);
     }
 
     /**
@@ -140,7 +138,7 @@ class AbstractElement {
      * If this is not overridden, it will look somewhat like this:
      * <pq-el_base_content[root-4-64]> */
     toString() {
-        return '<' + this.TYPE + '[' + this.id + ']>';
+        return '<' + this.TYPE + '[' + this.id + ']' + (this.parent == null ? 'detached' : '') + '>';
     }
 }
 

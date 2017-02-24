@@ -20,19 +20,21 @@ Core.launch(Electron, new Element.RootElement('pq-demo', 1280, 960), {}, functio
     var theme = ThemePicker.loadTheme('default');
 
     var spacer = new Element.LayoutSpacerElement().attach(Core.root);
-    var content = new Element.LayoutContainerElement().attach(Core.root)
+    var content = new Element.LayoutContainerElement()
         .learnStyle('text-align', 'center')
-        .learnStyle('border-bottom', '2px solid ' + theme.colors.accent).setColor(theme.colors.mainBright);
+        .learnStyle('border-bottom', '2px solid ' + theme.colors.accent).setColor(theme.colors.mainBright)
+        .attach(Core.root);
     var wrapper = new Element.LayoutWrapperElement()
-        .attach(content)
-        .center();
-    var headline = new Element.ContentHeadlineElement('periodiq.').attach(wrapper).center();
+        .center()
+        .attach(content);
+    var headline = new Element.ContentHeadlineElement('periodiq.').center().attach(wrapper);
     var spacer2  = new Element.LayoutSpacerElement().attach(wrapper);
-    var button = new Element.ActionButtonElement().attach(wrapper).setMargin(0, 0, 30, 0);
-    var dropdown = new Element.NavigationDropdownElement('sers').attach(wrapper)
+    var button = new Element.ActionButtonElement().setMargin(0, 0, 30, 0).attach(wrapper);
+    var dropdown = new Element.NavigationDropdownElement('sers')
         .addMenuEntry('menui1')
         .addMenuEntry('menui2')
-        .addMenuEntry('leberkaese');
+        .addMenuEntry('leberkaese')
+        .attach(wrapper);
     /*var grid = new Element.LayoutGrid(12).attach(wrapper).setColor('#141414')
         .appendToGrid(new Element.Base().setSize(32, 240).setColor('#726432'), 2)
         .appendToGrid(new Element.Base().setSize(32, 240).setColor('#364f1c'), 3)

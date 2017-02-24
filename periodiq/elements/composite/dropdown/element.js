@@ -1,13 +1,17 @@
+const AbstractComposite = require('../element.js');
 const BaseElement = require('../../base/element.js');
 const ContentTextElement = require('../../content/text/element.js');
 
-class NavigationDropdownElement extends BaseElement {
+class NavigationDropdownElement extends AbstractComposite {
     constructor(title) {
         super();
-        this.body.container = new BaseElement().attach(this).addClass('container');
+        this.body.container = new BaseElement().addClass('container');
         this.append(new ContentTextElement(title));
-        this.append(this.body.container);
-        this.FINAL = true; /** Block all further attachments to this element */
+    }
+
+    attach(parent) {
+        super.attach(parent);
+        this.body.container.attach(this);
     }
 
     addMenuEntry(text) {
@@ -17,7 +21,7 @@ class NavigationDropdownElement extends BaseElement {
     }
 
     addMenuEntryElement(element) {
-        element.attach(this.body.container).addClass(['item', 'item-' + this.children.data.length]);
+        element.addClass(['item', 'item-' + this.children.data.length]).attach(this.body.container);
         return this;
     }
 }
