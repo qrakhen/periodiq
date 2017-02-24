@@ -23,11 +23,19 @@ class AbstractElement {
     }
 
     getAction() {
-        return this.constructor.Action;
+        return this.constructor.__ACTION;
     }
 
     getNamespace() {
         return this.constructor.__NAMESPACE;
+    }
+
+    /**
+     * Returns the default periodiq CSS class for this element.
+     * If you really want to, you can override this method to return a custom class,
+     * which is not recommended, tho - use element.addClass() instead to _add_ your own css class. */
+    getCssClass() {
+        return this.NAMESPACE + '_' + this.TYPE;
     }
 
     /**

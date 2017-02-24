@@ -1,7 +1,7 @@
 
 /**
  * @extends ContentElement */
-class ContextHeadlineElement extends require('../element.js') {
+class ContentHeadlineElement extends require('../element.js') {
     constructor(text, size) {
         super();
         this.body.type = 'h';
@@ -10,4 +10,4 @@ class ContextHeadlineElement extends require('../element.js') {
     }
 }
 
-module.exports = ContextHeadlineElement;
+module.exports = ContentHeadlineElement;

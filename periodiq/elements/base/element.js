@@ -10,9 +10,12 @@ class BaseElement extends require('../abstract/element.js') {
         super();
         this.body = {
             type: 'el',
-            class: new List(), /** Additional CSS classes */
+            /** Additional CSS classes */
+            class: new List(),
+            /** HTML Attributes */ 
             attributes: {},
-            style: {} /** Manually overriding style object */
+            /** Manually overriding style object */
+            style: {}
         }
     }
 

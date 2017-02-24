@@ -1,5 +1,6 @@
 
 /**
+ * Generic Button element used as extension base for all button-like elements.
  * @extends ActionElement */
 class ActionButtonElement extends require('../element.js') {
     constructor() {

@@ -4,8 +4,16 @@
   "description": "a html-free, lightweight and infinitely extendable framework to create platform-independent apps using node & electron",
   "homepage": "http://periodiq.org",
   "license": "None (yet)",
-  "os": [ "*" ],
-  "cpu": [ "x64", "x86", "ia32", "arm", "mips" ],
+  "os": [
+    "*"
+  ],
+  "cpu": [
+    "x64",
+    "x86",
+    "ia32",
+    "arm",
+    "mips"
+  ],
   "main": "loader.js",
   "author": {
     "name": "David 'Qrakhen' Neumaier",

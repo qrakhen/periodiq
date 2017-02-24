@@ -33,7 +33,7 @@ Enjoy using **periodiq**, the framework that pleasingly takes away the boring pa
 
 _Crafted by:_
 
-[Qrakhen](http://qrakhen.net/)
+[david@sygade.eu /Qrakhen](http://qrakhen.net/)
 
 [mennoxx@sygade.eu](http://sygade.eu)
 
@@ -64,11 +64,11 @@ This guide will quickly introduce you on how to create a new **periodiq** projec
  - Create a new directory for your project `$ mkdir periodiq` and `$ cd periodiq/`.
  - Now run the `$ npm init` command, and enter whatever you like.
  - Install Electron using `$ npm install -D electron`.
- - Install **periodiq** using `$ npm install --save periodiq`.
+ - Install **periodiq** using `$ npm install -D periodiq`.
  - Edit the `package.json` and add:
 
     "scripts": {
-        "dev": "electron main.js --indev"
+        "dev": "electron main.js --indev --debug 3"
     }
 
  - Now create a `main.js` file.
@@ -169,24 +169,26 @@ We recommend reading the [Documentation](http://docs.periodiq.org) for closer in
     modules.exports = MyCustomElement;
 
 Loading all Elements manually can cause serious mental injury.
-And that's why **periodiq** comes with its own auto-loader that does literally everything for you.
-It even names your classes in a beatiful manner:
+And that's why **periodiq** comes with its own auto-loader that does literally everything for you:
 
-    const CustomElements = Periodiq.loadElementDir(Path.join(\__dirname + '/my_elements/'));
+    const CustomElements = Periodiq.loadElementDir(Path.join(__dirname + '/my_elements/'));
 
-You can also provide a pre- and postfix string as the 2nd and 3rd argument.
+All you need to do is group your seperate element folders in one single 'set'-folder.
+You can also provide a pre- and postfix string for the class names as the 2nd and 3rd argument.
 This is especially useful when working with namespaces or mixed Elements with similar names.
 
-However, you will sometimes get to a Point where those auto-generated names just
-get _way_ too long (or, when having an unorganized folder structure, _way_ too irritating).
-In this case, you can extend your class prototype by another line to override
-the auto-loader's naming:
+It is recommended (and **important** if you use multiple element sets) that you include a set.json
+at the root of your element directory. See an example in periodiq/elements/set.json:
 
-    MyCustomElement.\__CLASS_NAME_OVERRIDE = 'SuperCustomizedClassName_With_Underscores';
+    {
+        "title": "periodiq standard elements",
+        "namespace": "pq",
+        "author": "dave@sygade.eu"
+    }
 
-Beware of extending a class that has an overwritten name!
-If you forget to unset or override that property in a child class,
-all your inheriting classes will be known as 'SuperCustomizedClassName_With_Underscores'.
+This file tells the **periodiq** loader what namespace those elements are in and will use it to prepend it as prefix to all Element's CSS classes, for example.
+If you do not use a prefix, or `set.json` at all, the prefix will be `noset` and multiple element sets will get mixed up and messy.
+
 
 ### Element Styling
 
@@ -215,6 +217,8 @@ Example File, `/elements/action/buttons/element.css`:
     .element:hover {
         background-color: $accent;
     }
+
+You can also add custom classes if needed (i.e. for composite-type elements that have fixed children) by using `element.addClass('myCssClass');`.
 
 #### Themes
 

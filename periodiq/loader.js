@@ -65,9 +65,10 @@ module.export = namespace;
  * @param {string} rootDir The directory to be searched for element classes.
  * @param {string} prefix optional prefix for all class names that will be returned [prefix]ClassName
  * @param {string} postfix optional postfix for all class names that will be returned ClassName[postfix]
+ * @param {boolean} compileCss if true, all included CSS files will be compiled into the build folder. default is set by the start parameter --indev and --build
  * @returns {object} - An object containing all loaded element classes.
  **/
-namespace.loadElementDir = function(rootDir, prefix, postfix) {
+namespace.loadElementDir = function(rootDir, prefix, postfix, compileCss) {
     if (rootDir == ELEMENT_DIR)
         Debug.log('loading built-in standard elements', 0);
     else
@@ -76,8 +77,9 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
     var elementSet = {};
     try {
         elementSet = JSON.parse(fs.readFileSync(rootDir + '/set.json').toString());
+        Debug.success('element set.json found: <' + elementSet.title + '>');
     } catch(err) {
-        Debug.error('error while trying to parse root.json: ' + err, 0);
+        Debug.error('error while trying to parse set.json: ' + err, 0);
         elementSet.prefix = 'noset';
     }
 
@@ -103,59 +105,47 @@ namespace.loadElementDir = function(rootDir, prefix, postfix) {
         modulePaths.forEach(function(path) {
             var prefix = prefix || '',
                 postfix = postfix || '';
-            var buildClassName = function() {
-                var trim = path.replace(rootDir, '').replace('/element.js', '').slice(1);
-                var keys = trim.split('/'), key = '';
-                keys.forEach((k) => { key += k.charAt(0).toUpperCase() + k.slice(1); });
-                return prefix + key + postfix; };
             try {
-                var key = '';
                 var __class = require(path);
+                var __name = new __class().constructor.name;
 
-                /* Retrieve possible class name override */
-                if (__class.__CLASS_NAME_OVERRIDE !== undefined) {
-                    key = __class.__CLASS_NAME_OVERRIDE;
-                } else {
-                    key = new __class().constructor.name; //buildClassName();
-                }
+                __name = (prefix + __name + postfix).trim();
 
                 __class.__BASE_DIR = Path.normalize(path.replace('element.js', ''));
-                __class.__CLASS_NAME = key;
-                __class.__NAMESPACE = elementSet.prefix;
+                __class.__CLASS_NAME = __name;
+                __class.__NAMESPACE = elementSet.namespace;
 
                 /* Try to find element action */
-                try {
-                    var actionPath = path.replace('.js', '.action.js');
-                    var action = require(actionPath);
-                    action.__PATH = Path.normalize(actionPath);
-                    __class.Action = action;
-                    Debug.success(key + '.Action: found.', 3);
-                } catch(err) {
-                    __class.Action = null;
-                    Debug.fail(key + '.Action: fail, reason: ' + err, 5);
+                var actionPath = path.replace('.js', '.action.js');
+                if (fs.existsSync(actionPath)) {
+                    try {
+                        var action = require(actionPath);
+                        action.__PATH = Path.normalize(actionPath);
+                        __class.__ACTION = action;
+                        Debug.success(__name + '.ACTION loaded.', 3);
+                    } catch(err) {
+                        __class.Action = null;
+                        Debug.fail(__name + '.ACTION found but loaded, reason: ' + err, 3);
+                    }
                 }
 
-                loaded[key] = __class;
+                loaded[__name] = __class;
 
-                Debug.success('loaded element ' + key +
+                Debug.success('loaded element ' + __name +
                     ' (...' + path.slice(path.length - 24) + ')', 1);
             } catch(err) {
-                Debug.warn('could not load module <' + key + '>, ' + err, 0);
+                Debug.warn('could not load module <' + __name + '>, ' + err, 0);
             }
         });
 
         if ((ARG_INDEV === true) || (ARG_BUILD === true)) {
             Debug.log('starting build', 0);
-            Assembler.buildElementStyles(loaded, elementSet.prefix);
+            Assembler.buildElementStyles(loaded, elementSet.namespace);
         }
-console.log(loaded);
         return loaded;
     };
     var loaded = loadElements(walk(rootDir));
     Debug.log('loaded a total of ' + Object.keys(loaded).length + ' elements', 0);
-    /* compile and dispatch the main style file once for each element import */
-    /* Okay let's just _not_ do this, okay? */
-    // namespace.Render.buildStyles(loaded, CACHE_DIR + '/styles/main.css');
     return loaded;
 }
 
