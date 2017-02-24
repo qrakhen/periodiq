@@ -24,7 +24,6 @@ var Render = function() {
 
         bodyRoot.enable();
 
-        /** @todo */
         var clientScript = '<script src="' + Path.join(__dirname + '/client.js') + '"></script>';
         var clientCss = '<link rel="stylesheet" href="' + Path.join(__dirname + '/../build/styles/elements.pq.css') + '">';
         var headerElement = this.createHtmlElement(null, clientScript + clientCss, 'head');
@@ -32,7 +31,6 @@ var Render = function() {
         Debug.log('rendering view from ' + bodyRoot.toString(), 1);
         /* @todo: Check cache first */
         var body = this.createHtmlElement(null, this.buildElement(bodyRoot), 'body'),
-            /** @todo !!!!! */
             head = headerElement,
             html = this.createHtmlElement({style: 'overflow: hidden;'}, head + body, 'html');
         /* afterView(html) */
