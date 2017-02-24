@@ -16,20 +16,20 @@ const Core = Periodiq.Core;
 const ThemePicker = require('./periodiq/theme/picker.js');
 //const CustomElement = Periodiq.loadElementDir(Path.join(__dirname + '/elements/'));
 
-Core.launch(Electron, new Element.Root('pq-demo', 1280, 960), {}, function() {
+Core.launch(Electron, new Element.RootElement('pq-demo', 1280, 960), {}, function() {
     var theme = ThemePicker.loadTheme('default');
 
-    var spacer = new Element.LayoutSpacer().attach(Core.root);
-    var content = new Element.LayoutContainer().attach(Core.root)
+    var spacer = new Element.LayoutSpacerElement().attach(Core.root);
+    var content = new Element.LayoutContainerElement().attach(Core.root)
         .learnStyle('text-align', 'center')
         .learnStyle('border-bottom', '2px solid ' + theme.colors.accent).setColor(theme.colors.mainBright);
-    var wrapper = new Element.LayoutWrapper()
+    var wrapper = new Element.LayoutWrapperElement()
         .attach(content)
         .center();
-    var headline = new Element.ContentHeadline('periodiq.').attach(wrapper).center();
-    var spacer2  = new Element.LayoutSpacer().attach(wrapper);
-    var button = new Element.ActionButton().attach(wrapper).setMargin(0, 0, 30, 0);
-    var dropdown = new Element.NavigationDropdown('sers').attach(wrapper)
+    var headline = new Element.ContentHeadlineElement('periodiq.').attach(wrapper).center();
+    var spacer2  = new Element.LayoutSpacerElement().attach(wrapper);
+    var button = new Element.ActionButtonElement().attach(wrapper).setMargin(0, 0, 30, 0);
+    var dropdown = new Element.NavigationDropdownElement('sers').attach(wrapper)
         .addMenuEntry('menui1')
         .addMenuEntry('menui2')
         .addMenuEntry('leberkaese');
