@@ -1,19 +1,32 @@
 {
-  "name": "periodiq_dev_demo",
-  "version": "0.1.3",
-  "description": "advanced component based framework based electron",
-  "author": "David Neumaier (aka Qrakhen) <dave@sygade.eu> (http://qrakhen.net)",
-  "license": "ISC",
-  "main": "main.js",
+  "name": "periodiq",
+  "version": "0.1.7",
+  "description": "a html-free, lightweight and infinitely extendable framework to create platform-independent apps using node & electron",
+  "homepage": "http://periodiq.org",
+  "main": "loader.js",
+  "author": {
+    "name": "David 'Qrakhen' Neumaier",
+    "email": "qrakhen@gmail.com",
+    "url": "http://qrakhen.net"
+  },
+  "contributors": [
+    "Matthias Maus <mennoxx@sygade.eu> (http://sygade.eu)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@git.sygade.eu:npm/periodiq.git"
+  },
   "scripts": {
-    "dev": "electron main.js --indev --debug 1",
-    "dbg": "electron main.js --indev --debug 5",
-    "prod": "electron main.js"
+    "doc": "jsdoc -d doc/ -r loader.js elements/ static/ theme/ README.md",
+    "test": "mocha --reporter spec ./test --use_strict"
   },
   "dependencies": {
+    "colors": "^1.1.2",
+    "jsdoc": "^3.4.3",
     "sygtools": "^0.2.7"
   },
   "devDependencies": {
-    "electron": "^1.4.1"
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
   }
 }
