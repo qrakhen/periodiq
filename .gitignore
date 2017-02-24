@@ -2,4 +2,4 @@ cache/*/*
 node_modules/
 log/*
 doc/*
-build/*
+build/*/*
