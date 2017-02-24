@@ -1,4 +1,5 @@
 var fs = require('fs');
+var colors = require('colors');
 
 var Debug = function() {
     var argIndex = process.argv.indexOf('--debug');
@@ -10,35 +11,39 @@ var Debug = function() {
         + new Date().getHours() + '_'
         + new Date().getMinutes() + '.txt';
 
-    this.log = function(anything, logLevel) {
+    this.__log = function(anything, logLevel) {
         var logLevel = logLevel || 0; // Only log important stuff by default
         if (this.logLevel < logLevel)
             return;
 
         var date = new Date(),
             //prefix = '[' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + ']:[' + logLevel + ']' + (typeof anything === 'string' ? '' : '(' + typeof anything + ') ');
-            prefix = '  [PQDBG(' + logLevel + ')] > ';
+            prefix = '  [PQDBG(' + logLevel + ')] >';
         console.log(prefix, anything);
         if (this.writeToFile) fs.appendFile(this.logFile, prefix + ' ' + anything + '\r\n', (err) => {
             if (err) console.log('debug could not write to file: ' + err);
         });
     };
 
+    this.log = function(anything, logLevel) {
+        return this.__log('LOG: '.cyan + anything, logLevel);
+    };
+
     this.success = function(anything, logLevel) {
-        return this.log('SUCCESS: ' + anything, logLevel);
-    }
+        return this.__log('SUCCESS: '.green + anything, logLevel);
+    };
 
     this.fail = function(anything, logLevel) {
-        return this.log('FAIL: ' + anything, logLevel);
-    }
+        return this.__log('FAIL: '.yellow + anything, logLevel);
+    };
 
     this.error = function(anything, logLevel) {
-        return this.log('!ERROR: ' + anything, logLevel);
-    }
+        return this.__log('!ERROR: '.red + anything, logLevel);
+    };
 
     this.warn = function(anything, logLevel) {
-        return this.log('WARN: ' + anything, logLevel);
-    }
+        return this.__log('WARN: '.yellow + anything, logLevel);
+    };
 };
 
 Debug.LOG_LEVEL = {
