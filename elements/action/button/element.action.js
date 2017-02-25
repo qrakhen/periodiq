@@ -1,5 +1,5 @@
 /**
- * Button Action
+ * Generic ButtonAction that sends an event to the server as soon as the element it clicked.
  * @extends AbstractAction */
 class ButtonAction extends require(__dirname + '/../../abstract/element.action.js') {
 

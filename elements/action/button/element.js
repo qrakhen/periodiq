@@ -3,9 +3,9 @@
  * Generic Button element used as extension base for all button-like elements.
  * @extends ActionElement */
 class BasicButton extends require('../element.js') {
-    constructor() {
+    constructor(label) {
         super();
-        this.content = 'btn';
+        this.content = label || this.getFullClass();
         this.clickCallback = null;
         this.body.attributes.clickevent = this.TYPE + '_click';
         this.eventController.addListener(this.body.attributes.clickevent, this.onClickListen.bind(this));

@@ -91,7 +91,7 @@ var Render = function() {
         /* Compose HTML Element */
         var attr = {
             id: element.id,
-            class: (element.getCssClass() + ' ' + element.body.class.data.join(' ')).trim(),
+            class: (element.getFullClass() + ' ' + element.body.class.data.join(' ')).trim(),
             type: element.getType(),
             style: this.buildStyleString(element) };
         if (element.body.attributes !== undefined) {
