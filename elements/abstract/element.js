@@ -114,6 +114,15 @@ class AbstractElement {
     }
 
     /**
+     * Returns a percentage that displays an amount columns of given total.
+     * @param {integer} total total number of columns, default: 12 */
+    getColumnWidth(columns, total) {
+        columns = columns || 1;
+        total = total || 12;
+        return ((columns / total) * 99.275) + '%';
+    }
+
+    /**
      * Returns the next free child element id.
      * This is needed when a new child attaches. */
     getNextChildID() {
