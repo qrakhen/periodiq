@@ -1,4 +1,5 @@
 const Debug = require('../debug.js');
+const Render = require('./render.js');
 const url = require('url');
 const path = require('path');
 
@@ -91,12 +92,13 @@ var Core = function() {
      * Updates just the target element in the mainFrame by selecting its element id and replacing found nodes html
      * Please keep in mind that the Core does not render the element prior to updating,
      * this needs to be done by using Render.buildElement(element);
-     * @function updateViewElement
+     * @function updateElement
      * @memberof Core
      * @instance
-     * @param {Element} targetElement the element to be updated */
-    this.updateViewElement = function(targetElement) {
-
+     * @param {Element} element the element to be updated */
+    this.updateElement = function(element) {
+        var html = Render.buildElement(element);
+        this.rpid.send('update-element', { id: element.id, html: html });
     }
 
     this.historyBack = function() {

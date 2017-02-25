@@ -64,7 +64,7 @@ var Render = function() {
             return ''
         }
 
-        var count = count + 1 || 0,
+        var count = count || 0,
             recursive = recursive || true,
             content = '';
 
@@ -74,7 +74,7 @@ var Render = function() {
         if (recursive && element.children.data.length > 0) {
             element.children.step(function(e) {
                 /** @todo beforeChild(e); */
-                var childHtml = this.buildElement(e, true, count);
+                var childHtml = this.buildElement(e, true, count++);
                 /** @todo afterChild(childHtml) */
                 content += childHtml;
             }.bind(this));
