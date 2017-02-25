@@ -1,14 +1,16 @@
   periodiq.
 =============
 
-## Elements
+### Elements
 
 The Element System is the heart of **periodiq**.
 We also like to call it the `Periodiq table of Elements` :)
 Some day, there will be something in this section.
 Just not today.
 
-### Element Creation
+
+
+#### Element Creation
 
 Creating custom Elements is kept simple and comes with only 3 requirements:
  - Each Element needs its own folder, somewhere within your project.
@@ -27,6 +29,8 @@ We recommend reading the [Documentation](http://docs.periodiq.org) for closer in
     }
 
     modules.exports = MyCustomElement;
+
+#### Importing external/custom Elements
 
 Loading all Elements manually can cause serious mental injury.
 And that's why **periodiq** comes with its own auto-loader that does literally everything for you:
