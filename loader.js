@@ -8,6 +8,7 @@ const ROOT_DIR = Path.join(__dirname + '/');
 const STATIC_DIR = ROOT_DIR + '/static';
 const ELEMENT_DIR = ROOT_DIR + '/elements';
 const CACHE_DIR = ROOT_DIR + '/cache';
+const ASSET_DIR = ROOT_DIR + '/assets';
 
 const ARG_INDEV = (process.argv.indexOf('--indev') > -1);
 const ARG_BUILD = (process.argv.indexOf('--build') > -1);
@@ -22,7 +23,8 @@ var namespace = {
     ROOT_DIR: ROOT_DIR,
     STATIC_DIR: STATIC_DIR,
     ELEMENT_DIR: ELEMENT_DIR,
-    CACHE_DIR: CACHE_DIR };
+    CACHE_DIR: CACHE_DIR,
+    ASSET_DIR: ASSET_DIR };
 
 /**
  * Reference to the Debug 'singleton'
