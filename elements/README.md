@@ -8,8 +8,6 @@ We also like to call it the `Periodiq table of Elements` :)
 Some day, there will be something in this section.
 Just not today.
 
-
-
 #### Element Creation
 
 Creating custom Elements is kept simple and comes with only 3 requirements:

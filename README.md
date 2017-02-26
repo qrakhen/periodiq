@@ -142,6 +142,8 @@ Here's some useful advice that can be really useful for new users:
  - Press CTRL+Backspace to return to the last view/page.
  - ...
 
+
+
 ## Periodiq Overview
 
 A complete overview on all aspects of Periodiq, supported by example code for each part.
