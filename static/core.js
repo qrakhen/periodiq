@@ -98,7 +98,7 @@ var Core = function() {
      * @param {Element} element the element to be updated */
     this.updateElement = function(element) {
         var html = Render.buildElement(element);
-        this.rpid.send('update-element', { id: element.id, html: html });
+        this.rpid.send('update-element', { id: element.getId(), html: html });
     }
 
     this.historyBack = function() {

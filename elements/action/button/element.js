@@ -15,7 +15,7 @@ class BasicButton extends require('../element.js') {
     /**
      * Triggered when button is clicked */
     onClickListen(eventName, senderId, data) {
-        if (senderId === this.id && this.actionCallback !== null)
+        if (senderId === this.getId() && this.actionCallback !== null)
             this.clickCallback(data);
     }
 

@@ -11,11 +11,20 @@ class AbstractElement {
         this.ACTION = this.getAction(); /** assigned Action class, null if no element.action.js is located in element folder */
         this.NAMESPACE = this.getNamespace() /** */
         this.FINAL = false;             /** FINAL elements won't enter recursion mode and can't have children */
-        this.id = null;                 /** unique element id, recursively displays element tree (i.e. root_4_2_65) */
+        this.childIndex = null;
         this.active = false;            /** en-/disables element for rendering/logic */
         this.blockAction = false;       /** en-/disables action execution for this instance */
         this.parent = null;             /** parent element reference */
         this.children = new List();     /** dynamically added child elements */
+    }
+
+    /**
+     * recursively calculates element id, displays element tree (i.e. root_4_2_65)
+     * this id is unique within this element's rootElement */
+    getId() {
+        return (this.parent === null ?
+            (this.rootId !== undefined ?
+                this.rootId : null) : (this.childIndex + '_' + this.parent.getId()));
     }
 
     getType() {
@@ -78,11 +87,8 @@ class AbstractElement {
             if (this.parent !== null) this.detach();
             parent.children.add(this);
             this.parent = parent;
-            this.id = parent.getNextChildID();
+            this.childIndex = parent.getNextChildIndex();
             this.enable();
-            this.children.step(function(e) {
-                if (e.id === null) e.attach(this);
-            }.bind(this));
             return this;
         }
     }
@@ -108,7 +114,7 @@ class AbstractElement {
     detach() {
         if (this.parent !== null) this.parent.children.remove(this);
         this.parent = null;
-        this.id = null;
+        this.childIndex = null;
         this.disable();
         return this;
     }
@@ -125,11 +131,10 @@ class AbstractElement {
     /**
      * Returns the next free child element id.
      * This is needed when a new child attaches. */
-    getNextChildID() {
+    getNextChildIndex() {
         var n = 0;
-        if (this.id == null) return null;
-        while (this.children.findOne('id', this.id + '_' + n) !== null) n++;
-        return this.id + '_' + n;
+        while (this.children.findOne('childIndex', n) !== null) n++;
+        return  n;
     }
 
     /**
@@ -149,7 +154,7 @@ class AbstractElement {
      * If this is not overridden, it will look somewhat like this:
      * <pq-el_base_content[root-4-64]> */
     toString() {
-        return '<' + this.TYPE + '[' + this.id + ']' + (this.parent == null ? 'detached' : '') + '>';
+        return '<' + this.TYPE + '[' + this.getId() + ']' + (this.parent == null ? 'detached' : '') + '>';
     }
 }
 
