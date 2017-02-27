@@ -34,7 +34,7 @@ var Render = function() {
             head = headerElement,
             html = this.createHtmlElement({style: 'overflow: hidden;'}, head + body, 'html');
         /* afterView(html) */
-        this.dispatch(html, bodyRoot.id, done);
+        this.dispatch(html, bodyRoot.rootId, done);
     };
 
     this.dispatch = function(content, rootId, done) {
@@ -90,7 +90,7 @@ var Render = function() {
 
         /* Compose HTML Element */
         var attr = {
-            id: element.id,
+            id: element.getId(),
             class: (element.getFullClass() + ' ' + element.body.class.data.join(' ')).trim(),
             type: element.getType(),
             style: this.buildStyleString(element) };
@@ -105,7 +105,7 @@ var Render = function() {
             if (!element.blockAction)
                 html += this.buildActionScriptTag(element);
             else
-                Debug.log('skipping action script tag for ' + element.id + ' due to blockAction', 3);
+                Debug.log('skipping action script tag for ' + element.getId() + ' due to blockAction', 3);
         }
         return html;
     };
@@ -115,7 +115,7 @@ var Render = function() {
          * resulting in C:UsersDaveprojectsperiodiqblablabal */
         var path = element.ACTION.__PATH.replace(/\\/g, '/');
         var script = 'var a=require("' + path + '");' +
-            'new a(document.getElementById("' + element.id + '"));'
+            'new a(document.getElementById("' + element.getId() + '"));'
         return '<script>' + script + '</script>';
     };
 
