@@ -7,6 +7,7 @@ const CACHE_DIR = Path.join(__dirname + '/../cache/');
  * @class Render */
 var Render = function() {
     this.theme = null; //move to config
+    this.__count = 0;
 
     /**
      * Renders an entire element tree, starting from the provided bodyRoot,
@@ -21,29 +22,29 @@ var Render = function() {
      * @param {RootElement} bodyRoot the root of the page to be rendered (i.e. Core.root)
      * @param {function} done success callback, returns the filename of the generated/cached html output */
     this.buildView = function(bodyRoot, done) {
-
+        this.__count = 0;
         bodyRoot.enable();
 
         var clientScript = '<script src="' + Path.join(__dirname + '/client.js') + '"></script>';
         var clientCss = '<link rel="stylesheet" href="' + Path.join(__dirname + '/../build/styles/elements.pq.css') + '">';
         var headerElement = this.createHtmlElement(null, clientScript + clientCss, 'head');
 
-        Debug.log('rendering view from ' + bodyRoot.toString(), 1);
+        Debug.log('rendering view from root ' + bodyRoot.toString(), 1);
         /* @todo: Check cache first */
         var body = this.createHtmlElement(null, this.buildElement(bodyRoot), 'body'),
             head = headerElement,
             html = this.createHtmlElement({style: 'overflow: hidden;'}, head + body, 'html');
         /* afterView(html) */
-        this.dispatch(html, bodyRoot.rootId, done);
+        Debug.log(this.__count + ' elements rendered', 1);
+        this.__dispatch(html, bodyRoot.rootId, done);
     };
 
-    this.dispatch = function(content, rootId, done) {
-        var filePath = this.getViewFilePath(rootId);
+    this.__dispatch = function(content, rootId, done) {
+        var filePath = this.__getViewFilePath(rootId);
         fs.writeFile(filePath, content, (err) => {
             if (err) return Debug.log('could not write view to file ' + filePath + ': ' + err, 0);
             Debug.log('dispatched view file to ' + filePath, 1);
             if (done !== undefined) done(filePath);
-            //Debug.log('view rendered, took ' + (new Date().getTime() - _dbgTime) + 'ms', 1);
         });
     };
 
@@ -55,7 +56,7 @@ var Render = function() {
      * @instance
      * @param {Element} element element to be rendered
      * @param {boolean} recursive true = recurse through children, false = limit to this element */
-    this.buildElement = function(element, recursive, count) {
+    this.buildElement = function(element, recursive, __count) {
         if (element === undefined || element === null)
             return '';
 
@@ -68,13 +69,15 @@ var Render = function() {
             recursive = recursive || true,
             content = '';
 
-        Debug.log('building element ' + element.toString() + ' count: ' + count, 2);
+        this.__count = (__count === true ? this.__count + 1 : 0);
+
+        Debug.log('building element ' + element.toString() + ' count: ' + this.__count, 2);
 
         /* Walk through all children, if available, and build them */
         if (recursive && element.children.data.length > 0) {
             element.children.step(function(e) {
                 /** @todo beforeChild(e); */
-                var childHtml = this.buildElement(e, true, count++);
+                var childHtml = this.buildElement(e, true, true);
                 /** @todo afterChild(childHtml) */
                 content += childHtml;
             }.bind(this));
@@ -93,7 +96,7 @@ var Render = function() {
             id: element.getId(),
             class: (element.getFullClass() + ' ' + element.body.class.data.join(' ')).trim(),
             type: element.TYPE,
-            style: this.buildStyleString(element) };
+            style: this.__buildStyleString(element) };
         if (element.body.attributes !== undefined) {
             for(var a in element.body.attributes)
                 attr[a] = element.body.attributes[a];
@@ -102,15 +105,13 @@ var Render = function() {
 
         /** @todo afterElement(html) */
         if (element.ACTION !== null && element.ACTION !== undefined) {
-            if (!element.blockAction)
-                html += this.buildActionScriptTag(element);
-            else
-                Debug.log('skipping action script tag for ' + element.getId() + ' due to blockAction', 3);
+            if (!element.blockAction) html += this.__buildActionScriptTag(element);
+            else Debug.log('skipping action script tag for ' + element.getId() + ' due to blockAction', 3);
         }
         return html;
     };
 
-    this.buildActionScriptTag = function(element) {
+    this.__buildActionScriptTag = function(element) {
         /* Fix for Windows systems where the path would be completely escaped,
          * resulting in C:UsersDaveprojectsperiodiqblablabal */
         var path = element.ACTION.__PATH.replace(/\\/g, '/');
@@ -121,8 +122,8 @@ var Render = function() {
 
     /**
      * @private */
-    this.buildStyleString = function(element) {
-        if (!element.active)
+    this.__buildStyleString = function(element) {
+        if (!element.visible)
             return 'display: none;';
 
         if (element.body === undefined)
@@ -157,9 +158,9 @@ var Render = function() {
 
     /**
      * @memberof Render
-     * @function getViewFilePath
+     * @function __getViewFilePath
      * @instance */
-    this.getViewFilePath = function(rootId) {
+    this.__getViewFilePath = function(rootId) {
         return CACHE_DIR + 'view/' + 'view_' + rootId + '.html';
     };
 };

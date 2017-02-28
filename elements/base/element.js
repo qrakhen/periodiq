@@ -8,11 +8,12 @@ const List = require('sygtools').List;
 class BaseElement extends require('../abstract/element.js') {
     constructor() {
         super();
+        this.visible = true;
         this.body = {
             type: 'el',
             /** Additional CSS classes */
             class: new List(),
-            /** HTML Attributes */ 
+            /** HTML Attributes */
             attributes: {},
             /** Manually overriding style object */
             style: {}
@@ -36,12 +37,12 @@ class BaseElement extends require('../abstract/element.js') {
     }
 
     show() {
-        this.body.style.display = null;
+        this.visible = false;
         return this;
     }
 
     hide() {
-        this.body.style.display = 'none';
+        this.visible = true;
         return this;
     }
 
