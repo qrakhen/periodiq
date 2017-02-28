@@ -21,22 +21,19 @@ var Render = function() {
      * @param {Element} header the header element - can be set to null for an empty header
      * @param {RootElement} bodyRoot the root of the page to be rendered (i.e. Core.root)
      * @param {function} done success callback, returns the filename of the generated/cached html output */
-    this.buildView = function(bodyRoot, done) {
+    this.buildView = function(rootElement, done) {
         this.__count = 0;
-        bodyRoot.enable();
+        rootElement.enable();
 
-        var clientScript = '<script src="' + Path.join(__dirname + '/client.js') + '"></script>';
-        var clientCss = '<link rel="stylesheet" href="' + Path.join(__dirname + '/../build/styles/elements.pq.css') + '">';
-        var headerElement = this.createHtmlElement(null, clientScript + clientCss, 'head');
-
-        Debug.log('rendering view from root ' + bodyRoot.toString(), 1);
+        Debug.log('rendering view from root ' + rootElement.toString(), 1);
         /* @todo: Check cache first */
-        var body = this.createHtmlElement(null, this.buildElement(bodyRoot), 'body'),
-            head = headerElement,
+        var includes = (this.__buildCssIncludeTags(rootElement) + this.__buildJsIncludeTags(rootElement)),
+            body = this.createHtmlElement(null, this.buildElement(rootElement), 'body'),
+            head = this.createHtmlElement(null, includes, 'head'),
             html = this.createHtmlElement({style: 'overflow: hidden;'}, head + body, 'html');
         /* afterView(html) */
         Debug.log(this.__count + ' elements rendered', 1);
-        this.__dispatch(html, bodyRoot.rootId, done);
+        this.__dispatch(html, rootElement.rootId, done);
     };
 
     this.__dispatch = function(content, rootId, done) {
@@ -111,6 +108,24 @@ var Render = function() {
         return html;
     };
 
+    this.__buildCssIncludeTags = function(rootElement) {
+        var html = '';
+        rootElement.__cssIncludes.forEach(function(href) {
+            html += '<link rel="stylesheet" href="' + href + '">';
+        });
+        return html;
+    }
+
+    this.__buildJsIncludeTags = function(rootElement) {
+        var html = '';
+        rootElement.__jsIncludes.forEach(function(src) {
+            html += '<script src="' + src + '"></script>';
+        });
+        return html;
+    }
+
+    /**
+     * @private */
     this.__buildActionScriptTag = function(element) {
         /* Fix for Windows systems where the path would be completely escaped,
          * resulting in C:UsersDaveprojectsperiodiqblablabal */
