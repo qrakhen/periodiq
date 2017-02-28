@@ -92,7 +92,7 @@ var Render = function() {
         var attr = {
             id: element.getId(),
             class: (element.getFullClass() + ' ' + element.body.class.data.join(' ')).trim(),
-            type: element.getType(),
+            type: element.TYPE,
             style: this.buildStyleString(element) };
         if (element.body.attributes !== undefined) {
             for(var a in element.body.attributes)

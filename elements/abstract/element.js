@@ -7,15 +7,24 @@ const Debug = require('../../debug.js');
  * */
 class AbstractElement {
     constructor() {
-        this.TYPE = this.getType();     /** contains the auto-generated class name string (or __CLASS_NAME_OVERRIDE if overridden) */
-        this.ACTION = this.getAction(); /** assigned Action class, null if no element.action.js is located in element folder */
-        this.NAMESPACE = this.getNamespace() /** */
-        this.FINAL = false;             /** FINAL elements won't enter recursion mode and can't have children */
+        /** Class Name */
+        this.TYPE = this.constructor.__CLASS_NAME;
+        /** Action Class */
+        this.ACTION = this.constructor.__ACTION;
+        /** Namespace as provided by set.json */
+        this.NAMESPACE = this.constructor.__NAMESPACE;
+        /** FINAL elements won't enter recursion mode and can't have children */
+        this.FINAL = false;
+        /** Index of this element in its parent's children */
         this.childIndex = null;
-        this.active = false;            /** en-/disables element for rendering/logic */
-        this.blockAction = false;       /** en-/disables action execution for this instance */
-        this.parent = null;             /** parent element reference */
-        this.children = new List();     /** dynamically added child elements */
+        /** inactive elements won't be rendered or taken into account for recursive functions */
+        this.active = false;
+        /** en-/disables action execution for this instance */
+        this.blockAction = false;
+        /** parent element reference */
+        this.parent = null;
+        /** dynamical list of child elements */
+        this.children = new List();
     }
 
     /**
@@ -24,19 +33,7 @@ class AbstractElement {
     getId() {
         return (this.parent === null ?
             (this.rootId !== undefined ?
-                this.rootId : null) : (this.childIndex + '_' + this.parent.getId()));
-    }
-
-    getType() {
-        return this.constructor.__CLASS_NAME;
-    }
-
-    getAction() {
-        return this.constructor.__ACTION;
-    }
-
-    getNamespace() {
-        return this.constructor.__NAMESPACE;
+                this.rootId : null) : (this.parent.getId() + '_' + this.childIndex));
     }
 
     /**
@@ -154,7 +151,7 @@ class AbstractElement {
      * If this is not overridden, it will look somewhat like this:
      * <pq-el_base_content[root-4-64]> */
     toString() {
-        return '<' + this.TYPE + '[' + this.getId() + ']' + (this.parent == null ? 'detached' : '') + '>';
+        return '<' + this.TYPE + '[' + this.getId() + ']>' + (this.parent === null && this.rootId === undefined ? ' (detached)' : '');
     }
 }
 
