@@ -21,13 +21,19 @@ var Assembler = function() {
                     continue;
 
                 var content = fs.readFileSync(file, { encoding: 'UTF8' });
+                content = content
+                    .replace(/(: .*)( )(.*;)/g, '$1&nbsp;$3')
+                    .replace(/(.)( )(\.)/g, '$1&nbsp;$3')
+                    .replace(/\s/g, '')
+                    .replace(/\n/g, '')
+                    .replace(/&nbsp;/g, ' ');
+
                 for (var color in theme.colors) {
                     var placeHolder = '\\\$' + color;
                     var regex = new RegExp(placeHolder, 'g');
                     content = content.replace(regex, theme.colors[color]);
                 }
-                content = content.replace(/\t+/g, '').replace(/\n/g, ''); /** @todo fix border: 1px solid <- whitespace */
-                content = content.replace(/.element/g, ' .' + __class.__NAMESPACE + '_' + __class.__CLASS_NAME);
+                content = content.replace(/.element/g, '.' + __class.__NAMESPACE + '_' + __class.__CLASS_NAME);
                 stack += content + '\r\n';
             }
 
