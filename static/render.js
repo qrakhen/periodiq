@@ -18,7 +18,6 @@ var Render = function() {
      * @memberof Render
      * @function buildView
      * @instance
-     * @param {Element} header the header element - can be set to null for an empty header
      * @param {RootElement} bodyRoot the root of the page to be rendered (i.e. Core.root)
      * @param {function} done success callback, returns the filename of the generated/cached html output */
     this.buildView = function(rootElement, done) {

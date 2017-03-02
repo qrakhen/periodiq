@@ -7,7 +7,7 @@
     width: 120px;
     cursor: pointer;
     text-align: center;
-    color: $contrast;
+    color: $textBright;
 }
 
 .element:hover {

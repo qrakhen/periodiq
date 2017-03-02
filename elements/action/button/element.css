@@ -11,7 +11,7 @@
 }
 
 .element:hover {
-    background-color: $main;
+    background-color: $accent;
     color: $textDark;
 }
 
