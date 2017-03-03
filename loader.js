@@ -20,6 +20,7 @@ const ARG_BUILD = (process.argv.indexOf('--build') > -1);
  * @namespace Periodiq */
 var namespace = {
     Element: {},
+    PROJECT_ROOT: Path.join(__dirname + '/../../'),
     ROOT_DIR: ROOT_DIR,
     STATIC_DIR: STATIC_DIR,
     ELEMENT_DIR: ELEMENT_DIR,
@@ -160,4 +161,21 @@ namespace.loadElementDir = function(rootDir, prefix, postfix, compileCss) {
  * @memberof Periodiq */
 namespace.Element = namespace.loadElementDir(ELEMENT_DIR, NAMESPACE);
 
+/**
+ * Initializes your project root directory, looking for the element, theme and config folders.
+ * The project root folder is your default project entry point directory - in most cases,
+ * this is the folder where the node_modules directory is located at.
+ * If the element folder was found, all elements found within that folder will be loaded.
+ * All detected theme and config folders will be noted for later use (i.e. )
+ * To be detected by periodiq, the folders should be called:
+ *      elements/
+ *      config/
+ *      theme/
+ * If you don't want to name your folders according to periodiq's standard, you can still manually load all resources
+ * by using periodiq.loadElementDir(), ThemePicker.loadTheme() and Config.loadConfig()
+ * @param {string} rootDirectory the absolute path to the project root directory */
+namespace.init = function(rootDirectory) {
+    namespace.PROJECT_ROOT = rootDirectory;
+    namespace.loadElementDir(rootDirectory + '/elements/');
+}
 module.exports = namespace;
