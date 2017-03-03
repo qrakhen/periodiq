@@ -22,7 +22,7 @@ class BaseElement extends require('../abstract/element.js') {
 
     /**
      * Adds an additional CSS class next to the static one (i.e. pq_Base)
-     * @param {string} rule */
+     * @param {string} cssClass */
     addClass(cssClass) {
         this.body.class.add(cssClass);
         return this;
@@ -30,7 +30,7 @@ class BaseElement extends require('../abstract/element.js') {
 
     /**
      * Removes given CSS class
-     * @param {string} rule */
+     * @param {string} cssClass */
     removeClass(cssClass) {
         this.body.class.remove(cssClass);
         return this;
