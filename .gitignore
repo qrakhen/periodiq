@@ -3,3 +3,6 @@ node_modules/
 log/*
 doc/*
 build/*/*
+
+config/*.json
+npm-debug.log
