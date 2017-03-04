@@ -1,24 +1,24 @@
 .element {
     margin: 0;
     padding: 0;
-    background: $mainColor;
+    background: $base;
     position: relative;
     line-height: 40px;
     width: 120px;
     cursor: pointer;
     text-align: center;
-    color: $contrast;
+    color: $textBright;
 }
 
 .element:hover {
-    background: $mainDark;
+    background: $baseDark;
 }
 
 .element .container {
     position: absolute;
     top: 40px;
     left: 0;
-    background: $mainColor;
+    background: $base;
     transition: all 0.3s;
     height: 0px;
     width: 100%;

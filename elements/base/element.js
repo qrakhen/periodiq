@@ -8,11 +8,12 @@ const List = require('sygtools').List;
 class BaseElement extends require('../abstract/element.js') {
     constructor() {
         super();
+        this.visible = true;
         this.body = {
             type: 'el',
             /** Additional CSS classes */
             class: new List(),
-            /** HTML Attributes */ 
+            /** HTML Attributes */
             attributes: {},
             /** Manually overriding style object */
             style: {}
@@ -21,7 +22,7 @@ class BaseElement extends require('../abstract/element.js') {
 
     /**
      * Adds an additional CSS class next to the static one (i.e. pq_Base)
-     * @param {string} rule */
+     * @param {string} cssClass */
     addClass(cssClass) {
         this.body.class.add(cssClass);
         return this;
@@ -29,19 +30,19 @@ class BaseElement extends require('../abstract/element.js') {
 
     /**
      * Removes given CSS class
-     * @param {string} rule */
+     * @param {string} cssClass */
     removeClass(cssClass) {
         this.body.class.remove(cssClass);
         return this;
     }
 
     show() {
-        this.body.style.display = null;
+        this.visible = false;
         return this;
     }
 
     hide() {
-        this.body.style.display = 'none';
+        this.visible = true;
         return this;
     }
 

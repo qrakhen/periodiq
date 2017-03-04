@@ -1,12 +1,13 @@
 {
-    "mainDarker": "#202124",
-    "mainDark": "#212329",
-    "mainColor": "#22252C",
-    "mainBright": "#24282F",
-    "mainBrighter": "#27323A",
-    "contrast": "#C0B3A0",
-    "accent": "#3296AF",
-    "fontDark": "#3F3250",
-    "fontBright": "#C0B3A0",
-    "linkText": "#E14658"
+    "baseDark": "#141415",
+    "base": "#202022",
+    "baseLight": "#242428",
+    "mainDark": "#246472",
+    "main": "#3296AF",
+    "mainLight": "48AEEE",
+    "accentDark": "#168848",
+    "accent": "#24AA64",
+    "accentLight": "#32EE96",
+    "textLight": "#FAFAFA",
+    "textDark": "#121212"
 }

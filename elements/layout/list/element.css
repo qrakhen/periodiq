@@ -1,0 +1,10 @@
+.element {
+    display: block;
+    width: auto;
+}
+
+.element .item {
+    display: block;
+    width: 100%;
+    margin-bottom: 3px;
+}

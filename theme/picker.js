@@ -3,10 +3,11 @@ const fs = require('fs');
 
 var ThemePicker = function() {
 
-    this.loadTheme = function(name) {
+    this.loadTheme = function(name, folder) {
         var theme = {};
+        folder = folder || (__dirname + '/palettes');
         try {
-            theme.colors = JSON.parse(fs.readFileSync(__dirname + '/palettes/' + name + '/colors.json').toString());
+            theme.colors = JSON.parse(fs.readFileSync(folder + '/' + name + '/colors.json').toString());
         } catch(err) {
             Debug.log('could not load theme: ' + err);
         }
