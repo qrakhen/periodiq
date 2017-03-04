@@ -1,13 +1,14 @@
 .element {
+    margin-bottom: 4px;
     display: inline-block;
-    width: 120px;
+    width: auto;
     height: 40px;
     line-height: 40px;
     text-align: center;
-    cursor: pointer;
     background-color: $base;
     color: $textLight;
     transition: all 0.3s;
+    user-select: none;
 }
 
 .element:hover {

@@ -6,6 +6,7 @@
 class AbstractComposite extends require('../base/element.js') {
     constructor() {
         super();
+        this.body.type = 'cmp';
         this.nodes = {};
     }
 

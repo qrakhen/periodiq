@@ -44,7 +44,7 @@ namespace.Render = require(STATIC_DIR + '/render.js');
  * @memberof Periodiq */
 namespace.EventController = require(STATIC_DIR + '/event.js');
 
-namespace.ThemePicker = require(ROOT_DIR + '/theme/picker.js');
+namespace.ThemePicker = require(STATIC_DIR + '/picker.js');
 
 module.export = namespace;
 

@@ -8,7 +8,7 @@ const BUILD_DIR = __dirname + '/../build/';
 var Assembler = function() {
 
     this.buildElementStyles = function(elements, namespace, theme) {
-        if (theme === undefined) theme = require(__dirname + '/../theme/picker.js').loadTheme('default');
+        if (theme === undefined) theme = require(__dirname + '/picker.js').loadTheme('default');
         var outputFilePath = BUILD_DIR + 'styles/elements.' + namespace + '.css';
         fs.unlink(outputFilePath, function(err) {
             if (err) Debug.log(err, 3);
