@@ -9,7 +9,7 @@ const EventController = require(Path.resolve(__dirname + '/../../static/event.js
 class AbstractActionElement extends require('../base/element.js') {
     constructor() {
         super();
-        this.body.type = 'iac';
+        this.body.type = 'acel';
         this.eventController = EventController;
     }
 }

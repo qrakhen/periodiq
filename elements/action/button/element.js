@@ -5,6 +5,7 @@
 class BasicButton extends require('../element.js') {
     constructor(label) {
         super();
+        this.body.type = 'btn';
         this.content = label || this.getFullClass();
         this.clickCallback = null;
         this.body.attributes.clickevent = this.TYPE + '_click';
