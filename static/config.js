@@ -65,8 +65,8 @@ var Config = function() {
      *
      * @function get
      * @memberof Config
-     * @param {Config} config
-     * @return {}  */
+     * @param {Config} config specifies the requested configuration. Example: 'window'
+     * @return {object} the requested config object, empty if unknown non-default key, use .createFrom(file) to fill with data  */
     this.get = function(config) {
         var pref = Path.join(this.DEFAULT_CONFIG_ROOT + 'pq.' + config);
         var file = Path.join(pref + '.json');
@@ -77,12 +77,8 @@ var Config = function() {
                     this.__load(file);
                 } else if (!fs.existsSync(Path.join(this.DEFAULT_CONFIG_ROOT + 'pq.' + config + 'init.js'))) {
                     Debug.log('Trying to create new default pq.' + config + '.json file');
-                    try {
                         require(initFile).write();
                         this.configs[config] = JSON.parse(fs.readFileSync(file));
-                    } catch (err2) {
-                        Debug.error(err2);
-                    }
                 } else {
                     this.configs[config] = {};
                 }
@@ -109,7 +105,7 @@ var Config = function() {
     /**
      * Lists the name of all default-configurations */
     this.DEFAULT_CONFIGS = {
-        window: 'pq.window.js',
+        window: 'pq.window.json',
         app:    'pq.app.json',
         debug:  'pq.debug.json'
     };

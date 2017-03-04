@@ -7,6 +7,16 @@ const fs = require('fs');
 var AppConfigs = function() {
     var fileName = 'pq.app.json';
     var configs = JSON.stringify({
+
+        /* Strimg - name of the application */
+        name: 'pqapp',
+
+        /* Strimg - company distributing the application */
+        company: 'company',
+
+        /* Strimg - description of the application */
+        description: '',
+
         /* String - default theme of the app */
         defaultTheme: 'default',
 
