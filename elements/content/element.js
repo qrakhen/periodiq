@@ -5,7 +5,7 @@ class AbstractContentElement extends require('../base/element.js') {
     constructor() {
         super();
         this.FINAL = true;
-        this.content = ' ';
+        this.content = '';
     }
 
     setContent(content) {

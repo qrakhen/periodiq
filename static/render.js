@@ -108,7 +108,7 @@ var Render = function() {
 
         /** @todo afterElement(html) */
         if (element.ACTION !== null && element.ACTION !== undefined) {
-            if (!element.blockAction) html += this.__buildActionScriptTag(element);
+            if (!element.blockAction) html += this.__getIndent() + this.__buildActionScriptTag(element);
             else Debug.log('skipping action script tag for ' + element.getId() + ' due to blockAction', 3);
         }
         return html;
@@ -164,7 +164,7 @@ var Render = function() {
             html = '<' + type,
             indent = this.__getIndent();
         for (var i in attributes) html += ' ' + i + '="' + attributes[i] + '"';
-        html += '>\r\n' + (content ? content + '\r\n' : '') + indent + '</' + type + '>\r\n';
+        html += '>' + (content.length > 0 ? ('\r\n' + content + '\r\n' + indent) : '') + '</' + type + '>\r\n';
         return indent + html;
     };
 
