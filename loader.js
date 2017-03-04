@@ -44,6 +44,11 @@ namespace.Render = require(STATIC_DIR + '/render.js');
  * @memberof Periodiq */
 namespace.EventController = require(STATIC_DIR + '/event.js');
 
+/**
+ * Reference to the Config 'singleton'
+ * @memberof Periodiq */
+namespace.Config = require(STATIC_DIR + '/config.js');
+
 namespace.ThemePicker = require(ROOT_DIR + '/theme/picker.js');
 
 module.export = namespace;
