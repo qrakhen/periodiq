@@ -8,6 +8,7 @@ const CACHE_DIR = Path.join(__dirname + '/../cache/');
 var Render = function() {
     this.theme = null; //move to config
     this.__count = 0;
+    this.__indent = 0;
 
     /**
      * Renders an entire element tree, starting from the provided bodyRoot,
@@ -27,9 +28,9 @@ var Render = function() {
         Debug.log('rendering view from root ' + rootElement.toString(), 1);
         /* @todo: Check cache first */
         var includes = (this.__buildCssIncludeTags(rootElement) + this.__buildJsIncludeTags(rootElement)),
-            body = this.createHtmlElement(null, this.buildElement(rootElement), 'body'),
-            head = this.createHtmlElement(null, includes, 'head'),
-            html = this.createHtmlElement({style: 'overflow: hidden;'}, head + body, 'html');
+            body = this.__createHtmlElement(null, this.buildElement(rootElement), 'body'),
+            head = this.__createHtmlElement(null, includes, 'head'),
+            html = this.__createHtmlElement({style: 'overflow: hidden;'}, head + body, 'html');
         /* afterView(html) */
         Debug.log(this.__count + ' elements rendered', 1);
         this.__dispatch(html, rootElement.rootId, done);
@@ -48,7 +49,7 @@ var Render = function() {
      * Generates an element's html and (optionally) recursively walks through all children.
      * This is most commonly used if you update an element and want to render the changes.
      * @memberof Render
-     * @function buildStyles
+     * @function buildElement
      * @instance
      * @param {Element} element element to be rendered
      * @param {boolean} recursive true = recurse through children, false = limit to this element */
@@ -66,24 +67,29 @@ var Render = function() {
             content = '';
 
         this.__count = (__count === true ? this.__count + 1 : 0);
+        if (__count === false) this.__indent = 0;
 
         Debug.log('building element ' + element.toString() + ' count: ' + this.__count, 2);
 
         /* Walk through all children, if available, and build them */
         if (recursive && element.children.data.length > 0) {
+            this.__indent++;
             element.children.step(function(e) {
                 /** @todo beforeChild(e); */
                 var childHtml = this.buildElement(e, true, true);
                 /** @todo afterChild(childHtml) */
                 content += childHtml;
             }.bind(this));
+            this.__indent--;
         } else if (element.content !== undefined) {
-            content = element.content;
+            this.__indent++;
+            content = this.__getIndent() + element.content;
+            this.__indent--;
         }
 
         /* return untouched element if it's the head anchor */
         if (element.body.type === 'head')
-            return this.createHtmlElement({}, content, element.body.type);
+            return this.__createHtmlElement({}, content, element.body.type);
 
         /** @todo beforeElement(element) */
 
@@ -97,7 +103,8 @@ var Render = function() {
             for(var a in element.body.attributes)
                 attr[a] = element.body.attributes[a];
         }
-        var html = this.createHtmlElement(attr, content, element.body.type);
+
+        var html = this.__createHtmlElement(attr, content, element.body.type);
 
         /** @todo afterElement(html) */
         if (element.ACTION !== null && element.ACTION !== undefined) {
@@ -152,14 +159,21 @@ var Render = function() {
 
     /**
      * @private */
-    this.createHtmlElement = function(attributes, content, type) {
-        var type = type || 'div',
-            html = '<' + type;
-        for (var i in attributes) {
-            html += ' ' + i + '="' + attributes[i] + '"';
-        }
-        html += '>\r\n' + content + '</' + type + '>\r\n';
-        return html;
+    this.__createHtmlElement = function(attributes, content, type) {
+        var type = type || 'el',
+            html = '<' + type,
+            indent = this.__getIndent();
+        for (var i in attributes) html += ' ' + i + '="' + attributes[i] + '"';
+        html += '>\r\n' + (content ? content + '\r\n' : '') + indent + '</' + type + '>\r\n';
+        return indent + html;
+    };
+
+    /**
+     * @private */
+    this.__getIndent = function() {
+        var indent = '';
+        for (var i = 0; i < this.__indent; i++) indent += '    ';
+        return indent;
     };
 
     /**
