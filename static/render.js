@@ -144,7 +144,7 @@ var Render = function() {
     /**
      * @private */
     this.__buildStyleString = function(element) {
-        if (!element.visible)
+        if (element.visible === false)
             return 'display: none;';
 
         if (element.body === undefined)

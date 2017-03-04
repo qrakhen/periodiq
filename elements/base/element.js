@@ -37,12 +37,12 @@ class BaseElement extends require('../abstract/element.js') {
     }
 
     show() {
-        this.visible = false;
+        this.visible = true;
         return this;
     }
 
     hide() {
-        this.visible = true;
+        this.visible = false;
         return this;
     }
 

@@ -8,13 +8,13 @@ class BasicButton extends require('../element.js') {
         this.content = label || this.getFullClass();
         this.clickCallback = null;
         this.body.attributes.clickevent = this.TYPE + '_click';
-        this.eventController.addListener(this.body.attributes.clickevent, this.onClickListen.bind(this));
+        this.eventController.addListener(this.body.attributes.clickevent, this.clicked.bind(this));
         this.addClass('button');
     }
 
     /**
      * Triggered when button is clicked */
-    onClickListen(eventName, senderId, data) {
+    clicked(eventName, senderId, data) {
         if (senderId === this.getId() && this.actionCallback !== null)
             this.clickCallback(data);
     }
