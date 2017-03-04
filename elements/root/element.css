@@ -1,7 +1,7 @@
 .element {
     display: block;
     font-size: 16px;
-    font-family: 'Tahoma';
+    font-family: 'Verdana';
     width: 100%;
     height: 100%;
 }
@@ -10,8 +10,8 @@
 
 body {
     margin: 0;
-    background-color: $mainColor;
-    color: $fontBright;
+    background-color: $baseDark;
+    color: $textBright;
 }
 
 el {

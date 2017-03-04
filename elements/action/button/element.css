@@ -5,20 +5,20 @@
     line-height: 40px;
     text-align: center;
     cursor: pointer;
-    background-color: $mainColor;
-    font-color: $fontBright;
+    background-color: $base;
+    color: $textLight;
     transition: all 0.3s;
 }
 
 .element:hover {
     background-color: $accent;
-    font-color: $fontDark;
+    color: $textDark;
 }
 
 .element.disabled {
-    color: #929292;
+    color: $textBright;
 }
 
 .element.disabled:hover {
-    background-color: $mainColor;
+    background-color: $base;
 }

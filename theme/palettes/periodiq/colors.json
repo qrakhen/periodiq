@@ -1,4 +1,13 @@
 {
+    "baseDark": "#192022",
     "base": "#202224",
-    "accent": "#3296AF"
+    "baseLight": "#212428",
+    "mainDark": "#246472",
+    "main": "#3296AF",
+    "mainLight": "48AEEE",
+    "accentDark": "#168848",
+    "accent": "#24AA64",
+    "accentLight": "#32EE96",
+    "textLight": "#FAFAFA",
+    "textDark": "#121212"
 }

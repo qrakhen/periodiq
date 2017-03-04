@@ -15,16 +15,19 @@ class AbstractElement {
         this.NAMESPACE = this.constructor.__NAMESPACE;
         /** FINAL elements won't enter recursion mode and can't have children */
         this.FINAL = false;
-        /** Index of this element in its parent's children */
-        this.childIndex = null;
         /** inactive elements won't be rendered or taken into account for recursive functions */
         this.active = false;
+        /** indicates visibility within the DOM */
+        this.visible = false;
         /** en-/disables action execution for this instance */
         this.blockAction = false;
         /** parent element reference */
         this.parent = null;
         /** dynamical list of child elements */
         this.children = new List();
+
+        /** Index of this element in its parent's children */
+        this.__childIndex = null;
     }
 
     /**
@@ -33,7 +36,7 @@ class AbstractElement {
     getId() {
         return (this.parent === null ?
             (this.rootId !== undefined ?
-                this.rootId : null) : (this.parent.getId() + '_' + this.childIndex));
+                this.rootId : null) : (this.parent.getId() + '_' + this.__childIndex));
     }
 
     /**
@@ -84,7 +87,7 @@ class AbstractElement {
             if (this.parent !== null) this.detach();
             parent.children.add(this);
             this.parent = parent;
-            this.childIndex = parent.getNextChildIndex();
+            this.__childIndex = parent.getNextChildIndex();
             this.enable();
             return this;
         }
@@ -111,7 +114,7 @@ class AbstractElement {
     detach() {
         if (this.parent !== null) this.parent.children.remove(this);
         this.parent = null;
-        this.childIndex = null;
+        this.__childIndex = null;
         this.disable();
         return this;
     }
@@ -130,7 +133,7 @@ class AbstractElement {
      * This is needed when a new child attaches. */
     getNextChildIndex() {
         var n = 0;
-        while (this.children.findOne('childIndex', n) !== null) n++;
+        while (this.children.findOne('__childIndex', n) !== null) n++;
         return  n;
     }
 
