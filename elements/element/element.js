@@ -1,11 +1,11 @@
 const List = require('sygtools').List;
 
 /**
- * Simply extends the AbstractElement class and implements a renderable body.
+ * Simply extends the Element class and implements a renderable body.
  * This is where you should derive your custom (and visible) elements from,
- * since the AbstractElement class only provides the absolute basic foundation.
- * @extends AbstractElement */
-class BaseElement extends require('../abstract/element.js') {
+ * since the Element class only provides the absolute basic foundation.
+ * @extends Element */
+class Element extends require('../abstract/element.js') {
     constructor() {
         super();
         this.visible = true;
@@ -37,12 +37,12 @@ class BaseElement extends require('../abstract/element.js') {
     }
 
     show() {
-        this.visible = false;
+        this.visible = true;
         return this;
     }
 
     hide() {
-        this.visible = true;
+        this.visible = false;
         return this;
     }
 
@@ -160,4 +160,4 @@ class BaseElement extends require('../abstract/element.js') {
     }
 }
 
-module.exports = BaseElement;
+module.exports = Element;

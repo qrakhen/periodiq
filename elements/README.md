@@ -18,9 +18,9 @@ Creating custom Elements is kept simple and comes with only 3 requirements:
 We recommend reading the [Documentation](http://docs.periodiq.org) for closer information.
 
     // element.js - example
-    var BaseElement = require('periodiq').Element.Base;
+    var Element = require('periodiq').Element.Base;
 
-    class MyCustomElement extends BaseElement {
+    class MyCustomElement extends Element {
         constructor() {
             super();
         }

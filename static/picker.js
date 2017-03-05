@@ -5,9 +5,9 @@ var ThemePicker = function() {
 
     this.loadTheme = function(name, folder) {
         var theme = {};
-        folder = folder || (__dirname + '/palettes');
+        folder = folder || (__dirname + '/../theme');
         try {
-            theme.colors = JSON.parse(fs.readFileSync(folder + '/' + name + '/colors.json').toString());
+            theme = JSON.parse(fs.readFileSync(folder + '/' + name + '/theme.json').toString());
         } catch(err) {
             Debug.log('could not load theme: ' + err);
         }

@@ -1,7 +1,7 @@
 
 /**
- * @extends BaseElement */
-class AbstractContentElement extends require('../base/element.js') {
+ * @extends Element */
+class AbstractContentElement extends require('../element/element.js') {
     constructor() {
         super();
         this.FINAL = true;

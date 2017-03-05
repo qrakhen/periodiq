@@ -1,6 +1,6 @@
 
 
-class AbstractLayoutElement extends require('../base/element.js') {
+class AbstractLayoutElement extends require('../element/element.js') {
     constructor() {
         super();
     }

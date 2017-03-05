@@ -1,0 +1,17 @@
+{
+    "title": "periodiq default theme",
+    "colors": {
+        "baseDark": "#161617",
+        "base": "#202022",
+        "baseLight": "#242428",
+        "contrast": "#F2F2FA",
+        "mainDark": "#246472",
+        "main": "#3296AF",
+        "mainLight": "48AEEE",
+        "accentDark": "#168848",
+        "accent": "#24AA64",
+        "accentLight": "#32EE96",
+        "textLight": "#FAFAFA",
+        "textDark": "#121212"
+    }
+}

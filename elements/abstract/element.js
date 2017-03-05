@@ -26,7 +26,7 @@ class AbstractElement {
         /** dynamical list of child elements */
         this.children = new List();
 
-        /** Index of this element in its parent's children */
+        /** @private Index of this element in its parent's children */
         this.__childIndex = null;
     }
 
@@ -77,7 +77,7 @@ class AbstractElement {
         } else if (parent.FINAL) {
             Debug.fail('can not append to a finalized parent: forbidden. ' + parent.toString(), 1);
             return false;
-        } else if (this.TYPE === 'AbstractElement') {
+        } else if (this.TYPE === 'Element') {
             Debug.fail('tried to attach abstract element to ' + parent.id + ': forbidden.', 1);
             return false;
         } else if (parent === this) {
@@ -117,15 +117,6 @@ class AbstractElement {
         this.__childIndex = null;
         this.disable();
         return this;
-    }
-
-    /**
-     * Returns a percentage that displays an amount columns of given total.
-     * @param {integer} total total number of columns, default: 12 */
-    getColumnWidth(columns, total) {
-        columns = columns || 1;
-        total = total || 12;
-        return ((columns / total) * 99.275) + '%';
     }
 
     /**

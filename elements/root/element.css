@@ -6,7 +6,10 @@
     height: 100%;
 }
 
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+    cursor: default !important;
+}
 
 body {
     margin: 0;
