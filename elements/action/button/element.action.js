@@ -13,8 +13,7 @@ class ButtonAction extends require(__dirname + '/../../abstract/element.action.j
     }
 
     onClick() {
-        // remove selected from all others;
-        this.addClass('selected');
+        this.eventController.trigger(this.element.getAttribute('clickevent'), this.getElementID(), {});
     }
 }
 

@@ -1,10 +1,11 @@
 const Element = require('../../element/element.js');
 
-class ScrollWrapper extends require('../element.js') {
+class BaseInputField extends require('../element.js') {
     constructor() {
         super();
+        this.addClass();
         this.nodes = {
-            content: new Element().addClass('content')
+            placeholder: new ContentText('placeholder').addClass('placeholder')
         };
     }
 
@@ -14,4 +15,4 @@ class ScrollWrapper extends require('../element.js') {
     }
 }
 
-module.exports = ScrollWrapper;
+module.exports = BaseInputField;

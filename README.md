@@ -100,7 +100,7 @@ More examples and some demo projects will follow soon.
         // create a new element, attach it to the root element,
         // set its margin, assign a custom size,
         // and apply a background color
-        // checkout the documentation for AbstractElement and BaseElement to get more information about the included functions.
+        // checkout the documentation for Element and Element to get more information about the included functions.
         var base = new Element.Base();
         base.attach(Core.root)
             .setMargin(32, 32)
@@ -165,9 +165,9 @@ Creating custom Elements is kept simple and comes with only 3 requirements:
 We recommend reading the [Documentation](http://docs.periodiq.org) for closer information.
 
     // element.js - example
-    var BaseElement = require('periodiq').Element.Base;
+    var Element = require('periodiq').Element.Base;
 
-    class MyCustomElement extends BaseElement {
+    class MyCustomElement extends Element {
         constructor() {
             super();
         }

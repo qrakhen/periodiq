@@ -1,18 +1,18 @@
 const AbstractComposite = require('../element.js');
-const BaseElement = require('../../base/element.js');
+const Element = require('../../element/element.js');
 const ContentText = require('../../content/text/element.js');
 
 class BasicDropdown extends AbstractComposite {
     constructor(title) {
         super();
         this.nodes = {
-            container: new BaseElement().addClass('container')
+            container: new Element().addClass('container')
         };
         this.append(new ContentText(title));
     }
 
     addMenuEntry(text) {
-        var element = new BaseElement().append(new ContentText(text));
+        var element = new Element().append(new ContentText(text));
         this.addMenuEntryElement(element);
         return this;
     }

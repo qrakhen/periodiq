@@ -3,7 +3,7 @@ const Path = require('path');
 /**
  * Generic Root Element
  * Keep in mind that you are allowed to create several root elements (to store different views, for example). */
-class RootElement extends require('../base/element.js') {
+class RootElement extends require('../element/element.js') {
     constructor(rootId, includeDefaults) {
         super();
         includeDefaults = includeDefaults || true;

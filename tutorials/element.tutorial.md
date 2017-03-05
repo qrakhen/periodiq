@@ -6,9 +6,9 @@ create another folder within there for your new element
 create element.js and insert
 
     // elements/myElement/element.js - example
-    var BaseElement = require('periodiq').Element.Base;
+    var Element = require('periodiq').Element.Base;
 
-    class myElement extends BaseElement {
+    class myElement extends Element {
         constructor() {
             super();
         }

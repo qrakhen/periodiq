@@ -3,7 +3,7 @@ const TagElement = require('../content/tag/element.js');
 /* possibly throw out head completely? */
 
 /**
- * @extends AbstractElement */
+ * @extends Element */
 class BasicHeader extends require('../abstract/element.js') {
     constructor(id, title) {
         super();

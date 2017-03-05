@@ -1,10 +1,10 @@
-const BaseElement = require('../../../base/element.js');
+const Element = require('../../../element/element.js');
 
 class BaseForm extends require('../../element.js') {
     constructor() {
         super();
         this.body.type = 'form';
-        this.nodes.inputs = new BaseElement().addClass('inputs');
+        this.nodes.inputs = new Element().addClass('inputs');
     }
 
     addInput(input) {
