@@ -47,7 +47,8 @@ var Config = function() {
          * @param {filePath}  */
         this.configs[config].extendFrom = function(filePath) {
             var userConf = JSON.parse(filePath);
-
+            for (var key in userConf) this[key] = userConf[key];
+            return this;
         };
         /**
          *
@@ -56,6 +57,7 @@ var Config = function() {
         this.configs[config].createFrom = function(filePath) {
             var userConf = JSON.parse(filePath);
             this.storeTo(filePath);
+            return this;
         };
     };
 
@@ -75,7 +77,7 @@ var Config = function() {
             try {
                 if (fs.existsSync(file)) {
                     this.__load(file);
-                } else if (!fs.existsSync(Path.join(this.DEFAULT_CONFIG_ROOT + 'pq.' + config + 'init.js'))) {
+                } else if (!fs.existsSync(initFile)) {
                     Debug.log('Trying to create new default pq.' + config + '.json file');
                         require(initFile).write();
                         this.configs[config] = JSON.parse(fs.readFileSync(file));

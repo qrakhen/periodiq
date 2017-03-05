@@ -4,7 +4,8 @@ const Debug = require('../../debug.js');
 /**
  * The very basic and lowest element inheritance class.
  * All elements must at some point derive from this class in order to even remotely work.
- * */
+ * This class contains all basic element logic functions like attach(), getId(), ...
+ * Do not directly create element instances/objects of this class. That's what abstract means. */
 class AbstractElement {
     constructor() {
         /** Class Name */

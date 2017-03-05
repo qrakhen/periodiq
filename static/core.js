@@ -2,6 +2,7 @@ const Debug = require('../debug.js');
 const Render = require('./render.js');
 const url = require('url');
 const path = require('path');
+const Config = require('./config.js');
 
 /**
  * The Core Instance is Periodiq's super controller.
@@ -24,10 +25,14 @@ var Core = function() {
      * @memberof Core
      * @instance
      * @param {Electron} electron Electron class (as returned by require())
-     * @param {Element} rootElement The root (origin) element, where the entire page is rooted
-     * @param {object} options The options to be passed into the window
+     * @param {RootElement} rootElement The root (origin) element, where the entire page is rooted
+     * @param {object} options The options to be passed into the window. default is Config.get('window'); If just a partial options object is provided, it will extend the default configuration - only overriding existing keys.
      * @param {function} ready Finish callback */
     this.launch = function(electron, rootElement, options, ready) {
+        var config = Config.get('window');
+        console.log(config)
+        if (options !== undefined && options !== null)
+            for (var key in options) config[key] = options[key];
         this.history    = { cursor: 0, log: [] };
         this.root       = rootElement;
         this.rpid       = null;
@@ -36,7 +41,7 @@ var Core = function() {
         this.Window     = this.electron.BrowserWindow;
         this.app.on('ready', function() {
             /* Init mainFrame */
-            this.mainFrame = new this.Window(options);
+            this.mainFrame = new this.Window(config);
             this.mainFrame.setMenu(null);
             this.rpid = this.mainFrame.webContents;
 

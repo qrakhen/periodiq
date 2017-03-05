@@ -10,10 +10,10 @@ var WindowConfigs = function() {
     var fileName = 'pq.window.json';
     var configs = JSON.stringify({
         // Integer - Window's width in pixels. Default is `800`.
-        width: 300,
+        width: 1280,
 
         // Integer - Window's height in pixels. Default is `600`.
-        height: 300,
+        height: 960,
 
         // Integer - Window's left offset from screen. Default is to center the window.
         x: undefined,
@@ -25,7 +25,7 @@ var WindowConfigs = function() {
         useContentSize: false,
 
         // Boolean - Show window in the center of the screen.
-        center: undefined,
+        center: true,
 
         // Integer - Window's minimum width. Default is `0`.
         minWidth: 20,
@@ -40,13 +40,13 @@ var WindowConfigs = function() {
         maxHeight: undefined,
 
         // Boolean - Whether window is resizable. Default is `true`.
-        resizable: true,
+        resizable: false,
 
         // Boolean - Whether the window should always stay on top of other windows. Default is `false`.
         alwaysOnTop: false,
 
         // Boolean - Whether the window should show in fullscreen. When set to `false` the fullscreen button will be hidden or disabled on OS X. Default is `false`.
-        fullscreen: false,
+        fullscreen: true,
 
         // Boolean - Whether to show the window in taskbar. Default is `false`.
         skipTaskbar: false,
@@ -79,7 +79,7 @@ var WindowConfigs = function() {
         enableLargerThanScreen: false,
 
         // String - Window's background color as Hexadecimal value, like `#66CD00` or `#FFF`. This is only implemented on Linux and Windows. Default is `#000` (black).
-        backgroundColor: '#192022',
+        backgroundColor: '#000000',
 
         // Boolean - Forces using dark theme for the window, only works on some GTK+3 desktop environments. Default is `false`.
         darkTheme: false,
@@ -168,10 +168,8 @@ var WindowConfigs = function() {
         }
     }, null, 4);
     this.write = function() {
-        fs.writeFileSync(Path.join(__dirname + '/../config/' + fileName), configs, function(err) {
-            if(err) {
-                return Debug.log(err);
-            }
+        fs.writeFileSync(fileName, configs, function(err) {
+            if(err) return Debug.log(err);
             Debug.success('New internal ' + fileName + ' file created');
         });
     };
