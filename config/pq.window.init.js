@@ -8,7 +8,7 @@
  * https://github.com/ungoldman/electron-browser-window-options/blob/master/index.js */
 var WindowConfigs = function() {
     var fileName = 'pq.window.json';
-    var configs = JSON.stringify({
+    var configs = {
         // Integer - Window's width in pixels. Default is `800`.
         width: 1280,
 
@@ -46,7 +46,7 @@ var WindowConfigs = function() {
         alwaysOnTop: false,
 
         // Boolean - Whether the window should show in fullscreen. When set to `false` the fullscreen button will be hidden or disabled on OS X. Default is `false`.
-        fullscreen: true,
+        fullscreen: false,
 
         // Boolean - Whether to show the window in taskbar. Default is `false`.
         skipTaskbar: false,
@@ -166,12 +166,10 @@ var WindowConfigs = function() {
             // Boolean - Page would be forced to be always in visible or hidden state once set, instead of reflecting current window's visibility. Users can set it to `true` to prevent throttling of DOM timers. Default is `false`.
             pageVisibility: false
         }
-    }, null, 4);
+    };
     this.write = function() {
-        fs.writeFileSync(fileName, configs, function(err) {
-            if(err) return Debug.log(err);
-            Debug.success('New internal ' + fileName + ' file created');
-        });
+        fs.writeFileSync(__dirname + '/' + fileName, JSON.stringify(configs, null, 4));
     };
 }
+
 module.exports = new WindowConfigs();

@@ -18,7 +18,7 @@ var Debug = function() {
 
         var date = new Date(),
             //prefix = '[' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + ']:[' + logLevel + ']' + (typeof anything === 'string' ? '' : '(' + typeof anything + ') ');
-            prefix = '  [PQDBG(' + logLevel + ')] >';
+            prefix = '  [PQDBG(' + logLevel + ')] > ';
         console.log(prefix, anything);
         if (this.writeToFile) fs.appendFile(this.logFile, prefix + ' ' + anything + '\r\n', (err) => {
             if (err) console.log('debug could not write to file: ' + err);
@@ -38,7 +38,7 @@ var Debug = function() {
     };
 
     this.error = function(anything, logLevel) {
-        return this.__log('!ERROR: '.red + anything, logLevel);
+        return this.__log('!ERROR! (called from ' + arguments.callee.caller.constructor + ')'.red + anything, logLevel);
     };
 
     this.warn = function(anything, logLevel) {

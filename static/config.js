@@ -1,6 +1,5 @@
  const Path  = require('path');
  const fs    = require('fs');
- const List  = require('sygtools').List;
  const Debug = require('../debug.js');
 
  /**
@@ -10,7 +9,7 @@
   * @class Config */
 var Config = function() {
     this.DEFAULT_CONFIG_ROOT = Path.join(__dirname + '/../config/')
-    this.configs = new List();
+    this.__configs = {};
 
     /**
      * Load and store extend configurations.
@@ -19,46 +18,44 @@ var Config = function() {
      * @function load
      * @memberof Config
      * @private
-     * @param {FilePath} filePath   */
+     * @param {FilePath} filePath
+     * @param {string} configName optional config name override */
     this.__load = function(filePath) {
-        try {
-            var split = filePath.split('.');
-            var config = split[split.length - 2];
-            this.configs[config] = JSON.parse(fs.readFileSync(filePath));
-        } catch(err) {
-            Debug.log(err);
+        // only read a file if the path is given, if there's none provided, we assume a new config is created //
+        var config = {};
+        if (filePath !== undefined && filePath !== null) {
+            try {
+                config = JSON.parse(fs.readFileSync(filePath));
+            } catch(err) {
+                Debug.error(err);
+            }
         }
+
+        // always define the functions, even for new configs //
 
         /**
          * Stores a configuration-file to the specified filePath
+         * @memberof Config.get()
          * @instance
          * @param {filePath} */
-        this.configs[config].storeTo = function(filePath) {
-            fs.writeFileSync(filePath, JSON.stringify(this.configs[config]), function(err) {
-                if(err) {
-                    return Debug.error(err);
-                }
+        config.storeTo = function(filePath) {
+            fs.writeFileSync(filePath, JSON.stringify(this, function(err) {
+                if(err) return Debug.error(err);
                 Debug.success('Config-file saved as ' + filePath);
-            });
+            }));
         };
+        
         /**
          *
          * @instance
          * @param {filePath}  */
-        this.configs[config].extendFrom = function(filePath) {
+        config.extendFrom = function(filePath) {
             var userConf = JSON.parse(filePath);
             for (var key in userConf) this[key] = userConf[key];
             return this;
         };
-        /**
-         *
-         * @instance
-         * @param {filePath}  */
-        this.configs[config].createFrom = function(filePath) {
-            var userConf = JSON.parse(filePath);
-            this.storeTo(filePath);
-            return this;
-        };
+
+        return config;
     };
 
     /**
@@ -72,23 +69,40 @@ var Config = function() {
     this.get = function(config) {
         var pref = Path.join(this.DEFAULT_CONFIG_ROOT + 'pq.' + config);
         var file = Path.join(pref + '.json');
-        var initFile = Path.join(pref + '.init.js' )
-        if (this.configs[config] === undefined) {
+        var initFile = Path.join(pref + '.init.js');
+        if (this.__configs[config] === undefined) {
             try {
                 if (fs.existsSync(file)) {
-                    this.__load(file);
-                } else if (!fs.existsSync(initFile)) {
+                    this.__configs[config] = this.__load(file);
+                } else if (fs.existsSync(initFile)) {
                     Debug.log('Trying to create new default pq.' + config + '.json file');
                         require(initFile).write();
-                        this.configs[config] = JSON.parse(fs.readFileSync(file));
+                        this.__configs[config] = this.__load(file);
                 } else {
-                    this.configs[config] = {};
+                    this.new(config);
                 }
             } catch(err) {
-                Debug.log(err);
+                Debug.error(err);
             }
         }
-        return this.configs[config];
+        return this.__configs[config];
+    };
+
+    /**
+     * Creates a new config, providing a configName and optional filePath.
+     * If no filePath is provided, an empty config will be set - you can use the included extendFrom() function to
+     * extend this config using another file, overriding equal keys and leaving the rest.
+     * This function does not return the config! Use Config.get(configName) to access your config.
+     * @function new
+     * @memberof Config
+     * @param {string} configName the name of the config, used to retrieve it with Config.get(configName)
+     * @param {string} filePath an optional filePath to the initially loaded config .json file */
+    this.new = function(configName, filePath) {
+        if (this.__configs[configName] === undefined) {
+            this.__configs[configName] = this.__load(filePath, configName)
+        } else {
+            Debug.error('cannot create new config ' + configNAme + ': this key already exists. extend existing config or use a different key');
+        }
     };
 
     /**
