@@ -38,41 +38,39 @@ var pq = pqns('pq');
  * loads entire inhertance tree and creates the namespace.
  * require('periodiq') returns this namespace object.
  * @namespace Periodiq */
-var pq = {
-    Element: {},
-    PROJECT_ROOT: Path.join(__dirname + '/../../'),
-    ROOT_DIR: ROOT_DIR,
-    STATIC_DIR: STATIC_DIR,
-    ELEMENT_DIR: ELEMENT_DIR,
-    CACHE_DIR: CACHE_DIR,
-    ASSET_DIR: ASSET_DIR };
+pqns('pq').PROJECT_ROOT = Path.join(__dirname + '/../../');
+pqns('pq').ROOT_DIR = ROOT_DIR;
+pqns('pq').STATIC_DIR = STATIC_DIR;
+pqns('pq').ELEMENT_DIR = ELEMENT_DIR;
+pqns('pq').CACHE_DIR = CACHE_DIR;
+pqns('pq').ASSET_DIR = ASSET_DIR;
 
 /**
  * Reference to the Debug 'singleton'
  * @memberof Periodiq */
-pq.Debug = require(ROOT_DIR + '/debug.js');
+pqns('pq').Debug = require(ROOT_DIR + '/debug.js');
 /**
  * Reference to the Core 'singleton'
  * @memberof Periodiq */
-pq.Core = require(STATIC_DIR + '/core.js');
+pqns('pq').Core = require(STATIC_DIR + '/core.js');
 /**
  * Reference to the Render 'singleton'
  * @memberof Periodiq */
-pq.Render = require(STATIC_DIR + '/render.js');
+pqns('pq').Render = require(STATIC_DIR + '/render.js');
 /**
  * Reference to the EventController 'singleton'
  * @memberof Periodiq */
-pq.EventController = require(STATIC_DIR + '/event.js');
+pqns('pq').EventController = require(STATIC_DIR + '/event.js');
 /**
  * Reference to the Config 'singleton'
  * @memberof Periodiq */
-pq.Config = require(STATIC_DIR + '/config.js');
+pqns('pq').Config = require(STATIC_DIR + '/config.js');
 /**
  * Reference to the ThemePicker
  * @memberof Periodiq */
-pq.ThemePicker = require(STATIC_DIR + '/picker.js');
+pqns('pq').ThemePicker = require(STATIC_DIR + '/picker.js');
 
-module.export = pq;
+module.exports = pqns('pq');
 
 /**
  * Looks recursively for any element classes in a given root directory,
@@ -99,7 +97,7 @@ module.export = pq;
  * @param {boolean} compileCss if true, all included CSS files will be compiled into the build folder. default is set by the start parameter --indev and --build
  * @returns {object} - An object containing all loaded element classes.
  **/
-pq.loadElementDir = function(rootDir, prefix, postfix, compileCss) {
+pqns('pq').loadElementDir = function(rootDir, prefix, postfix, compileCss) {
     if (rootDir == ELEMENT_DIR)
         Debug.log('loading built-in standard elements', 0);
     else
@@ -185,7 +183,7 @@ pq.loadElementDir = function(rootDir, prefix, postfix, compileCss) {
 /**
  * Object containing all default/standard Element Classes
  * @memberof Periodiq */
-pq.Element = pq.loadElementDir(ELEMENT_DIR, NAMESPACE);
+pqns('pq').Element = pqns('pq').loadElementDir(ELEMENT_DIR, NAMESPACE);
 
 /**
  * Initializes your project root directory, looking for the element, theme and config folders.
@@ -200,9 +198,9 @@ pq.Element = pq.loadElementDir(ELEMENT_DIR, NAMESPACE);
  * If you don't want to name your folders according to periodiq's standard, you can still manually load all resources
  * by using periodiq.loadElementDir(), ThemePicker.loadTheme() and Config.loadConfig()
  * @param {string} rootDirectory the absolute path to the project root directory */
-pq.init = function(rootDirectory) {
-    pq.PROJECT_ROOT = rootDirectory;
-    pq.loadElementDir(rootDirectory + '/elements/');
+pqns('pq').init = function(rootDirectory) {
+    pqns('pq').PROJECT_ROOT = rootDirectory;
+    pqns('pq').loadElementDir(rootDirectory + '/elements/');
 }
 
-module.exports = pq;
+module.exports = pqns('pq');

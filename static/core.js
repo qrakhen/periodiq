@@ -9,7 +9,7 @@ const Config = require('./config.js');
  * It is used to launch Periodiq, change views or to communicate with the render thread, for example.
  * @todo The Core is also currently being abused to register shortcuts, which should be made somewhere else, imho.
  * @class Core */
-Core = function() {
+var Core = function() {
     /**
      * Launches Periodiq's Core instace, passing the required electron object
      * (needs to be required from outside), a rootElement and a callback that
@@ -108,4 +108,4 @@ Core = function() {
     };
 };
 
-module.exports = new Core();
+pqns('pq.static').Core = module.exports = new Core();
