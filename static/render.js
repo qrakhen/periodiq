@@ -5,7 +5,7 @@ const CACHE_DIR = Path.join(__dirname + '/../cache/');
 
 /**
  * @class Render */
-var Render = function() {
+Render = function() {
     this.theme = null; //move to config
     this.__count = 0;
     this.__indent = 0;

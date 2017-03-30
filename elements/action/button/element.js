@@ -24,5 +24,5 @@ class BasicButton extends require('../element.js') {
         this.clickCallback = callback;
     }
 }
-
+pqns('pq.Elements.Action').BasicButton = BasicButton;
 module.exports = BasicButton;

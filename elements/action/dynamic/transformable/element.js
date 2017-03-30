@@ -1,4 +1,4 @@
-const Element = require('../../element/element.js');
+const Element = require('../../../element/element.js');
 
 class BasicTransformable extends require('../element.js') {
     constructor() {

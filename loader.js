@@ -13,12 +13,32 @@ const ASSET_DIR = ROOT_DIR + '/assets';
 const ARG_INDEV = (process.argv.indexOf('--indev') > -1);
 const ARG_BUILD = (process.argv.indexOf('--build') > -1);
 
+var __namespace = {};
+
+function __pqns(ns) {
+    if (ns === undefined) return __namespace;
+    var parts = ns.split('.');
+    var prev = __namespace;
+    for (var i in parts) {
+        var part = parts[i];
+        if (prev[part] === undefined) prev[part] = {};
+        prev = prev[part];
+    }
+    return prev;
+}
+
+global.pqns = function(ns) {
+    return __pqns(ns);
+};
+
+var pq = pqns('pq');
+
 /**
  * Framework Entry Point;
  * loads entire inhertance tree and creates the namespace.
  * require('periodiq') returns this namespace object.
  * @namespace Periodiq */
-var namespace = {
+var pq = {
     Element: {},
     PROJECT_ROOT: Path.join(__dirname + '/../../'),
     ROOT_DIR: ROOT_DIR,
@@ -30,29 +50,29 @@ var namespace = {
 /**
  * Reference to the Debug 'singleton'
  * @memberof Periodiq */
-namespace.Debug = require(ROOT_DIR + '/debug.js');
+pq.Debug = require(ROOT_DIR + '/debug.js');
 /**
  * Reference to the Core 'singleton'
  * @memberof Periodiq */
-namespace.Core = require(STATIC_DIR + '/core.js');
+pq.Core = require(STATIC_DIR + '/core.js');
 /**
  * Reference to the Render 'singleton'
  * @memberof Periodiq */
-namespace.Render = require(STATIC_DIR + '/render.js');
+pq.Render = require(STATIC_DIR + '/render.js');
 /**
  * Reference to the EventController 'singleton'
  * @memberof Periodiq */
-namespace.EventController = require(STATIC_DIR + '/event.js');
+pq.EventController = require(STATIC_DIR + '/event.js');
 /**
  * Reference to the Config 'singleton'
  * @memberof Periodiq */
-namespace.Config = require(STATIC_DIR + '/config.js');
+pq.Config = require(STATIC_DIR + '/config.js');
 /**
- * Reference to the ThemePicker 
+ * Reference to the ThemePicker
  * @memberof Periodiq */
-namespace.ThemePicker = require(STATIC_DIR + '/picker.js');
+pq.ThemePicker = require(STATIC_DIR + '/picker.js');
 
-module.export = namespace;
+module.export = pq;
 
 /**
  * Looks recursively for any element classes in a given root directory,
@@ -79,7 +99,7 @@ module.export = namespace;
  * @param {boolean} compileCss if true, all included CSS files will be compiled into the build folder. default is set by the start parameter --indev and --build
  * @returns {object} - An object containing all loaded element classes.
  **/
-namespace.loadElementDir = function(rootDir, prefix, postfix, compileCss) {
+pq.loadElementDir = function(rootDir, prefix, postfix, compileCss) {
     if (rootDir == ELEMENT_DIR)
         Debug.log('loading built-in standard elements', 0);
     else
@@ -165,7 +185,7 @@ namespace.loadElementDir = function(rootDir, prefix, postfix, compileCss) {
 /**
  * Object containing all default/standard Element Classes
  * @memberof Periodiq */
-namespace.Element = namespace.loadElementDir(ELEMENT_DIR, NAMESPACE);
+pq.Element = pq.loadElementDir(ELEMENT_DIR, NAMESPACE);
 
 /**
  * Initializes your project root directory, looking for the element, theme and config folders.
@@ -180,8 +200,9 @@ namespace.Element = namespace.loadElementDir(ELEMENT_DIR, NAMESPACE);
  * If you don't want to name your folders according to periodiq's standard, you can still manually load all resources
  * by using periodiq.loadElementDir(), ThemePicker.loadTheme() and Config.loadConfig()
  * @param {string} rootDirectory the absolute path to the project root directory */
-namespace.init = function(rootDirectory) {
-    namespace.PROJECT_ROOT = rootDirectory;
-    namespace.loadElementDir(rootDirectory + '/elements/');
+pq.init = function(rootDirectory) {
+    pq.PROJECT_ROOT = rootDirectory;
+    pq.loadElementDir(rootDirectory + '/elements/');
 }
-module.exports = namespace;
+
+module.exports = pq;

@@ -44,7 +44,7 @@ var Config = function() {
                 Debug.success('Config-file saved as ' + filePath);
             }));
         };
-        
+
         /**
          *
          * @instance

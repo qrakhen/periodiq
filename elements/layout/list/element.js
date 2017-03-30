@@ -16,4 +16,4 @@ class LayoutList extends require('../element.js') {
     }
 }
 
-module.exports = LayoutContainer;
+module.exports = LayoutList;
