@@ -33,14 +33,10 @@ Enjoy using **periodiq**, the framework that pleasingly takes away the boring pa
 
 _Crafted by:_
 
-[david@sygade.eu /Qrakhen](http://qrakhen.net/)
-
-[mennoxx@sygade.eu](http://sygade.eu)
-
+[Qrakhen](http://qrakhen.net/)
 
 ##### Links
  - [Homepage](http://periodiq.org)
- - [Documentation](http://docs.periodiq.org)
  - [GitHub Repository](https://github.com/qrakhen/periodiq)
  - [NPM Package(not published yet)]()
 
